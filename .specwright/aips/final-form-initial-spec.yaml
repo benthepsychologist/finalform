@@ -24,8 +24,10 @@ context:
   - Must maintain backward compatibility with canonical schemas
   - No external API calls or side effects (pure semantic transformations)
   - Scoring logic must be versioned and reproducible
-  - Questionnaire measure schema must be created in canonizer-registry (not in final-form)
-  - Registry is owned by canonizer-registry, final-form only consumes it
+  - Questionnaire measure schema must be created in canonizer-registry (schemas only)
+  - Questionnaire measure instances live in separate questionnaire-registry repo
+  - canonizer-registry = schemas, questionnaire-registry = instances
+  - final-form consumes both registries (schemas for validation, instances for data)
   - No per-questionnaire scorer classes (use generic scoring engine)
   - v0 implements ~13 measures, not 30
 created: '2025-11-17T14:53:29.020741+00:00'
@@ -95,30 +97,25 @@ plan:
     \ against the example measures provided (phq_9, gad_7, etc.)."
   role: coding_agent
   step_id: step-001
-- description: Create Questionnaire Registry in Canonizer-Registry
+- description: Create Questionnaire Registry Repository
   gate_ref: 'G0: Plan Approval'
   kind: code
   outputs:
-  - ~/canonizer-registry/registries/questionnaire_measures.json
-  prompt: 'Create the questionnaire registry at `~/canonizer-registry/registries/questionnaire_measures.json`
-    (or appropriate location in canonizer-registry structure).
-
-    The registry should contain a top-level `measures` object with all ~13 measures:
-
-    - phq_9, gad_7, msi, safe, phlms_10, joy, sleep_disturbances, trauma_exposure, ptsd_screen, ipip_neo_60_c,
-    fscrs, pss_10, dts, cfs
-
-    Use the measure definitions provided, ensuring:
-
-    - All item_prefix values use underscores (phq_9_, gad_7_, etc.)
-
-    - All measures validate against the questionnaire_measure schema
-
-    - Scoring rules are complete and accurate
-
-    - Interpretation ranges are clinically valid
-
-    Update `REGISTRY_INDEX.json` to include the questionnaire registry reference.'
+  - ~/questionnaire-registry/
+  - ~/questionnaire-registry/README.md
+  - ~/questionnaire-registry/measures.json
+  - ~/questionnaire-registry/.gitignore
+  prompt: "Create a new repository for questionnaire instances:\n1. **Initialize questionnaire-registry:**\n\
+    \   - Create `~/questionnaire-registry/` directory\n   - Initialize git repository\n   - Create README.md\
+    \ explaining this is the measure instance registry\n   - Create directory structure: `measures/`,\
+    \ `mappings/`\n2. **Create measures.json:**\n   Create `~/questionnaire-registry/measures.json` with\
+    \ top-level `measures` object containing all ~13 measures:\n   - phq_9, gad_7, msi, safe, phlms_10,\
+    \ joy, sleep_disturbances, trauma_exposure, ptsd_screen, ipip_neo_60_c, fscrs, pss_10, dts, cfs\n\
+    \   Use the measure definitions provided, ensuring:\n   - All item_prefix values use underscores (phq_9_,\
+    \ gad_7_, etc.)\n   - All measures validate against `org.canonical/questionnaire_measure` schema from\
+    \ canonizer-registry\n   - Scoring rules are complete and accurate\n   - Interpretation ranges are\
+    \ clinically valid\n3. **Validate against schema:**\n   - Reference canonizer-registry schema for\
+    \ validation\n   - Create validation script if needed"
   role: coding_agent
   step_id: step-002
 - description: Create Form Mapping Schema & Example Mappings
@@ -126,19 +123,20 @@ plan:
   kind: code
   outputs:
   - ~/canonizer-registry/schemas/org.canonical/form_mapping/jsonschema/1-0-0.json
-  - ~/canonizer-registry/mappings/google_forms/mbc_initial_phq9_v1.json
-  - ~/canonizer-registry/mappings/google_forms/mbc_initial_gad7_v1.json
-  prompt: "Create the form mapping schema and example mapping files:\n1. **Form Mapping Schema:**\n  \
-    \ Create `~/canonizer-registry/schemas/org.canonical/form_mapping/jsonschema/1-0-0.json`\n   The schema\
-    \ must validate:\n   - mapping_id: string (unique identifier)\n   - form_provenance: object with platform,\
-    \ form_id, form_name, version\n   - target_measure: string (measure ID like \"phq_9\")\n   - item_mappings:\
-    \ array of objects with:\n     - form_question_id: string (platform-specific ID)\n     - form_question_text:\
-    \ string (question text for fallback matching)\n     - canonical_item_id: string (target measure item\
-    \ like \"phq_9_1\")\n     - notes: optional string\n   - value_mappings: object with:\n     - use_anchor_labels:\
-    \ boolean (use measure anchor labels for recoding)\n     - custom_mappings: object (custom value transformations\
-    \ if needed)\n2. **Example Mapping Files:**\n   Create example mappings in `~/canonizer-registry/mappings/`:\n\
-    \   - `google_forms/mbc_initial_phq9_v1.json` - PHQ-9 from Google Forms\n   - `google_forms/mbc_initial_gad7_v1.json`\
-    \ - GAD-7 from Google Forms\n   - At least 2-3 example mappings covering different platforms/measures"
+  - ~/questionnaire-registry/mappings/google_forms/mbc_initial_phq9_v1.json
+  - ~/questionnaire-registry/mappings/google_forms/mbc_initial_gad7_v1.json
+  prompt: "Create the form mapping schema and example mapping files:\n1. **Form Mapping Schema (canonizer-registry):**\n\
+    \   Create `~/canonizer-registry/schemas/org.canonical/form_mapping/jsonschema/1-0-0.json`\n   The\
+    \ schema must validate:\n   - mapping_id: string (unique identifier)\n   - form_provenance: object\
+    \ with platform, form_id, form_name, version\n   - target_measure: string (measure ID like \"phq_9\"\
+    )\n   - item_mappings: array of objects with:\n     - form_question_id: string (platform-specific\
+    \ ID)\n     - form_question_text: string (question text for reference)\n     - canonical_item_id:\
+    \ string (target measure item like \"phq_9_1\")\n     - notes: optional string\n   - value_mappings:\
+    \ object with:\n     - use_anchor_labels: boolean (use measure anchor labels for recoding)\n     -\
+    \ custom_mappings: object (custom value transformations if needed)\n2. **Example Mapping Files (questionnaire-registry):**\n\
+    \   Create example mappings in `~/questionnaire-registry/mappings/`:\n   - `google_forms/mbc_initial_phq9_v1.json`\
+    \ - PHQ-9 from Google Forms\n   - `google_forms/mbc_initial_gad7_v1.json` - GAD-7 from Google Forms\n\
+    \   - At least 2-3 example mappings covering different platforms/measures"
   role: coding_agent
   step_id: step-003
 - description: Foundation - Package Structure & Registry Loaders
@@ -181,13 +179,15 @@ plan:
 
     Registry loader should:
 
-    - Load questionnaire registry from canonizer-registry path
+    - Load questionnaire measures from questionnaire-registry (measures.json)
 
-    - Load form mapping files from canonizer-registry/mappings/
+    - Load form mapping files from questionnaire-registry/mappings/
 
-    - Validate measures against questionnaire_measure schema
+    - Load schemas from canonizer-registry for validation
 
-    - Validate mappings against form_mapping schema
+    - Validate measures against questionnaire_measure schema (from canonizer-registry)
+
+    - Validate mappings against form_mapping schema (from canonizer-registry)
 
     - Provide lookup by measure ID (e.g., "phq_9")
 
@@ -201,7 +201,9 @@ plan:
 
     - `--mapping` path to mapping file (required)
 
-    - `--registry` path to canonizer-registry (default: ~/canonizer-registry)
+    - `--questionnaire-registry` path to questionnaire-registry (default: ~/questionnaire-registry)
+
+    - `--canonizer-registry` path to canonizer-registry (default: ~/canonizer-registry)
 
     - `--diagnostics` optional diagnostics output path'
   role: coding_agent
@@ -357,18 +359,18 @@ plan:
   - tests/integration/test_pipeline.py
   - tests/fixtures/batch/sample.jsonl
   - tests/fixtures/batch/sample_mapping.json
-  prompt: "Integrate all components into the CLI pipeline:\nPipeline flow:\n1. Load measure registry from\
-    \ canonizer-registry\n2. Load form mapping file (from --mapping argument)\n3. Load target measure\
-    \ definition from registry\n4. Read JSONL input (form_response records)\n5. For each record:\n   -\
-    \ Validate against form_response schema\n   - **Map & recode:** Apply mapping to transform platform\
-    \ IDs → canonical IDs, values → numeric\n   - **Validate:** Check all items present, values in range\n\
-    \   - **Score:** Compute all subscales using generic engine\n   - **Interpret:** Apply severity ranges\n\
-    \   - **Emit:** Build canonical questionnaire_response with metadata\n   - **Diagnostics:** Capture\
-    \ any issues\n6. Write outputs (questionnaire_response JSONL)\n7. Write diagnostics (if --diagnostics\
-    \ flag provided)\nError handling:\n- Continue processing on per-record errors\n- Collect errors in\
-    \ diagnostics\n- Log summary statistics at end\n- Non-zero exit code if any critical errors\nLogging:\n\
-    - Progress bar for batch processing\n- Summary statistics (processed, scored, errors)\n- Performance\
-    \ metrics (records/second)"
+  prompt: "Integrate all components into the CLI pipeline:\nPipeline flow:\n1. Load measure definitions\
+    \ from questionnaire-registry (measures.json)\n2. Load form mapping file (from --mapping argument\
+    \ in questionnaire-registry)\n3. Load target measure definition from questionnaire-registry\n4. Read\
+    \ JSONL input (form_response records)\n5. For each record:\n   - Validate against form_response schema\n\
+    \   - **Map & recode:** Apply mapping to transform platform IDs → canonical IDs, values → numeric\n\
+    \   - **Validate:** Check all items present, values in range\n   - **Score:** Compute all subscales\
+    \ using generic engine\n   - **Interpret:** Apply severity ranges\n   - **Emit:** Build canonical\
+    \ questionnaire_response with metadata\n   - **Diagnostics:** Capture any issues\n6. Write outputs\
+    \ (questionnaire_response JSONL)\n7. Write diagnostics (if --diagnostics flag provided)\nError handling:\n\
+    - Continue processing on per-record errors\n- Collect errors in diagnostics\n- Log summary statistics\
+    \ at end\n- Non-zero exit code if any critical errors\nLogging:\n- Progress bar for batch processing\n\
+    - Summary statistics (processed, scored, errors)\n- Performance metrics (records/second)"
   role: coding_agent
   step_id: step-010
 - description: Golden Tests & Comprehensive Test Suite

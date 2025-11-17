@@ -86,8 +86,10 @@ This work establishes the foundation for all semantic processing in the research
 - Must maintain backward compatibility with canonical schemas
 - No external API calls or side effects (pure semantic transformations)
 - Scoring logic must be versioned and reproducible
-- Questionnaire measure schema must be created in canonizer-registry (not in final-form)
-- Registry is owned by canonizer-registry, final-form only consumes it
+- Questionnaire measure schema must be created in canonizer-registry (schemas only)
+- Questionnaire measure instances live in separate questionnaire-registry repo
+- canonizer-registry = schemas, questionnaire-registry = instances
+- final-form consumes both registries (schemas for validation, instances for data)
 - No per-questionnaire scorer classes (use generic scoring engine)
 - v0 implements ~13 measures, not 30
 
@@ -131,8 +133,8 @@ The `org.canonical/questionnaire_measure` schema defines a single questionnaire 
   - `scoring.higher_is_better`: boolean
   - `ranges`: interpretation bands with min, max, label, severity, description
 
-**Registry File:**
-The questionnaire registry is a JSON file in canonizer-registry containing a `measures` object with ~13 instruments:
+**Registry Repository:**
+The questionnaire registry is a **separate repository** (`~/questionnaire-registry`) containing a `measures.json` file with ~13 instruments:
 - `phq_9`: Patient Health Questionnaire-9
 - `gad_7`: Generalized Anxiety Disorder-7
 - `msi`: McLean Screening Instrument for BPD
@@ -203,9 +205,9 @@ Each form instance gets a mapping file that bridges form → measure:
 ```
 
 **Mapping Registry:**
-- Mapping files stored in `~/canonizer-registry/mappings/`
+- Mapping files stored in `~/questionnaire-registry/mappings/`
 - Organized by platform and form: `mappings/google_forms/mbc_initial_phq9_v1.json`
-- Validated against form mapping schema
+- Validated against `org.canonical/form_mapping` schema from canonizer-registry
 - CLI accepts `--mapping` flag to specify which mapping file to use
 
 **Mapper Behavior:**
@@ -257,52 +259,65 @@ python -m jsonschema schemas/org.canonical/questionnaire_measure/jsonschema/1-0-
 
 ---
 
-### Step 2: Create Questionnaire Registry in Canonizer-Registry [G0: Plan Approval]
+### Step 2: Create Questionnaire Registry Repository [G0: Plan Approval]
 
-**Objective:** Create the questionnaire registry JSON file with ~13 standard measures.
+**Objective:** Create separate questionnaire-registry repository with ~13 standard measures.
 
 **Prompt:**
 
-Create the questionnaire registry at `~/canonizer-registry/registries/questionnaire_measures.json` (or appropriate location in canonizer-registry structure).
+Create a new repository for questionnaire instances:
 
-The registry should contain a top-level `measures` object with all ~13 measures:
-- phq_9, gad_7, msi, safe, phlms_10, joy, sleep_disturbances, trauma_exposure, ptsd_screen, ipip_neo_60_c, fscrs, pss_10, dts, cfs
+1. **Initialize questionnaire-registry:**
+   - Create `~/questionnaire-registry/` directory
+   - Initialize git repository
+   - Create README.md explaining this is the measure instance registry
+   - Create directory structure: `measures/`, `mappings/`
 
-Use the measure definitions provided, ensuring:
-- All item_prefix values use underscores (phq_9_, gad_7_, etc.)
-- All measures validate against the questionnaire_measure schema
-- Scoring rules are complete and accurate
-- Interpretation ranges are clinically valid
+2. **Create measures.json:**
+   Create `~/questionnaire-registry/measures.json` with top-level `measures` object containing all ~13 measures:
+   - phq_9, gad_7, msi, safe, phlms_10, joy, sleep_disturbances, trauma_exposure, ptsd_screen, ipip_neo_60_c, fscrs, pss_10, dts, cfs
 
-Update `REGISTRY_INDEX.json` to include the questionnaire registry reference.
+   Use the measure definitions provided, ensuring:
+   - All item_prefix values use underscores (phq_9_, gad_7_, etc.)
+   - All measures validate against `org.canonical/questionnaire_measure` schema from canonizer-registry
+   - Scoring rules are complete and accurate
+   - Interpretation ranges are clinically valid
+
+3. **Validate against schema:**
+   - Reference canonizer-registry schema for validation
+   - Create validation script if needed
 
 **Commands:**
 
 ```bash
-# Validate registry against schema
-cd ~/canonizer-registry
-python tools/validate.py registries/questionnaire_measures.json
+# Create and initialize repo
+mkdir -p ~/questionnaire-registry
+cd ~/questionnaire-registry
+git init
+git remote add origin git@github.com:benthepsychologist/questionnaire-registry.git
 
-# Update registry index
-python tools/generate_index.py
+# Validate measures against canonizer-registry schema
+# (validation logic TBD)
 ```
 
 **Outputs:**
 
-- `~/canonizer-registry/registries/questionnaire_measures.json`
-- Updated `~/canonizer-registry/REGISTRY_INDEX.json`
+- `~/questionnaire-registry/` (new git repo)
+- `~/questionnaire-registry/README.md`
+- `~/questionnaire-registry/measures.json`
+- `~/questionnaire-registry/.gitignore`
 
 ---
 
 ### Step 3: Create Form Mapping Schema & Example Mappings [G0: Plan Approval]
 
-**Objective:** Define form mapping schema and create example mapping files for common form instances.
+**Objective:** Define form mapping schema in canonizer-registry and create example mapping instances in questionnaire-registry.
 
 **Prompt:**
 
 Create the form mapping schema and example mapping files:
 
-1. **Form Mapping Schema:**
+1. **Form Mapping Schema (canonizer-registry):**
    Create `~/canonizer-registry/schemas/org.canonical/form_mapping/jsonschema/1-0-0.json`
 
    The schema must validate:
@@ -311,15 +326,15 @@ Create the form mapping schema and example mapping files:
    - target_measure: string (measure ID like "phq_9")
    - item_mappings: array of objects with:
      - form_question_id: string (platform-specific ID)
-     - form_question_text: string (question text for fallback matching)
+     - form_question_text: string (question text for reference)
      - canonical_item_id: string (target measure item like "phq_9_1")
      - notes: optional string
    - value_mappings: object with:
      - use_anchor_labels: boolean (use measure anchor labels for recoding)
      - custom_mappings: object (custom value transformations if needed)
 
-2. **Example Mapping Files:**
-   Create example mappings in `~/canonizer-registry/mappings/`:
+2. **Example Mapping Files (questionnaire-registry):**
+   Create example mappings in `~/questionnaire-registry/mappings/`:
    - `google_forms/mbc_initial_phq9_v1.json` - PHQ-9 from Google Forms
    - `google_forms/mbc_initial_gad7_v1.json` - GAD-7 from Google Forms
    - At least 2-3 example mappings covering different platforms/measures
@@ -327,21 +342,24 @@ Create the form mapping schema and example mapping files:
 **Commands:**
 
 ```bash
-# Create directory structure
+# Create schema in canonizer-registry
 cd ~/canonizer-registry
-mkdir -p mappings/google_forms
 mkdir -p schemas/org.canonical/form_mapping/jsonschema
 
-# Validate mapping files against schema
-python tools/validate.py mappings/google_forms/mbc_initial_phq9_v1.json
+# Create mapping instances in questionnaire-registry
+cd ~/questionnaire-registry
+mkdir -p mappings/google_forms
+
+# Validate mapping files against schema (from canonizer-registry)
+# (validation logic TBD)
 ```
 
 **Outputs:**
 
 - `~/canonizer-registry/schemas/org.canonical/form_mapping/jsonschema/1-0-0.json`
-- `~/canonizer-registry/mappings/google_forms/mbc_initial_phq9_v1.json`
-- `~/canonizer-registry/mappings/google_forms/mbc_initial_gad7_v1.json`
-- Additional example mapping files
+- `~/questionnaire-registry/mappings/google_forms/mbc_initial_phq9_v1.json`
+- `~/questionnaire-registry/mappings/google_forms/mbc_initial_gad7_v1.json`
+- Additional example mapping files in questionnaire-registry
 
 ---
 
@@ -365,10 +383,11 @@ Package structure:
 - `pyproject.toml` - Dependencies (pydantic, typer, jsonschema)
 
 Registry loader should:
-- Load questionnaire registry from canonizer-registry path
-- Load form mapping files from canonizer-registry/mappings/
-- Validate measures against questionnaire_measure schema
-- Validate mappings against form_mapping schema
+- Load questionnaire measures from questionnaire-registry (measures.json)
+- Load form mapping files from questionnaire-registry/mappings/
+- Load schemas from canonizer-registry for validation
+- Validate measures against questionnaire_measure schema (from canonizer-registry)
+- Validate mappings against form_mapping schema (from canonizer-registry)
 - Provide lookup by measure ID (e.g., "phq_9")
 - Provide lookup by mapping ID or file path
 
@@ -376,7 +395,8 @@ CLI skeleton should accept:
 - `--in` input JSONL path
 - `--out` output JSONL path
 - `--mapping` path to mapping file (required)
-- `--registry` path to canonizer-registry (default: ~/canonizer-registry)
+- `--questionnaire-registry` path to questionnaire-registry (default: ~/questionnaire-registry)
+- `--canonizer-registry` path to canonizer-registry (default: ~/canonizer-registry)
 - `--diagnostics` optional diagnostics output path
 
 **Commands:**
@@ -638,9 +658,9 @@ pytest tests/test_emitters.py tests/test_diagnostics.py -v
 Integrate all components into the CLI pipeline:
 
 Pipeline flow:
-1. Load measure registry from canonizer-registry
-2. Load form mapping file (from --mapping argument)
-3. Load target measure definition from registry
+1. Load measure definitions from questionnaire-registry (measures.json)
+2. Load form mapping file (from --mapping argument in questionnaire-registry)
+3. Load target measure definition from questionnaire-registry
 4. Read JSONL input (form_response records)
 5. For each record:
    - Validate against form_response schema
@@ -674,9 +694,10 @@ pytest tests/integration/test_pipeline.py -v
 final-form run \
   --in tests/fixtures/batch/sample.jsonl \
   --out /tmp/output.jsonl \
-  --mapping ~/canonizer-registry/mappings/google_forms/mbc_initial_phq9_v1.json \
+  --mapping ~/questionnaire-registry/mappings/google_forms/mbc_initial_phq9_v1.json \
   --diagnostics /tmp/diag.jsonl \
-  --registry ~/canonizer-registry
+  --questionnaire-registry ~/questionnaire-registry \
+  --canonizer-registry ~/canonizer-registry
 ```
 
 **Outputs:**
