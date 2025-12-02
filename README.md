@@ -12,43 +12,187 @@ uv add final-form
 
 ## Quick Start
 
+Process a canonical form submission (from canonizer) for a specific measure:
+
 ```python
 from pathlib import Path
-from final_form.pipeline import Pipeline, PipelineConfig
+from final_form.input import FormInputClient, process_form_submission
+from final_form.registry import MeasureRegistry
 
-# Configure the pipeline
-config = PipelineConfig(
-    measure_registry_path=Path("measure-registry"),
-    binding_registry_path=Path("form-binding-registry"),
-    binding_id="example_intake",  # Your form binding ID
+# Setup
+client = FormInputClient(Path("form-mappings"))
+registry = MeasureRegistry(Path("measure-registry"))
+
+# 1. Configure mapping: tell final-form where PHQ-9 lives in this form
+client.save_item_map(
+    form_id="client_intake_v3",
+    measure_id="phq9",
+    item_map={
+        "entry.111111": "phq9_item1",
+        "entry.222222": "phq9_item2",
+        # ... map all fields to item IDs
+    }
 )
 
-pipeline = Pipeline(config)
-
-# Process a form submission
-result = pipeline.process({
-    "form_id": "googleforms::1FAIpQLSe_example",
-    "form_submission_id": "sub_123",
-    "subject_id": "patient_456",
-    "timestamp": "2025-01-15T10:30:00Z",
+# 2. Canonical form submission (from canonizer)
+canonical = {
+    "form_id": "client_intake_v3",
+    "submission_id": "subm_123",
+    "respondent": {"id": "contact-uuid", "display": "Jane Doe"},
+    "submitted_at": "2025-12-01T12:34:56Z",
     "items": [
-        {"field_key": "entry.123456001", "answer": "several days"},
-        {"field_key": "entry.123456002", "answer": "not at all"},
+        {"field_id": "entry.111111", "raw_value": "more than half the days"},
+        {"field_id": "entry.222222", "raw_value": "nearly every day"},
         # ... more items
     ],
-})
+}
 
-# Access results
+# 3. Process for PHQ-9
+result = process_form_submission(
+    canonical,
+    measure_id="phq9",
+    form_input_client=client,
+    measure_registry=registry,
+)
+
 print(result.success)  # True
-for event in result.events:
-    print(f"{event.measure_id}: {event.observations}")
+for obs in result.events[0].observations:
+    if obs.kind == "scale":
+        print(f"{obs.code}: {obs.value} -> {obs.label}")
+# phq9_total: 8.0 -> "Mild"
 ```
 
 ## API Reference
 
-### Pipeline
+### process_form_submission (Recommended)
 
-The main entry point for processing forms.
+High-level API for processing canonical form submissions from canonizer.
+
+```python
+from final_form.input import FormInputClient, process_form_submission
+from final_form.registry import MeasureRegistry
+
+result = process_form_submission(
+    form_submission,                    # Canonical form dict from canonizer
+    measure_id="phq9",                  # Which measure to extract and score
+    form_input_client=client,           # FormInputClient instance
+    measure_registry=registry,          # MeasureRegistry instance
+    measure_version="1.0.0",            # Optional (defaults to latest)
+    form_id="override_form_id",         # Optional (defaults to form_submission["form_id"])
+    item_map_override={"f1": "item1"},  # Optional (bypasses FormInputClient lookup)
+    strict=True,                        # Optional (fail on unmapped fields)
+)
+```
+
+**Canonical form submission format** (from canonizer):
+
+```python
+{
+    "form_id": "client_intake_v3",
+    "submission_id": "subm_123",
+    "respondent": {"id": "contact-uuid", "display": "Jane Doe"},
+    "submitted_at": "2025-12-01T12:34:56Z",
+    "items": [
+        {
+            "field_id": "entry.111111",
+            "question_text": "Little interest or pleasure...",  # optional
+            "raw_value": "more than half the days",
+        },
+    ],
+    "meta": {"source_system": "google_forms"},  # optional
+}
+```
+
+### FormInputClient
+
+Local storage for field_id → item_id mappings. Stores one JSON file per (form_id, measure_id) pair.
+
+```python
+from final_form.input import FormInputClient
+
+client = FormInputClient(Path("form-mappings"))
+
+# Save a mapping
+client.save_item_map(
+    form_id="client_intake_v3",
+    measure_id="phq9",
+    item_map={
+        "entry.111111": "phq9_item1",
+        "entry.222222": "phq9_item2",
+    }
+)
+
+# Retrieve a mapping
+item_map = client.get_item_map("client_intake_v3", "phq9")
+# Returns {"entry.111111": "phq9_item1", ...} or None
+
+# List configured measures for a form
+measures = client.list_mappings("client_intake_v3")
+# Returns ["phq9", "gad7", ...]
+
+# Delete a mapping
+client.delete_item_map("client_intake_v3", "phq9")
+
+# Record resolution events (for future fuzzy matching analytics)
+client.record_resolution_event(
+    form_id="client_intake_v3",
+    measure_id="phq9",
+    field_id="entry.111111",
+    candidate_item_id="phq9_item1",
+    accepted=True,
+    reason="exact match",
+)
+```
+
+**Storage layout:**
+
+```
+form-mappings/
+  client_intake_v3/
+    phq9.json
+    gad7.json
+  another_form/
+    pss_10.json
+```
+
+Each mapping file:
+
+```json
+{
+  "form_id": "client_intake_v3",
+  "measure_id": "phq9",
+  "item_map": {
+    "entry.111111": "phq9_item1",
+    "entry.222222": "phq9_item2"
+  },
+  "meta": {
+    "created_at": "2025-12-01T10:00:00Z",
+    "updated_at": "2025-12-01T10:00:00Z"
+  }
+}
+```
+
+### Exceptions
+
+```python
+from final_form.input import (
+    MissingFormIdError,    # form_id not in submission and not provided
+    MissingItemMapError,   # no mapping configured for (form_id, measure_id)
+    UnmappedFieldError,    # form has fields not in item_map (strict=True)
+)
+```
+
+**Error behavior:**
+
+| Condition | `strict=True` (default) | `strict=False` |
+|-----------|------------------------|----------------|
+| No mapping configured | `MissingItemMapError` | `MissingItemMapError` |
+| Form has unmapped fields | `UnmappedFieldError` | Skip + warn in diagnostics |
+| Missing form_id | `MissingFormIdError` | `MissingFormIdError` |
+
+### Pipeline (Lower-level)
+
+For processing pre-bound forms with static binding specs.
 
 ```python
 from final_form.pipeline import Pipeline, PipelineConfig
@@ -298,32 +442,53 @@ Located at `form-binding-registry/bindings/<binding_id>/<version>.json`:
 ## Processing Pipeline
 
 ```
-form_response
-     │
-     ▼
-┌─────────────────┐
-│    Pipeline     │  Loads specs, routes by measure.kind
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  DomainRouter   │  questionnaire | lab | vital | wearable
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────────────────────────────────────────┐
-│              QuestionnaireProcessor                      │
-│                                                          │
-│  1. Map      Form fields → measure items (via binding)   │
-│  2. Recode   Text answers → numeric values               │
-│  3. Validate Completeness and range checks               │
-│  4. Score    Compute scale scores (sum/avg/prorate)      │
-│  5. Interpret Apply severity bands and labels            │
-│  6. Build    Generate MeasurementEvent + Observations    │
-└────────┬────────────────────────────────────────────────┘
-         │
-         ▼
-ProcessingResult(events, diagnostics, success)
+┌──────────────────────────────────────────────────────────────────┐
+│                     RECOMMENDED FLOW                              │
+└──────────────────────────────────────────────────────────────────┘
+
+  Google Forms / Typeform / etc.
+              │
+              ▼
+       ┌─────────────┐
+       │  canonizer  │  Normalizes raw form → canonical shape
+       └──────┬──────┘
+              │
+              ▼
+  canonical_form_submission (field_id, raw_value, ...)
+              │
+              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    final-form                                    │
+│                                                                  │
+│  ┌─────────────────┐      ┌──────────────────┐                  │
+│  │ FormInputClient │ ───▶ │ field_id→item_id │  (local storage) │
+│  └─────────────────┘      └──────────────────┘                  │
+│           │                                                      │
+│           ▼                                                      │
+│  ┌─────────────────────────────┐                                │
+│  │ process_form_submission()   │  One measure at a time         │
+│  └──────────────┬──────────────┘                                │
+│                 │                                                │
+│                 ▼                                                │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │           QuestionnaireProcessor                         │    │
+│  │                                                          │    │
+│  │  1. Map      field_id → item_id (via FormInputClient)    │    │
+│  │  2. Recode   raw_value → numeric (via response_map)      │    │
+│  │  3. Validate Completeness checks                         │    │
+│  │  4. Score    sum / average / reverse / prorate           │    │
+│  │  5. Interpret Severity bands → labels                    │    │
+│  │  6. Build    MeasurementEvent + Observations             │    │
+│  └──────────────┬──────────────────────────────────────────┘    │
+│                 │                                                │
+│                 ▼                                                │
+│  ProcessingResult(events, diagnostics, success)                  │
+└─────────────────────────────────────────────────────────────────┘
+              │
+              ▼
+       ┌─────────────┐
+       │  lorchestra │  Orchestrates multiple measures per form
+       └─────────────┘
 ```
 
 ## Scoring Methods
