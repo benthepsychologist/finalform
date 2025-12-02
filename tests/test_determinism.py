@@ -13,18 +13,18 @@ from final_form.pipeline import Pipeline, PipelineConfig
 
 @pytest.fixture
 def deterministic_pipeline(
-    instrument_registry_path: Path,
+    measure_registry_path: Path,
     binding_registry_path: Path,
-    instrument_schema_path: Path,
+    measure_schema_path: Path,
     binding_schema_path: Path,
 ) -> Pipeline:
     """Create a pipeline with deterministic IDs."""
     config = PipelineConfig(
-        instrument_registry_path=instrument_registry_path,
+        measure_registry_path=measure_registry_path,
         binding_registry_path=binding_registry_path,
         binding_id="example_intake",
         binding_version="1.0.0",
-        instrument_schema_path=instrument_schema_path,
+        measure_schema_path=measure_schema_path,
         binding_schema_path=binding_schema_path,
         deterministic_ids=True,
     )
@@ -44,20 +44,20 @@ class TestDeterminism:
 
     def test_same_input_same_output(
         self,
-        instrument_registry_path: Path,
+        measure_registry_path: Path,
         binding_registry_path: Path,
-        instrument_schema_path: Path,
+        measure_schema_path: Path,
         binding_schema_path: Path,
         golden_form_response: dict,
     ) -> None:
         """Test that processing the same input produces identical output."""
         # Create two independent pipelines
         config = PipelineConfig(
-            instrument_registry_path=instrument_registry_path,
+            measure_registry_path=measure_registry_path,
             binding_registry_path=binding_registry_path,
             binding_id="example_intake",
             binding_version="1.0.0",
-            instrument_schema_path=instrument_schema_path,
+            measure_schema_path=measure_schema_path,
             binding_schema_path=binding_schema_path,
             deterministic_ids=True,
         )
@@ -81,9 +81,9 @@ class TestDeterminism:
 
     def test_repeated_processing_same_output(
         self,
-        instrument_registry_path: Path,
+        measure_registry_path: Path,
         binding_registry_path: Path,
-        instrument_schema_path: Path,
+        measure_schema_path: Path,
         binding_schema_path: Path,
         golden_form_response: dict,
     ) -> None:
@@ -93,11 +93,11 @@ class TestDeterminism:
         for _ in range(5):
             # Create a fresh pipeline to reset the counter
             config = PipelineConfig(
-                instrument_registry_path=instrument_registry_path,
+                measure_registry_path=measure_registry_path,
                 binding_registry_path=binding_registry_path,
                 binding_id="example_intake",
                 binding_version="1.0.0",
-                instrument_schema_path=instrument_schema_path,
+                measure_schema_path=measure_schema_path,
                 binding_schema_path=binding_schema_path,
                 deterministic_ids=True,
             )
@@ -143,7 +143,7 @@ class TestDeterminism:
         # Get PHQ-9 scores from each run
         phq9_scores = []
         for result in results:
-            phq9_event = next(e for e in result.events if e.instrument_id == "phq9")
+            phq9_event = next(e for e in result.events if e.measure_id == "phq9")
             total_obs = next(o for o in phq9_event.observations if o.code == "phq9_total")
             phq9_scores.append(total_obs.value)
 
@@ -162,7 +162,7 @@ class TestGoldenOutput:
         """Test PHQ-9 produces expected scores for golden input."""
         result = deterministic_pipeline.process(golden_form_response)
 
-        phq9_event = next(e for e in result.events if e.instrument_id == "phq9")
+        phq9_event = next(e for e in result.events if e.measure_id == "phq9")
 
         # Check PHQ-9 total score
         # Input: 0, 1, 2, 3, 0, 1, 2, 3, 0 = 12
@@ -183,7 +183,7 @@ class TestGoldenOutput:
         """Test GAD-7 produces expected scores for golden input."""
         result = deterministic_pipeline.process(golden_form_response)
 
-        gad7_event = next(e for e in result.events if e.instrument_id == "gad7")
+        gad7_event = next(e for e in result.events if e.measure_id == "gad7")
 
         # Check GAD-7 total score
         # Input: 0, 1, 2, 3, 0, 1, 2 = 9
@@ -199,11 +199,11 @@ class TestGoldenOutput:
         """Test that correct number of item observations are generated."""
         result = deterministic_pipeline.process(golden_form_response)
 
-        phq9_event = next(e for e in result.events if e.instrument_id == "phq9")
+        phq9_event = next(e for e in result.events if e.measure_id == "phq9")
         phq9_items = [o for o in phq9_event.observations if o.kind == "item"]
         assert len(phq9_items) == 10  # PHQ-9 has 10 items
 
-        gad7_event = next(e for e in result.events if e.instrument_id == "gad7")
+        gad7_event = next(e for e in result.events if e.measure_id == "gad7")
         gad7_items = [o for o in gad7_event.observations if o.kind == "item"]
         assert len(gad7_items) == 8  # GAD-7 has 8 items
 
@@ -219,11 +219,11 @@ class TestGoldenOutput:
             assert event.telemetry.final_form_version == "0.1.0"
             assert event.telemetry.form_binding_spec == "example_intake@1.0.0"
 
-        phq9_event = next(e for e in result.events if e.instrument_id == "phq9")
-        assert phq9_event.telemetry.instrument_spec == "phq9@1.0.0"
+        phq9_event = next(e for e in result.events if e.measure_id == "phq9")
+        assert phq9_event.telemetry.measure_spec == "phq9@1.0.0"
 
-        gad7_event = next(e for e in result.events if e.instrument_id == "gad7")
-        assert gad7_event.telemetry.instrument_spec == "gad7@1.0.0"
+        gad7_event = next(e for e in result.events if e.measure_id == "gad7")
+        assert gad7_event.telemetry.measure_spec == "gad7@1.0.0"
 
     def test_source_metadata(
         self,

@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from final_form.recoding import RecodedItem, RecodedSection
-from final_form.registry import InstrumentRegistry
+from final_form.registry import MeasureRegistry
 from final_form.scoring import (
     ScaleScore,
     ScoringEngine,
@@ -23,9 +23,9 @@ def engine() -> ScoringEngine:
 
 
 @pytest.fixture
-def phq9_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def phq9_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the PHQ-9 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("phq9", "1.0.0")
 
 
@@ -126,12 +126,12 @@ class TestScoringEngine:
     def test_score_all_scales(self, engine: ScoringEngine, phq9_spec) -> None:
         """Test scoring all scales."""
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -143,19 +143,19 @@ class TestScoringEngine:
         result = engine.score(section, phq9_spec)
 
         assert isinstance(result, ScoringResult)
-        assert result.instrument_id == "phq9"
+        assert result.measure_id == "phq9"
         assert len(result.scales) == 2  # total + severity
 
     def test_score_phq9_total(self, engine: ScoringEngine, phq9_spec) -> None:
         """Test PHQ-9 total score calculation."""
         # All items answered "several days" (1)
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -178,12 +178,12 @@ class TestScoringEngine:
         """Test scoring with missing items (within allowed)."""
         # Items 1-8 present, item 9 missing (1 missing, 1 allowed)
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=2,
                     raw_answer="more than half the days",
@@ -191,8 +191,8 @@ class TestScoringEngine:
                 for i in range(1, 9)
             ] + [
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item9",
                     value=None,
                     raw_answer=None,
@@ -200,8 +200,8 @@ class TestScoringEngine:
                 )
             ] + [
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item10",
                     value=1,
                     raw_answer="somewhat difficult",
@@ -224,12 +224,12 @@ class TestScoringEngine:
         """Test scoring fails with too many missing items."""
         # Items 1-7 present, items 8-9 missing (2 missing, 1 allowed)
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -237,24 +237,24 @@ class TestScoringEngine:
                 for i in range(1, 8)
             ] + [
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item8",
                     value=None,
                     raw_answer=None,
                     missing=True,
                 ),
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item9",
                     value=None,
                     raw_answer=None,
                     missing=True,
                 ),
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item10",
                     value=1,
                     raw_answer="somewhat difficult",
@@ -273,12 +273,12 @@ class TestScoringEngine:
     def test_score_single_scale(self, engine: ScoringEngine, phq9_spec) -> None:
         """Test scoring a single scale."""
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -296,8 +296,8 @@ class TestScoringEngine:
     def test_score_nonexistent_scale(self, engine: ScoringEngine, phq9_spec) -> None:
         """Test scoring nonexistent scale returns None."""
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[],
         )
 

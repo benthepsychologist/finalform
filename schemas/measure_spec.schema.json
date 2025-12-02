@@ -1,19 +1,19 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://lifeos.com/schemas/instrument_spec/1-0-0.json",
-  "title": "Instrument Spec",
-  "description": "Schema for instrument definitions (questionnaires, scales, etc.)",
+  "$id": "https://lifeos.com/schemas/measure_spec/1-0-0.json",
+  "title": "Measure Spec",
+  "description": "Schema for measure definitions (questionnaires, scales, lab panels, vitals, etc.)",
   "type": "object",
-  "required": ["type", "instrument_id", "version", "name", "kind", "items", "scales"],
+  "required": ["type", "measure_id", "version", "name", "kind", "items", "scales"],
   "properties": {
     "type": {
       "type": "string",
-      "const": "instrument_spec"
+      "const": "measure_spec"
     },
-    "instrument_id": {
+    "measure_id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9_]*$",
-      "description": "Unique identifier for the instrument (lowercase, underscore-separated)"
+      "description": "Unique identifier for the measure (lowercase, underscore-separated)"
     },
     "version": {
       "type": "string",
@@ -22,12 +22,12 @@
     },
     "name": {
       "type": "string",
-      "description": "Human-readable name of the instrument"
+      "description": "Human-readable name of the measure"
     },
     "kind": {
       "type": "string",
-      "enum": ["questionnaire", "scale", "inventory", "checklist"],
-      "description": "Type of instrument"
+      "enum": ["questionnaire", "scale", "inventory", "checklist", "lab_panel", "vital", "wearable"],
+      "description": "Type of measure"
     },
     "locale": {
       "type": "string",
@@ -37,11 +37,11 @@
     "aliases": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Alternative names for the instrument"
+      "description": "Alternative names for the measure"
     },
     "description": {
       "type": "string",
-      "description": "Description of the instrument"
+      "description": "Description of the measure"
     },
     "items": {
       "type": "array",
@@ -53,12 +53,12 @@
           "item_id": {
             "type": "string",
             "pattern": "^[a-z][a-z0-9_]*$",
-            "description": "Unique item identifier within the instrument"
+            "description": "Unique item identifier within the measure"
           },
           "position": {
             "type": "integer",
             "minimum": 1,
-            "description": "Item position in the instrument (1-indexed)"
+            "description": "Item position in the measure (1-indexed)"
           },
           "text": {
             "type": "string",

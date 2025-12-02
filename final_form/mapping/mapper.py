@@ -1,4 +1,4 @@
-"""Mapper for transforming form responses to instrument items.
+"""Mapper for transforming form responses to measure items.
 
 The mapper is purely mechanical - it does not interpret question text or guess mappings.
 It requires explicit binding specifications and errors on missing fields.
@@ -20,8 +20,8 @@ class MappingError(Exception):
 class MappedItem(BaseModel):
     """A single mapped item from a form response."""
 
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     item_id: str
     raw_answer: Any
     field_key: str | None = None
@@ -29,10 +29,10 @@ class MappedItem(BaseModel):
 
 
 class MappedSection(BaseModel):
-    """A section of mapped items for a single instrument."""
+    """A section of mapped items for a single measure."""
 
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     items: list[MappedItem]
 
 
@@ -48,7 +48,7 @@ class MappingResult(BaseModel):
 
 
 class Mapper:
-    """Maps form responses to instrument items using binding specifications.
+    """Maps form responses to measure items using binding specifications.
 
     The mapper is purely mechanical:
     - Requires explicit binding spec (no auto-detection)
@@ -61,14 +61,14 @@ class Mapper:
         form_response: dict[str, Any],
         binding_spec: FormBindingSpec,
     ) -> MappingResult:
-        """Map a form response to instrument items.
+        """Map a form response to measure items.
 
         Args:
             form_response: Canonical form response with items array.
             binding_spec: Binding specification defining the mappings.
 
         Returns:
-            MappingResult with mapped items organized by instrument section.
+            MappingResult with mapped items organized by measure section.
 
         Raises:
             MappingError: If a required form field is not found.
@@ -105,7 +105,7 @@ class Mapper:
                     if form_item is None:
                         raise MappingError(
                             f"Form field not found: field_key='{field_key}' "
-                            f"for item '{binding.item_id}' in instrument '{section.instrument_id}'"
+                            f"for item '{binding.item_id}' in measure '{section.measure_id}'"
                         )
                     used_field_keys.add(field_key)
 
@@ -115,7 +115,7 @@ class Mapper:
                     if form_item is None:
                         raise MappingError(
                             f"Form field not found: position={position} "
-                            f"for item '{binding.item_id}' in instrument '{section.instrument_id}'"
+                            f"for item '{binding.item_id}' in measure '{section.measure_id}'"
                         )
                     if "field_key" in form_item:
                         used_field_keys.add(form_item["field_key"])
@@ -125,8 +125,8 @@ class Mapper:
 
                 mapped_items.append(
                     MappedItem(
-                        instrument_id=section.instrument_id,
-                        instrument_version=section.instrument_version,
+                        measure_id=section.measure_id,
+                        measure_version=section.measure_version,
                         item_id=binding.item_id,
                         raw_answer=raw_answer,
                         field_key=form_item.get("field_key"),
@@ -136,8 +136,8 @@ class Mapper:
 
             sections.append(
                 MappedSection(
-                    instrument_id=section.instrument_id,
-                    instrument_version=section.instrument_version,
+                    measure_id=section.measure_id,
+                    measure_version=section.measure_version,
                     items=mapped_items,
                 )
             )
@@ -159,20 +159,20 @@ class Mapper:
         self,
         form_response: dict[str, Any],
         binding_spec: FormBindingSpec,
-        instrument_id: str,
+        measure_id: str,
     ) -> MappedSection | None:
         """Map a single section of a form response.
 
         Args:
             form_response: Canonical form response.
             binding_spec: Binding specification.
-            instrument_id: The instrument ID to map.
+            measure_id: The measure ID to map.
 
         Returns:
-            MappedSection for the instrument, or None if not found in binding.
+            MappedSection for the measure, or None if not found in binding.
         """
         result = self.map(form_response, binding_spec)
         for section in result.sections:
-            if section.instrument_id == instrument_id:
+            if section.measure_id == measure_id:
                 return section
         return None

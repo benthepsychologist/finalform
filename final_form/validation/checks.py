@@ -6,13 +6,13 @@ Validates completeness, range, and flags missing items.
 from pydantic import BaseModel
 
 from final_form.recoding.recoder import RecodedSection
-from final_form.registry.models import InstrumentSpec
+from final_form.registry.models import MeasureSpec
 
 
 class ValidationResult(BaseModel):
     """Result of validating a recoded section."""
 
-    instrument_id: str
+    measure_id: str
     valid: bool
     completeness: float  # 0.0 to 1.0
     missing_items: list[str]
@@ -34,7 +34,7 @@ class Validator:
     """Validates recoded data for completeness and correctness.
 
     Checks:
-    1. Completeness: All items in instrument spec are present
+    1. Completeness: All items in measure spec are present
     2. Range: All values within valid range (0 to max anchor value)
     3. Missing: Flags and counts missing items
     """
@@ -42,13 +42,13 @@ class Validator:
     def validate(
         self,
         section: RecodedSection,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> ValidationResult:
-        """Validate a recoded section against the instrument spec.
+        """Validate a recoded section against the measure spec.
 
         Args:
             section: The recoded section to validate.
-            instrument: The instrument specification.
+            measure: The measure specification.
 
         Returns:
             ValidationResult with validation status and details.
@@ -60,10 +60,10 @@ class Validator:
         # Build set of item IDs in the recoded section
         recoded_item_ids = {item.item_id for item in section.items}
 
-        # Build set of expected item IDs from instrument
-        expected_item_ids = {item.item_id for item in instrument.items}
+        # Build set of expected item IDs from measure
+        expected_item_ids = {item.item_id for item in measure.items}
 
-        # Check for missing items (in instrument but not in recoded)
+        # Check for missing items (in measure but not in recoded)
         for item_id in expected_item_ids:
             if item_id not in recoded_item_ids:
                 missing_items.append(item_id)
@@ -80,7 +80,7 @@ class Validator:
                 continue
 
             # Get item spec for range validation
-            item_spec = instrument.get_item(item.item_id)
+            item_spec = measure.get_item(item.item_id)
             if item_spec is None:
                 errors.append(f"Unknown item: {item.item_id}")
                 continue
@@ -108,7 +108,7 @@ class Validator:
         valid = len(errors) == 0 and len(out_of_range_items) == 0
 
         return ValidationResult(
-            instrument_id=section.instrument_id,
+            measure_id=section.measure_id,
             valid=valid,
             completeness=completeness,
             missing_items=sorted(missing_items),
@@ -119,7 +119,7 @@ class Validator:
     def validate_for_scale(
         self,
         section: RecodedSection,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
         scale_id: str,
     ) -> ValidationResult:
         """Validate a section for a specific scale.
@@ -128,16 +128,16 @@ class Validator:
 
         Args:
             section: The recoded section to validate.
-            instrument: The instrument specification.
+            measure: The measure specification.
             scale_id: The scale to validate for.
 
         Returns:
             ValidationResult for the scale's items only.
         """
-        scale = instrument.get_scale(scale_id)
+        scale = measure.get_scale(scale_id)
         if scale is None:
             return ValidationResult(
-                instrument_id=section.instrument_id,
+                measure_id=section.measure_id,
                 valid=False,
                 completeness=0.0,
                 missing_items=[],
@@ -165,7 +165,7 @@ class Validator:
                 continue
 
             # Get item spec for range validation
-            item_spec = instrument.get_item(item_id)
+            item_spec = measure.get_item(item_id)
             if item_spec is None:
                 errors.append(f"Unknown item in scale: {item_id}")
                 continue
@@ -204,7 +204,7 @@ class Validator:
             )
 
         return ValidationResult(
-            instrument_id=section.instrument_id,
+            measure_id=section.measure_id,
             valid=valid,
             completeness=completeness,
             missing_items=sorted(missing_items),

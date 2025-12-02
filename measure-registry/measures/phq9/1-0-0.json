@@ -1,6 +1,6 @@
 {
-  "type": "instrument_spec",
-  "instrument_id": "phq9",
+  "type": "measure_spec",
+  "measure_id": "phq9",
   "version": "1.0.0",
   "name": "Patient Health Questionnaire-9",
   "kind": "questionnaire",

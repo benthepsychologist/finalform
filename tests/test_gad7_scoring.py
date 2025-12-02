@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from final_form.recoding import RecodedItem, RecodedSection
-from final_form.registry import InstrumentRegistry
+from final_form.registry import MeasureRegistry
 from final_form.scoring import ScoringEngine
 
 
@@ -20,9 +20,9 @@ def engine() -> ScoringEngine:
 
 
 @pytest.fixture
-def gad7_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def gad7_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the GAD-7 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("gad7", "1.0.0")
 
 
@@ -41,8 +41,8 @@ def make_gad7_section(
     """
     items = [
         RecodedItem(
-            instrument_id="gad7",
-            instrument_version="1.0.0",
+            measure_id="gad7",
+            measure_version="1.0.0",
             item_id=f"gad7_item{i+1}",
             value=v,
             raw_answer=str(v),
@@ -51,16 +51,16 @@ def make_gad7_section(
     ]
     items.append(
         RecodedItem(
-            instrument_id="gad7",
-            instrument_version="1.0.0",
+            measure_id="gad7",
+            measure_version="1.0.0",
             item_id="gad7_item8",
             value=severity_value,
             raw_answer=str(severity_value),
         )
     )
     return RecodedSection(
-        instrument_id="gad7",
-        instrument_version="1.0.0",
+        measure_id="gad7",
+        measure_version="1.0.0",
         items=items,
     )
 
@@ -168,8 +168,8 @@ class TestGAD7Scoring:
         # 6 items = 2 each, 1 missing
         items = [
             RecodedItem(
-                instrument_id="gad7",
-                instrument_version="1.0.0",
+                measure_id="gad7",
+                measure_version="1.0.0",
                 item_id=f"gad7_item{i}",
                 value=2,
                 raw_answer="2",
@@ -178,8 +178,8 @@ class TestGAD7Scoring:
         ]
         items.append(
             RecodedItem(
-                instrument_id="gad7",
-                instrument_version="1.0.0",
+                measure_id="gad7",
+                measure_version="1.0.0",
                 item_id="gad7_item7",
                 value=None,
                 raw_answer=None,
@@ -188,16 +188,16 @@ class TestGAD7Scoring:
         )
         items.append(
             RecodedItem(
-                instrument_id="gad7",
-                instrument_version="1.0.0",
+                measure_id="gad7",
+                measure_version="1.0.0",
                 item_id="gad7_item8",
                 value=0,
                 raw_answer="0",
             )
         )
         section = RecodedSection(
-            instrument_id="gad7",
-            instrument_version="1.0.0",
+            measure_id="gad7",
+            measure_version="1.0.0",
             items=items,
         )
 

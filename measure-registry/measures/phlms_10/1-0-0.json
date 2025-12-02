@@ -1,0 +1,228 @@
+{
+  "type": "measure_spec",
+  "measure_id": "phlms_10",
+  "version": "1.0.0",
+  "name": "Philadelphia Mindfulness Scale (10-item)",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Brief 10-item version of the PHLMS measuring present-moment awareness (5 items) and acceptance (5 items). Items are intermixed and scored separately for two subscales.",
+  "items": [
+    {
+      "item_id": "phlms_10_item1",
+      "position": 1,
+      "text": "When talking with other people, I am aware of their facial and body expressions",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item2",
+      "position": 2,
+      "text": "There are aspects of myself I don't want to think about",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item3",
+      "position": 3,
+      "text": "I try to stay busy to keep thoughts or feelings from coming to mind",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item4",
+      "position": 4,
+      "text": "When I am startled, I notice what is going on inside my body",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item5",
+      "position": 5,
+      "text": "I tell myself that I shouldn't have certain thoughts",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item6",
+      "position": 6,
+      "text": "There are things I try not to think about",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item7",
+      "position": 7,
+      "text": "I am aware of thoughts I'm having when my mood changes",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item8",
+      "position": 8,
+      "text": "I notice changes inside my body, like my heart beating faster or my muscles getting tense",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item9",
+      "position": 9,
+      "text": "If there is something I don't want to think about, I'll try many things to get it out of my mind",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "phlms_10_item10",
+      "position": 10,
+      "text": "Whenever my emotions change, I am conscious of them immediately",
+      "response_map": {
+        "never": 1,
+        "rarely": 2,
+        "sometimes": 3,
+        "often": 4,
+        "very often": 5
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "phlms_att",
+      "name": "Phlms Att",
+      "items": [
+        "phlms_10_item1",
+        "phlms_10_item4",
+        "phlms_10_item7",
+        "phlms_10_item8",
+        "phlms_10_item10"
+      ],
+      "method": "sum_then_double",
+      "reversed_items": [],
+      "min": 10,
+      "max": 50,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 24,
+          "label": "Below Average",
+          "severity": 1,
+          "description": "Needs attention - below average present-moment awareness"
+        },
+        {
+          "min": 25,
+          "max": 40,
+          "label": "Average",
+          "severity": 2,
+          "description": "Average mindful awareness"
+        },
+        {
+          "min": 41,
+          "max": 50,
+          "label": "Exceptional",
+          "severity": 3,
+          "description": "Exceptional awareness"
+        }
+      ]
+    },
+    {
+      "scale_id": "phlms_acc",
+      "name": "Phlms Acc",
+      "items": [
+        "phlms_10_item2",
+        "phlms_10_item3",
+        "phlms_10_item5",
+        "phlms_10_item6",
+        "phlms_10_item9"
+      ],
+      "method": "sum_then_double",
+      "reversed_items": [
+        "phlms_10_item2",
+        "phlms_10_item3",
+        "phlms_10_item5",
+        "phlms_10_item6",
+        "phlms_10_item9"
+      ],
+      "min": 10,
+      "max": 50,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 24,
+          "label": "Low to Problematic",
+          "severity": 1,
+          "description": "Below average acceptance - difficulty accepting present experiences"
+        },
+        {
+          "min": 25,
+          "max": 35,
+          "label": "Average",
+          "severity": 2,
+          "description": "Average acceptance levels"
+        },
+        {
+          "min": 36,
+          "max": 50,
+          "label": "Exceptional",
+          "severity": 3,
+          "description": "Exceptional acceptance capacity"
+        }
+      ]
+    }
+  ]
+}

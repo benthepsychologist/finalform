@@ -8,5 +8,5 @@ user:
   default_owner: null
   default_tier: null
 current:
-  spec: .specwright/specs/final-form-initial-spec.md
-  aip: /workspace/final-form/.specwright/aips/final-form-initial-spec.yaml
+  spec: .specwright/specs/domain-modular-architecture-refactor.md
+  aip: /workspace/final-form/.specwright/aips/domain-modular-architecture-refactor.yaml

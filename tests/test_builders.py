@@ -11,7 +11,7 @@ from final_form.builders import (
     Source,
     Telemetry,
 )
-from final_form.interpretation import InterpretedScore, InterpretationResult
+from final_form.interpretation import InterpretationResult, InterpretedScore
 from final_form.recoding import RecodedItem, RecodedSection
 from final_form.registry import BindingRegistry
 from final_form.scoring import ScaleScore, ScoringResult
@@ -34,12 +34,12 @@ def example_binding(binding_registry_path: Path, binding_schema_path: Path):
 def phq9_recoded_section() -> RecodedSection:
     """A complete PHQ-9 recoded section."""
     return RecodedSection(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         items=[
             RecodedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id=f"phq9_item{i}",
                 value=1,
                 raw_answer="several days",
@@ -48,8 +48,8 @@ def phq9_recoded_section() -> RecodedSection:
             for i in range(1, 10)
         ] + [
             RecodedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id="phq9_item10",
                 value=1,
                 raw_answer="somewhat difficult",
@@ -63,8 +63,8 @@ def phq9_recoded_section() -> RecodedSection:
 def phq9_scoring_result() -> ScoringResult:
     """A PHQ-9 scoring result."""
     return ScoringResult(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         scales=[
             ScaleScore(
                 scale_id="phq9_total",
@@ -94,8 +94,8 @@ def phq9_scoring_result() -> ScoringResult:
 def phq9_interpretation_result() -> InterpretationResult:
     """A PHQ-9 interpretation result."""
     return InterpretationResult(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         scores=[
             InterpretedScore(
                 scale_id="phq9_total",
@@ -142,8 +142,8 @@ class TestMeasurementEventBuilder:
 
         assert isinstance(event, MeasurementEvent)
         assert event.schema_ == "com.lifeos.measurement_event.v1"
-        assert event.instrument_id == "phq9"
-        assert event.instrument_version == "1.0.0"
+        assert event.measure_id == "phq9"
+        assert event.measure_version == "1.0.0"
         assert event.subject_id == "contact::abc"
         assert event.timestamp == "2025-01-15T10:30:00Z"
 
@@ -196,7 +196,7 @@ class TestMeasurementEventBuilder:
         )
 
         assert event.telemetry.final_form_version == "0.1.0"
-        assert event.telemetry.instrument_spec == "phq9@1.0.0"
+        assert event.telemetry.measure_spec == "phq9@1.0.0"
         assert event.telemetry.form_binding_spec == "example_intake@1.0.0"
         assert "Test warning" in event.telemetry.warnings
 
@@ -362,7 +362,7 @@ class TestObservation:
         obs = Observation(
             schema="com.lifeos.observation.v1",
             observation_id="test-id",
-            instrument_id="phq9",
+            measure_id="phq9",
             code="phq9_item1",
             kind="item",
             value=2,
@@ -380,7 +380,7 @@ class TestObservation:
         obs = Observation(
             schema="com.lifeos.observation.v1",
             observation_id="test-id",
-            instrument_id="phq9",
+            measure_id="phq9",
             code="phq9_total",
             kind="scale",
             value=15.0,
@@ -417,7 +417,7 @@ class TestTelemetry:
         telemetry = Telemetry(
             processed_at="2025-01-15T10:30:00Z",
             final_form_version="0.1.0",
-            instrument_spec="phq9@1.0.0",
+            measure_spec="phq9@1.0.0",
             form_binding_spec="example_intake@1.0.0",
             warnings=["Warning 1"],
         )

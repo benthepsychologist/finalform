@@ -1,4 +1,4 @@
-"""Pydantic models for instrument and binding specifications."""
+"""Pydantic models for measure and binding specifications."""
 
 from typing import Literal
 
@@ -15,8 +15,8 @@ class Interpretation(BaseModel):
     description: str | None = None
 
 
-class InstrumentScale(BaseModel):
-    """Scale definition within an instrument."""
+class MeasureScale(BaseModel):
+    """Scale definition within a measure."""
 
     scale_id: str
     name: str
@@ -29,8 +29,8 @@ class InstrumentScale(BaseModel):
     interpretations: list[Interpretation]
 
 
-class InstrumentItem(BaseModel):
-    """Item (question) definition within an instrument."""
+class MeasureItem(BaseModel):
+    """Item (question) definition within a measure."""
 
     item_id: str
     position: int
@@ -39,28 +39,28 @@ class InstrumentItem(BaseModel):
     aliases: dict[str, str] = Field(default_factory=dict)
 
 
-class InstrumentSpec(BaseModel):
-    """Complete instrument specification."""
+class MeasureSpec(BaseModel):
+    """Complete measure specification."""
 
-    type: Literal["instrument_spec"]
-    instrument_id: str
+    type: Literal["measure_spec"]
+    measure_id: str
     version: str
     name: str
-    kind: Literal["questionnaire", "scale", "inventory", "checklist"]
+    kind: Literal["questionnaire", "scale", "inventory", "checklist", "lab_panel", "vital", "wearable"]
     locale: str | None = None
     aliases: list[str] = Field(default_factory=list)
     description: str | None = None
-    items: list[InstrumentItem]
-    scales: list[InstrumentScale]
+    items: list[MeasureItem]
+    scales: list[MeasureScale]
 
-    def get_item(self, item_id: str) -> InstrumentItem | None:
+    def get_item(self, item_id: str) -> MeasureItem | None:
         """Get an item by its ID."""
         for item in self.items:
             if item.item_id == item_id:
                 return item
         return None
 
-    def get_scale(self, scale_id: str) -> InstrumentScale | None:
+    def get_scale(self, scale_id: str) -> MeasureScale | None:
         """Get a scale by its ID."""
         for scale in self.scales:
             if scale.scale_id == scale_id:
@@ -69,7 +69,7 @@ class InstrumentSpec(BaseModel):
 
 
 class Binding(BaseModel):
-    """Single item binding mapping form field to instrument item."""
+    """Single item binding mapping form field to measure item."""
 
     item_id: str
     by: Literal["field_key", "position"]
@@ -77,11 +77,11 @@ class Binding(BaseModel):
 
 
 class BindingSection(BaseModel):
-    """Section of bindings for a single instrument."""
+    """Section of bindings for a single measure."""
 
     name: str | None = None
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     bindings: list[Binding]
 
 
@@ -95,9 +95,9 @@ class FormBindingSpec(BaseModel):
     description: str | None = None
     sections: list[BindingSection]
 
-    def get_section_for_instrument(self, instrument_id: str) -> BindingSection | None:
-        """Get the binding section for a specific instrument."""
+    def get_section_for_measure(self, measure_id: str) -> BindingSection | None:
+        """Get the binding section for a specific measure."""
         for section in self.sections:
-            if section.instrument_id == instrument_id:
+            if section.measure_id == measure_id:
                 return section
         return None

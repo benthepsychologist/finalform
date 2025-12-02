@@ -18,9 +18,9 @@ def schemas_dir(project_root: Path) -> Path:
 
 
 @pytest.fixture
-def instrument_registry_path(project_root: Path) -> Path:
-    """Return the instrument registry path."""
-    return project_root / "instrument-registry"
+def measure_registry_path(project_root: Path) -> Path:
+    """Return the measure registry path."""
+    return project_root / "measure-registry"
 
 
 @pytest.fixture
@@ -30,9 +30,9 @@ def binding_registry_path(project_root: Path) -> Path:
 
 
 @pytest.fixture
-def instrument_schema_path(schemas_dir: Path) -> Path:
-    """Return the instrument spec schema path."""
-    return schemas_dir / "instrument_spec.schema.json"
+def measure_schema_path(schemas_dir: Path) -> Path:
+    """Return the measure spec schema path."""
+    return schemas_dir / "measure_spec.schema.json"
 
 
 @pytest.fixture

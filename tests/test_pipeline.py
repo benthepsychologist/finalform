@@ -9,18 +9,18 @@ from final_form.pipeline import Pipeline, PipelineConfig, ProcessingResult
 
 @pytest.fixture
 def pipeline_config(
-    instrument_registry_path: Path,
+    measure_registry_path: Path,
     binding_registry_path: Path,
-    instrument_schema_path: Path,
+    measure_schema_path: Path,
     binding_schema_path: Path,
 ) -> PipelineConfig:
     """Create a pipeline config for testing."""
     return PipelineConfig(
-        instrument_registry_path=instrument_registry_path,
+        measure_registry_path=measure_registry_path,
         binding_registry_path=binding_registry_path,
         binding_id="example_intake",
         binding_version="1.0.0",
-        instrument_schema_path=instrument_schema_path,
+        measure_schema_path=measure_schema_path,
         binding_schema_path=binding_schema_path,
         deterministic_ids=True,
     )
@@ -103,8 +103,8 @@ class TestPipeline:
     def test_pipeline_initialization(self, pipeline: Pipeline) -> None:
         """Test that pipeline initializes correctly."""
         assert pipeline.binding_spec.binding_id == "example_intake"
-        assert "phq9" in pipeline.instruments
-        assert "gad7" in pipeline.instruments
+        assert "phq9" in pipeline.measures
+        assert "gad7" in pipeline.measures
 
     def test_process_complete_response(
         self,
@@ -142,14 +142,14 @@ class TestPipeline:
         assert len(result.events) == 2  # PHQ-9 and GAD-7
 
         # Check PHQ-9 event
-        phq9_event = next(e for e in result.events if e.instrument_id == "phq9")
-        assert phq9_event.instrument_version == "1.0.0"
+        phq9_event = next(e for e in result.events if e.measure_id == "phq9")
+        assert phq9_event.measure_version == "1.0.0"
         assert phq9_event.subject_id == "contact::abc123"
         assert len(phq9_event.observations) > 0
 
         # Check GAD-7 event
-        gad7_event = next(e for e in result.events if e.instrument_id == "gad7")
-        assert gad7_event.instrument_version == "1.0.0"
+        gad7_event = next(e for e in result.events if e.measure_id == "gad7")
+        assert gad7_event.measure_version == "1.0.0"
 
     def test_process_includes_scores(
         self,
@@ -159,7 +159,7 @@ class TestPipeline:
         """Test that events include scale scores."""
         result = pipeline.process(complete_multi_instrument_response)
 
-        phq9_event = next(e for e in result.events if e.instrument_id == "phq9")
+        phq9_event = next(e for e in result.events if e.measure_id == "phq9")
         scale_obs = [o for o in phq9_event.observations if o.kind == "scale"]
 
         # PHQ-9 has 2 scales: total and severity
@@ -177,7 +177,7 @@ class TestPipeline:
         """Test that events include item observations."""
         result = pipeline.process(complete_multi_instrument_response)
 
-        phq9_event = next(e for e in result.events if e.instrument_id == "phq9")
+        phq9_event = next(e for e in result.events if e.measure_id == "phq9")
         item_obs = [o for o in phq9_event.observations if o.kind == "item"]
 
         # PHQ-9 has 10 items
@@ -194,9 +194,9 @@ class TestPipeline:
         """Test that processing returns diagnostics."""
         result = pipeline.process(complete_multi_instrument_response)
 
-        assert result.diagnostic is not None
-        assert result.diagnostic.form_submission_id == "sub_multi"
-        assert result.diagnostic.binding_id == "example_intake"
+        assert result.diagnostics is not None
+        assert result.diagnostics.form_submission_id == "sub_multi"
+        assert result.diagnostics.binding_id == "example_intake"
 
     def test_process_success_status(
         self,
@@ -207,7 +207,7 @@ class TestPipeline:
         result = pipeline.process(complete_multi_instrument_response)
 
         assert result.success is True
-        assert result.diagnostic.status.value in ("success", "partial")
+        assert result.diagnostics.status.value in ("success", "partial")
 
     def test_process_batch(
         self,
@@ -246,12 +246,12 @@ class TestPipelineConfig:
 
     def test_config_attributes(
         self,
-        instrument_registry_path: Path,
+        measure_registry_path: Path,
         binding_registry_path: Path,
     ) -> None:
         """Test PipelineConfig has expected attributes."""
         config = PipelineConfig(
-            instrument_registry_path=instrument_registry_path,
+            measure_registry_path=measure_registry_path,
             binding_registry_path=binding_registry_path,
             binding_id="test_binding",
         )
@@ -262,12 +262,12 @@ class TestPipelineConfig:
 
     def test_config_with_version(
         self,
-        instrument_registry_path: Path,
+        measure_registry_path: Path,
         binding_registry_path: Path,
     ) -> None:
         """Test PipelineConfig with version specified."""
         config = PipelineConfig(
-            instrument_registry_path=instrument_registry_path,
+            measure_registry_path=measure_registry_path,
             binding_registry_path=binding_registry_path,
             binding_id="test_binding",
             binding_version="2.0.0",

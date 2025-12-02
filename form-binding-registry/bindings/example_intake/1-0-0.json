@@ -7,8 +7,8 @@
   "sections": [
     {
       "name": "PHQ-9 Section",
-      "instrument_id": "phq9",
-      "instrument_version": "1.0.0",
+      "measure_id": "phq9",
+      "measure_version": "1.0.0",
       "bindings": [
         { "item_id": "phq9_item1", "by": "field_key", "value": "entry.123456001" },
         { "item_id": "phq9_item2", "by": "field_key", "value": "entry.123456002" },
@@ -24,8 +24,8 @@
     },
     {
       "name": "GAD-7 Section",
-      "instrument_id": "gad7",
-      "instrument_version": "1.0.0",
+      "measure_id": "gad7",
+      "measure_version": "1.0.0",
       "bindings": [
         { "item_id": "gad7_item1", "by": "field_key", "value": "entry.789012001" },
         { "item_id": "gad7_item2", "by": "field_key", "value": "entry.789012002" },

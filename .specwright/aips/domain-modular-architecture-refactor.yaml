@@ -1,0 +1,251 @@
+aip_id: AIP-final-form-2025-12-02-001
+context:
+  background: 'Final-form was built as a questionnaire scoring engine, but the vision is broader: it should
+    handle any measurement domain (lab results, vital signs, wearables) with the same guarantees:
+
+
+    - **Registry-driven**: Semantic knowledge lives in specs, not code
+
+    - **Deterministic**: Same inputs → same outputs
+
+    - **FHIR-aligned**: MeasurementEvent + Observation[] output contract
+
+    - **Explicit**: No runtime inference; domain selected by `measure_spec["kind"]`
+
+
+    Current implementation has questionnaire-specific concepts ("items", "scales", "recoding") hardcoded
+    throughout. This refactor extracts shared infrastructure to `core/` and isolates questionnaire logic
+    to `domains/questionnaire/`, creating a clean pattern for future domains.'
+  constraints:
+  - This is a refactor, not a rewrite—questionnaire logic stays intact
+  - No new features; just reorganization
+  - Maintain backwards compatibility for CLI interface
+  - No changes to output schema (MeasurementEvent, Observation)
+created: '2025-12-02T11:54:44.712112+00:00'
+meta:
+  created_at: '2025-12-02T11:54:44.712112+00:00'
+  created_by: lifeos
+objective:
+  acceptance_criteria:
+  - CI green (lint + unit + type check)
+  - All existing tests pass after refactor
+  - 'New directory structure: `core/` + `domains/questionnaire/`'
+  - '`DomainProcessor` protocol defined and implemented for questionnaire'
+  - Domain router working with `measure_spec["kind"]` dispatch
+  - 'Terminology renamed: `instrument` → `measure` throughout'
+  - Stub modules created for `domains/lab/`, `domains/vital/`, `domains/wearable/`
+  - CLI updated to use new entry point
+  - 70%+ test coverage maintained
+  goal: Refactor final-form from questionnaire-only to domain-modular architecture supporting questionnaire,
+    lab, vital, and wearable measure types
+orchestrator_contract:
+  artifacts_dir: .aip_artifacts/AIP-final-form-2025-12-02-001
+  logging: jsonl
+  state_machine:
+    events:
+    - run_step
+    - await_gate
+    - approve
+    - reject
+    - retry
+    - escalate
+    - complete
+    states:
+    - pending
+    - running
+    - awaiting_human
+    - failed
+    - succeeded
+    - rolled_back
+plan:
+- description: Terminology Rename (instrument → measure)
+  gate_ref: 'G0: Plan Approval'
+  kind: code
+  prompt: 'Rename all `instrument` references to `measure` across the codebase:
+
+    - `InstrumentSpec` → `MeasureSpec`
+
+    - `InstrumentRegistry` → `MeasureRegistry`
+
+    - `instrument_id` → `measure_id`
+
+    - `instrument_version` → `measure_version`
+
+    - `instrument-registry/` directory → `measure-registry/`
+
+    - CLI flags: `--instrument-registry` → `--measure-registry`
+
+    - All internal references in code, tests, and specs
+
+    Update JSON schema files and spec files accordingly.'
+  role: coding_agent
+  step_id: step-001
+- description: Create core/ Module Structure
+  gate_ref: 'G0: Plan Approval'
+  kind: code
+  outputs:
+  - final_form/core/
+  prompt: 'Create the `core/` module with shared infrastructure extracted from current code:
+
+    ```
+
+    final_form/core/
+
+    ├── __init__.py
+
+    ├── models.py         # MeasurementEvent, Observation, ProcessingResult, Source, Telemetry
+
+    ├── diagnostics.py    # DiagnosticMessage, ProcessingDiagnostics (base types)
+
+    ├── registry.py       # Generic spec loading (measures, bindings)
+
+    ├── domain.py         # DomainProcessor protocol
+
+    ├── router.py         # kind → processor mapping
+
+    └── pipeline.py       # Unified entry point
+
+    ```
+
+    Extract and move:
+
+    - `MeasurementEvent`, `Observation` models to `core/models.py`
+
+    - Base diagnostic types to `core/diagnostics.py`
+
+    - Registry loading logic to `core/registry.py`'
+  role: coding_agent
+  step_id: step-002
+- description: Create domains/questionnaire/ Module
+  gate_ref: 'G1: Code Readiness'
+  kind: code
+  outputs:
+  - final_form/domains/questionnaire/
+  prompt: 'Move questionnaire-specific logic into `domains/questionnaire/`:
+
+    ```
+
+    final_form/domains/questionnaire/
+
+    ├── __init__.py
+
+    ├── processor.py      # QuestionnaireProcessor implementing DomainProcessor
+
+    ├── models.py         # Questionnaire-specific spec models
+
+    ├── mapping.py        # Form → measure item mapping
+
+    ├── recoding.py       # Text → numeric conversion
+
+    ├── scoring.py        # Scale computation
+
+    ├── interpretation.py # Severity band lookup
+
+    └── diagnostics.py    # Questionnaire-specific diagnostic codes
+
+    ```
+
+    The `QuestionnaireProcessor` should:
+
+    - Implement `DomainProcessor` protocol
+
+    - Orchestrate mapping → recoding → validation → scoring → interpretation → building
+
+    - Return `ProcessingResult`'
+  role: coding_agent
+  step_id: step-003
+- description: Implement Domain Router
+  gate_ref: 'G1: Code Readiness'
+  kind: code
+  prompt: "Implement the domain router in `core/router.py`:\n```python\nDOMAIN_PROCESSORS: dict[str, type[DomainProcessor]]\
+    \ = {\n    \"questionnaire\": QuestionnaireProcessor,\n}\ndef get_processor(kind: str) -> DomainProcessor:\n\
+    \    if kind not in DOMAIN_PROCESSORS:\n        raise ValueError(f\"Unknown measure kind: {kind}\"\
+    )\n    return DOMAIN_PROCESSORS[kind]()\n```\nUpdate `core/pipeline.py` to:\n1. Load measure spec\n\
+    2. Extract `kind` from spec\n3. Route to appropriate domain processor\n4. Return `ProcessingResult`"
+  role: coding_agent
+  step_id: step-004
+- description: Create Domain Stubs
+  gate_ref: 'G1: Code Readiness'
+  kind: code
+  prompt: 'Create stub modules for future domains:
+
+    ```
+
+    final_form/domains/lab/
+
+    ├── __init__.py
+
+    └── processor.py      # LabProcessor stub (raises NotImplementedError)
+
+    final_form/domains/vital/
+
+    ├── __init__.py
+
+    └── processor.py      # VitalProcessor stub
+
+    final_form/domains/wearable/
+
+    ├── __init__.py
+
+    └── processor.py      # WearableProcessor stub
+
+    ```
+
+    Each stub should:
+
+    - Define a processor class implementing `DomainProcessor`
+
+    - Have `domain` attribute set appropriately
+
+    - Raise `NotImplementedError("Lab domain not yet implemented")` in `process()`
+
+    Register stubs in router (they''ll error if called, which is correct).'
+  role: coding_agent
+  step_id: step-005
+- description: Update CLI and Entry Points
+  gate_ref: 'G2: Pre-Release'
+  kind: code
+  prompt: 'Update CLI to use new structure:
+
+    - Change `--instrument-registry` to `--measure-registry`
+
+    - Update imports to use `core/` and `domains/`
+
+    - Ensure `final-form run` works with new architecture
+
+    Update `pyproject.toml` entry points if needed.'
+  role: coding_agent
+  step_id: step-006
+- description: Update Tests
+  gate_ref: 'G2: Pre-Release'
+  kind: code
+  prompt: "Update all tests to:\n- Use new import paths (`final_form.core.*`, `final_form.domains.questionnaire.*`)\n\
+    - Use new terminology (`measure` instead of `instrument`)\n- Add tests for:\n  - Domain router\n \
+    \ - DomainProcessor protocol compliance\n  - Pipeline with router dispatch"
+  role: coding_agent
+  step_id: step-007
+- description: Update Documentation
+  gate_ref: 'G4: Post-Implementation'
+  kind: code
+  outputs:
+  - artifacts/governance/decision-log.md
+  prompt: 'Update documentation to reflect new architecture:
+
+    - README.md: Update terminology and structure
+
+    - FINAL-FORM-ARCH.md: Document domain-modular architecture
+
+    - Inline docstrings for new modules'
+  role: coding_agent
+  step_id: step-008
+project_slug: final-form
+repo:
+  default_branch: main
+  url: git@github.com:benthepsychologist/final-form.git
+  working_branch: feat/domain-modular-architecture-refactor
+spec_version: 1.0.0
+tier: C
+title: Domain-Modular Architecture Refactor
+updated: '2025-12-02T11:54:44.712112+00:00'
+version: '0.1'
+

@@ -4,10 +4,8 @@ import pytest
 
 from final_form.diagnostics import (
     DiagnosticError,
-    DiagnosticWarning,
     DiagnosticsCollector,
-    FormDiagnostic,
-    InstrumentDiagnostic,
+    DiagnosticWarning,
     ProcessingStatus,
     QualityMetrics,
 )
@@ -56,15 +54,15 @@ class TestDiagnosticsCollector:
             stage="recoding",
             code="UNKNOWN_RESPONSE",
             message="Unknown response text",
-            instrument_id="phq9",
+            measure_id="phq9",
             item_id="phq9_item1",
         )
 
         result = collector.finalize()
-        assert len(result.instruments) == 1
-        assert result.instruments[0].instrument_id == "phq9"
-        assert len(result.instruments[0].errors) == 1
-        assert result.instruments[0].status == ProcessingStatus.FAILED
+        assert len(result.measures) == 1
+        assert result.measures[0].measure_id == "phq9"
+        assert len(result.measures[0].errors) == 1
+        assert result.measures[0].status == ProcessingStatus.FAILED
 
     def test_add_warning(self, collector: DiagnosticsCollector) -> None:
         """Test adding a warning."""
@@ -72,20 +70,20 @@ class TestDiagnosticsCollector:
             stage="validation",
             code="MISSING_ITEM",
             message="Item phq9_item3 is missing",
-            instrument_id="phq9",
+            measure_id="phq9",
             item_id="phq9_item3",
         )
 
         result = collector.finalize()
-        assert len(result.instruments) == 1
-        assert len(result.instruments[0].warnings) == 1
-        assert result.instruments[0].status == ProcessingStatus.PARTIAL
+        assert len(result.measures) == 1
+        assert len(result.measures[0].warnings) == 1
+        assert result.measures[0].status == ProcessingStatus.PARTIAL
 
     def test_success_status_when_no_issues(self, collector: DiagnosticsCollector) -> None:
         """Test that status is SUCCESS when no errors or warnings."""
         # Set up instrument with quality but no errors
-        collector.set_instrument_quality(
-            instrument_id="phq9",
+        collector.set_measure_quality(
+            measure_id="phq9",
             items_total=9,
             items_present=9,
             missing_items=[],
@@ -95,7 +93,7 @@ class TestDiagnosticsCollector:
 
         result = collector.finalize()
         assert result.status == ProcessingStatus.SUCCESS
-        assert result.instruments[0].status == ProcessingStatus.SUCCESS
+        assert result.measures[0].status == ProcessingStatus.SUCCESS
 
     def test_partial_status_with_warnings_only(self, collector: DiagnosticsCollector) -> None:
         """Test that status is PARTIAL when only warnings exist."""
@@ -103,7 +101,7 @@ class TestDiagnosticsCollector:
             stage="scoring",
             code="PRORATED_SCORE",
             message="Score was prorated",
-            instrument_id="phq9",
+            measure_id="phq9",
         )
 
         result = collector.finalize()
@@ -115,7 +113,7 @@ class TestDiagnosticsCollector:
             stage="recoding",
             code="RECODING_ERROR",
             message="Failed to recode value",
-            instrument_id="phq9",
+            measure_id="phq9",
         )
 
         result = collector.finalize()
@@ -132,12 +130,12 @@ class TestDiagnosticsCollector:
             timestamp="2025-01-15T10:30:00Z",
             sections=[
                 MappedSection(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     items=[
                         MappedItem(
-                            instrument_id="phq9",
-                            instrument_version="1.0.0",
+                            measure_id="phq9",
+                            measure_version="1.0.0",
                             item_id="phq9_item1",
                             field_key="entry.123",
                             raw_answer="not at all",
@@ -152,8 +150,8 @@ class TestDiagnosticsCollector:
         result = collector.finalize()
 
         # Instruments are registered from mapping
-        assert len(result.instruments) == 1
-        assert result.instruments[0].instrument_id == "phq9"
+        assert len(result.measures) == 1
+        assert result.measures[0].measure_id == "phq9"
 
     def test_collect_from_recoding_result(self, collector: DiagnosticsCollector) -> None:
         """Test collecting diagnostics from recoding result."""
@@ -164,20 +162,20 @@ class TestDiagnosticsCollector:
             timestamp="2025-01-15T10:30:00Z",
             sections=[
                 RecodedSection(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     items=[
                         RecodedItem(
-                            instrument_id="phq9",
-                            instrument_version="1.0.0",
+                            measure_id="phq9",
+                            measure_version="1.0.0",
                             item_id="phq9_item1",
                             value=1,
                             raw_answer="several days",
                             position=1,
                         ),
                         RecodedItem(
-                            instrument_id="phq9",
-                            instrument_version="1.0.0",
+                            measure_id="phq9",
+                            measure_version="1.0.0",
                             item_id="phq9_item2",
                             value=None,
                             raw_answer=None,
@@ -192,13 +190,13 @@ class TestDiagnosticsCollector:
         collector.collect_from_recoding(recoding_result)
         result = collector.finalize()
 
-        assert len(result.instruments) == 1
-        assert len(result.instruments[0].warnings) == 1  # From the missing value
+        assert len(result.measures) == 1
+        assert len(result.measures[0].warnings) == 1  # From the missing value
 
     def test_collect_from_validation_result(self, collector: DiagnosticsCollector) -> None:
         """Test collecting diagnostics from validation result."""
         validation_result = ValidationResult(
-            instrument_id="phq9",
+            measure_id="phq9",
             valid=False,
             completeness=0.89,
             missing_items=["phq9_item2"],
@@ -209,17 +207,17 @@ class TestDiagnosticsCollector:
         collector.collect_from_validation(validation_result, "phq9")
         result = collector.finalize()
 
-        assert len(result.instruments) == 1
+        assert len(result.measures) == 1
         # Errors from out_of_range + errors list
-        assert len(result.instruments[0].errors) >= 1
+        assert len(result.measures[0].errors) >= 1
         # Warnings from missing_items
-        assert len(result.instruments[0].warnings) >= 1
+        assert len(result.measures[0].warnings) >= 1
 
     def test_collect_from_scoring_result(self, collector: DiagnosticsCollector) -> None:
         """Test collecting diagnostics from scoring result."""
         scoring_result = ScoringResult(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             scales=[
                 ScaleScore(
                     scale_id="phq9_total",
@@ -238,14 +236,14 @@ class TestDiagnosticsCollector:
         collector.collect_from_scoring(scoring_result)
         result = collector.finalize()
 
-        assert len(result.instruments) == 1
-        assert len(result.instruments[0].warnings) == 1
-        assert result.instruments[0].warnings[0].code == "PRORATED_SCORE"
+        assert len(result.measures) == 1
+        assert len(result.measures[0].warnings) == 1
+        assert result.measures[0].warnings[0].code == "PRORATED_SCORE"
 
-    def test_set_instrument_quality(self, collector: DiagnosticsCollector) -> None:
+    def test_set_measure_quality(self, collector: DiagnosticsCollector) -> None:
         """Test setting quality metrics for an instrument."""
-        collector.set_instrument_quality(
-            instrument_id="phq9",
+        collector.set_measure_quality(
+            measure_id="phq9",
             items_total=9,
             items_present=8,
             missing_items=["phq9_item3"],
@@ -255,23 +253,23 @@ class TestDiagnosticsCollector:
 
         result = collector.finalize()
 
-        assert result.instruments[0].quality is not None
-        assert result.instruments[0].quality.completeness == pytest.approx(8 / 9)
-        assert result.instruments[0].quality.missing_items == ["phq9_item3"]
-        assert result.instruments[0].quality.prorated_scales == ["phq9_total"]
+        assert result.measures[0].quality is not None
+        assert result.measures[0].quality.completeness == pytest.approx(8 / 9)
+        assert result.measures[0].quality.missing_items == ["phq9_item3"]
+        assert result.measures[0].quality.prorated_scales == ["phq9_total"]
 
     def test_aggregate_quality_metrics(self, collector: DiagnosticsCollector) -> None:
         """Test that aggregate quality metrics are computed correctly."""
-        collector.set_instrument_quality(
-            instrument_id="phq9",
+        collector.set_measure_quality(
+            measure_id="phq9",
             items_total=9,
             items_present=8,
             missing_items=["phq9_item3"],
             out_of_range_items=[],
             prorated_scales=["phq9_total"],
         )
-        collector.set_instrument_quality(
-            instrument_id="gad7",
+        collector.set_measure_quality(
+            measure_id="gad7",
             items_total=7,
             items_present=7,
             missing_items=[],
@@ -293,21 +291,21 @@ class TestDiagnosticsCollector:
             stage="recoding",
             code="ERROR1",
             message="Error in PHQ-9",
-            instrument_id="phq9",
+            measure_id="phq9",
         )
         collector.add_warning(
             stage="scoring",
             code="WARNING1",
             message="Warning in GAD-7",
-            instrument_id="gad7",
+            measure_id="gad7",
         )
 
         result = collector.finalize()
 
-        assert len(result.instruments) == 2
+        assert len(result.measures) == 2
 
-        phq9 = next(i for i in result.instruments if i.instrument_id == "phq9")
-        gad7 = next(i for i in result.instruments if i.instrument_id == "gad7")
+        phq9 = next(i for i in result.measures if i.measure_id == "phq9")
+        gad7 = next(i for i in result.measures if i.measure_id == "gad7")
 
         assert phq9.status == ProcessingStatus.FAILED
         assert gad7.status == ProcessingStatus.PARTIAL
@@ -365,10 +363,10 @@ class TestDiagnosticModels:
             stage="scoring",
             code="TEST",
             message="Test",
-            instrument_id="phq9",
+            measure_id="phq9",
         )
-        collector.set_instrument_quality(
-            instrument_id="phq9",
+        collector.set_measure_quality(
+            measure_id="phq9",
             items_total=9,
             items_present=9,
             missing_items=[],
@@ -381,5 +379,5 @@ class TestDiagnosticModels:
 
         assert json_dict["form_submission_id"] == "sub_123"
         assert json_dict["status"] == "partial"
-        assert "instruments" in json_dict
+        assert "measures" in json_dict
         assert "quality" in json_dict

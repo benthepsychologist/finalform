@@ -3,7 +3,7 @@
 import json
 import os
 from pathlib import Path
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 from rich.console import Console
@@ -14,7 +14,7 @@ from final_form.pipeline import Pipeline, PipelineConfig
 
 app = typer.Typer(
     name="final-form",
-    help="Semantic processing engine for psychological instruments.",
+    help="Semantic processing engine for clinical measures.",
     no_args_is_help=True,
 )
 console = Console()
@@ -29,11 +29,11 @@ def version_callback(value: bool) -> None:
 @app.callback()
 def main(
     version: Annotated[
-        Optional[bool],
+        bool | None,
         typer.Option("--version", "-v", callback=version_callback, is_eager=True),
     ] = None,
 ) -> None:
-    """final-form: Semantic processing engine for psychological instruments."""
+    """final-form: Semantic processing engine for clinical measures."""
     pass
 
 
@@ -52,19 +52,19 @@ def run(
         typer.Option("--binding", "-b", help="Binding spec ID (required)"),
     ],
     binding_version: Annotated[
-        Optional[str],
+        str | None,
         typer.Option("--binding-version", help="Binding spec version (default: latest)"),
     ] = None,
-    instrument_registry: Annotated[
-        Optional[Path],
+    measure_registry: Annotated[
+        Path | None,
         typer.Option(
-            "--instrument-registry",
-            envvar="FINAL_FORM_INSTRUMENT_REGISTRY",
-            help="Path to instrument registry",
+            "--measure-registry",
+            envvar="FINAL_FORM_MEASURE_REGISTRY",
+            help="Path to measure registry",
         ),
     ] = None,
     form_binding_registry: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Option(
             "--form-binding-registry",
             envvar="FINAL_FORM_BINDING_REGISTRY",
@@ -72,7 +72,7 @@ def run(
         ),
     ] = None,
     diagnostics: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Option("--diagnostics", "-d", help="Diagnostics output JSONL path"),
     ] = None,
 ) -> None:
@@ -84,12 +84,12 @@ def run(
     - Binding spec ID (required, no auto-detection)
     """
     # Resolve registry paths
-    if instrument_registry is None:
-        env_path = os.environ.get("FINAL_FORM_INSTRUMENT_REGISTRY")
+    if measure_registry is None:
+        env_path = os.environ.get("FINAL_FORM_MEASURE_REGISTRY")
         if env_path:
-            instrument_registry = Path(env_path)
+            measure_registry = Path(env_path)
         else:
-            instrument_registry = Path("instrument-registry")
+            measure_registry = Path("measure-registry")
 
     if form_binding_registry is None:
         env_path = os.environ.get("FINAL_FORM_BINDING_REGISTRY")
@@ -103,8 +103,8 @@ def run(
         console.print(f"[red]Error:[/red] Input file not found: {input_path}")
         raise typer.Exit(1)
 
-    if not instrument_registry.exists():
-        console.print(f"[red]Error:[/red] Instrument registry not found: {instrument_registry}")
+    if not measure_registry.exists():
+        console.print(f"[red]Error:[/red] Measure registry not found: {measure_registry}")
         raise typer.Exit(1)
 
     if not form_binding_registry.exists():
@@ -115,24 +115,24 @@ def run(
     console.print(f"  Input: {input_path}")
     console.print(f"  Output: {output_path}")
     console.print(f"  Binding: {binding}@{binding_version or 'latest'}")
-    console.print(f"  Instrument Registry: {instrument_registry}")
+    console.print(f"  Measure Registry: {measure_registry}")
     console.print(f"  Binding Registry: {form_binding_registry}")
     if diagnostics:
         console.print(f"  Diagnostics: {diagnostics}")
 
     # Resolve schema paths
     schema_dir = Path("schemas")
-    instrument_schema = schema_dir / "instrument_spec.schema.json"
+    measure_schema = schema_dir / "measure_spec.schema.json"
     binding_schema = schema_dir / "form_binding_spec.schema.json"
 
     # Initialize pipeline
     try:
         config = PipelineConfig(
-            instrument_registry_path=instrument_registry,
+            measure_registry_path=measure_registry,
             binding_registry_path=form_binding_registry,
             binding_id=binding,
             binding_version=binding_version,
-            instrument_schema_path=instrument_schema if instrument_schema.exists() else None,
+            measure_schema_path=measure_schema if measure_schema.exists() else None,
             binding_schema_path=binding_schema if binding_schema.exists() else None,
         )
         pipeline = Pipeline(config)
@@ -141,7 +141,7 @@ def run(
         raise typer.Exit(1)
 
     console.print(f"\n[green]Loaded binding:[/green] {pipeline.binding_spec.binding_id}@{pipeline.binding_spec.version}")
-    console.print(f"[green]Loaded instruments:[/green] {', '.join(pipeline.instruments.keys())}")
+    console.print(f"[green]Loaded measures:[/green] {', '.join(pipeline.measures.keys())}")
 
     # Process input file
     events_written = 0
@@ -183,11 +183,11 @@ def run(
 
                     # Write diagnostics
                     if f_diag:
-                        f_diag.write(result.diagnostic.model_dump_json() + "\n")
+                        f_diag.write(result.diagnostics.model_dump_json() + "\n")
                         diagnostics_written += 1
 
                     # Track status
-                    status = result.diagnostic.status.value
+                    status = result.diagnostics.status.value
                     if status == "success":
                         success_count += 1
                     elif status == "partial":
@@ -201,7 +201,7 @@ def run(
                     f_diag.close()
 
     # Print summary
-    console.print(f"\n[bold]Summary:[/bold]")
+    console.print("\n[bold]Summary:[/bold]")
     console.print(f"  Forms processed: {success_count + partial_count + failed_count}")
     console.print(f"  [green]Success:[/green] {success_count}")
     if partial_count:
@@ -217,14 +217,14 @@ def run(
 def validate(
     spec_type: Annotated[
         str,
-        typer.Argument(help="Type of spec to validate: instrument, binding"),
+        typer.Argument(help="Type of spec to validate: measure, binding"),
     ],
     spec_path: Annotated[
         Path,
         typer.Argument(help="Path to the spec file"),
     ],
     schema_path: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Option("--schema", "-s", help="Path to the schema file"),
     ] = None,
 ) -> None:
@@ -240,8 +240,8 @@ def validate(
     # Determine schema path if not provided
     if schema_path is None:
         schema_dir = Path("schemas")
-        if spec_type == "instrument":
-            schema_path = schema_dir / "instrument_spec.schema.json"
+        if spec_type == "measure":
+            schema_path = schema_dir / "measure_spec.schema.json"
         elif spec_type == "binding":
             schema_path = schema_dir / "form_binding_spec.schema.json"
         else:

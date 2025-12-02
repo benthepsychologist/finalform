@@ -1,6 +1,6 @@
 {
-  "type": "instrument_spec",
-  "instrument_id": "gad7",
+  "type": "measure_spec",
+  "measure_id": "gad7",
   "version": "1.0.0",
   "name": "Generalized Anxiety Disorder-7",
   "kind": "questionnaire",

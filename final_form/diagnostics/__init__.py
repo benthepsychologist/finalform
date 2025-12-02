@@ -9,7 +9,7 @@ from final_form.diagnostics.models import (
     DiagnosticError,
     DiagnosticWarning,
     FormDiagnostic,
-    InstrumentDiagnostic,
+    MeasureDiagnostic,
     ProcessingStatus,
     QualityMetrics,
 )
@@ -19,7 +19,7 @@ __all__ = [
     "DiagnosticError",
     "DiagnosticWarning",
     "FormDiagnostic",
-    "InstrumentDiagnostic",
+    "MeasureDiagnostic",
     "ProcessingStatus",
     "QualityMetrics",
 ]

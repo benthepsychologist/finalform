@@ -6,7 +6,7 @@ import pytest
 
 from final_form.mapping import MappedItem, MappedSection, MappingResult
 from final_form.recoding import RecodedItem, Recoder, RecodingError, RecodingResult
-from final_form.registry import InstrumentRegistry
+from final_form.registry import MeasureRegistry
 
 
 @pytest.fixture
@@ -16,16 +16,16 @@ def recoder() -> Recoder:
 
 
 @pytest.fixture
-def phq9_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def phq9_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the PHQ-9 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("phq9", "1.0.0")
 
 
 @pytest.fixture
-def gad7_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def gad7_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the GAD-7 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("gad7", "1.0.0")
 
 
@@ -33,33 +33,33 @@ def gad7_spec(instrument_registry_path: Path, instrument_schema_path: Path):
 def phq9_mapped_section() -> MappedSection:
     """A mapped PHQ-9 section with text answers."""
     return MappedSection(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         items=[
             MappedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id="phq9_item1",
                 raw_answer="several days",
                 field_key="entry.1",
             ),
             MappedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id="phq9_item2",
                 raw_answer="not at all",
                 field_key="entry.2",
             ),
             MappedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id="phq9_item3",
                 raw_answer="more than half the days",
                 field_key="entry.3",
             ),
             MappedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id="phq9_item4",
                 raw_answer="nearly every day",
                 field_key="entry.4",
@@ -78,20 +78,20 @@ def complete_mapping_result() -> MappingResult:
         timestamp="2025-01-15T10:30:00Z",
         sections=[
             MappedSection(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 items=[
                     MappedItem(
-                        instrument_id="phq9",
-                        instrument_version="1.0.0",
+                        measure_id="phq9",
+                        measure_version="1.0.0",
                         item_id=f"phq9_item{i}",
                         raw_answer="several days",
                     )
                     for i in range(1, 10)
                 ] + [
                     MappedItem(
-                        instrument_id="phq9",
-                        instrument_version="1.0.0",
+                        measure_id="phq9",
+                        measure_version="1.0.0",
                         item_id="phq9_item10",
                         raw_answer="somewhat difficult",
                     )
@@ -110,7 +110,7 @@ class TestRecoder:
         """Test recoding text answers to numeric values."""
         result = recoder.recode_section(phq9_mapped_section, phq9_spec)
 
-        assert result.instrument_id == "phq9"
+        assert result.measure_id == "phq9"
         assert len(result.items) == 4
 
         # Check values
@@ -134,12 +134,12 @@ class TestRecoder:
     def test_recode_numeric_answers(self, recoder: Recoder, phq9_spec) -> None:
         """Test recoding numeric answers (pass through)."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer=2,
                 ),
@@ -152,12 +152,12 @@ class TestRecoder:
     def test_recode_numeric_string(self, recoder: Recoder, phq9_spec) -> None:
         """Test recoding numeric strings."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer="2",
                 ),
@@ -170,18 +170,18 @@ class TestRecoder:
     def test_recode_case_insensitive(self, recoder: Recoder, phq9_spec) -> None:
         """Test that text matching is case insensitive."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer="SEVERAL DAYS",
                 ),
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item2",
                     raw_answer="Not At All",
                 ),
@@ -195,12 +195,12 @@ class TestRecoder:
     def test_recode_strips_whitespace(self, recoder: Recoder, phq9_spec) -> None:
         """Test that text is stripped of whitespace."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer="  several days  ",
                 ),
@@ -214,12 +214,12 @@ class TestRecoder:
         """Test that aliases are resolved before lookup."""
         # PHQ-9 has alias: "more than half of the days" -> "more than half the days"
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer="more than half of the days",
                 ),
@@ -232,18 +232,18 @@ class TestRecoder:
     def test_recode_missing_value(self, recoder: Recoder, phq9_spec) -> None:
         """Test that missing/null values are marked."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer=None,
                 ),
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item2",
                     raw_answer="",
                 ),
@@ -259,12 +259,12 @@ class TestRecoder:
     def test_error_on_unknown_text(self, recoder: Recoder, phq9_spec) -> None:
         """Test that unknown text raises RecodingError."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer="invalid response",
                 ),
@@ -280,12 +280,12 @@ class TestRecoder:
     def test_error_includes_valid_responses(self, recoder: Recoder, phq9_spec) -> None:
         """Test that error message includes valid responses."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer="wrong",
                 ),
@@ -301,12 +301,12 @@ class TestRecoder:
     def test_error_on_out_of_range_numeric(self, recoder: Recoder, phq9_spec) -> None:
         """Test that out-of-range numeric values raise error."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     raw_answer=99,
                 ),
@@ -336,12 +336,12 @@ class TestRecoder:
     def test_recode_severity_item(self, recoder: Recoder, phq9_spec) -> None:
         """Test recoding PHQ-9 item 10 (severity)."""
         section = MappedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 MappedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item10",
                     raw_answer="somewhat difficult",
                 ),
@@ -360,8 +360,8 @@ class TestRecoder:
             timestamp="2025-01-15T10:30:00Z",
             sections=[
                 MappedSection(
-                    instrument_id="missing",
-                    instrument_version="1.0.0",
+                    measure_id="missing",
+                    measure_version="1.0.0",
                     items=[],
                 )
             ],
@@ -379,15 +379,15 @@ class TestRecodedItem:
     def test_recoded_item_attributes(self) -> None:
         """Test RecodedItem has expected attributes."""
         item = RecodedItem(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             item_id="phq9_item1",
             value=2,
             raw_answer="more than half the days",
             missing=False,
         )
 
-        assert item.instrument_id == "phq9"
+        assert item.measure_id == "phq9"
         assert item.value == 2
         assert item.raw_answer == "more than half the days"
         assert item.missing is False
@@ -395,8 +395,8 @@ class TestRecodedItem:
     def test_recoded_item_missing(self) -> None:
         """Test RecodedItem with missing value."""
         item = RecodedItem(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             item_id="phq9_item1",
             value=None,
             raw_answer=None,

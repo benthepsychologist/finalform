@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from final_form.recoding import RecodedItem, RecodedSection
-from final_form.registry import InstrumentRegistry
+from final_form.registry import MeasureRegistry
 from final_form.scoring import ScoringEngine
 
 
@@ -20,9 +20,9 @@ def engine() -> ScoringEngine:
 
 
 @pytest.fixture
-def phq9_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def phq9_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the PHQ-9 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("phq9", "1.0.0")
 
 
@@ -41,8 +41,8 @@ def make_phq9_section(
     """
     items = [
         RecodedItem(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             item_id=f"phq9_item{i+1}",
             value=v,
             raw_answer=str(v),
@@ -51,16 +51,16 @@ def make_phq9_section(
     ]
     items.append(
         RecodedItem(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             item_id="phq9_item10",
             value=severity_value,
             raw_answer=str(severity_value),
         )
     )
     return RecodedSection(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         items=items,
     )
 
@@ -179,8 +179,8 @@ class TestPHQ9Scoring:
         # 8 items = 2 each, 1 missing
         items = [
             RecodedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id=f"phq9_item{i}",
                 value=2,
                 raw_answer="2",
@@ -189,8 +189,8 @@ class TestPHQ9Scoring:
         ]
         items.append(
             RecodedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id="phq9_item9",
                 value=None,
                 raw_answer=None,
@@ -199,16 +199,16 @@ class TestPHQ9Scoring:
         )
         items.append(
             RecodedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id="phq9_item10",
                 value=0,
                 raw_answer="0",
             )
         )
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=items,
         )
 

@@ -1,23 +1,23 @@
-"""Registry modules for loading instrument and binding specifications."""
+"""Registry modules for loading measure and binding specifications."""
 
 from final_form.registry.bindings import BindingRegistry
-from final_form.registry.instruments import InstrumentRegistry
+from final_form.registry.measures import MeasureRegistry
 from final_form.registry.models import (
     Binding,
     BindingSection,
     FormBindingSpec,
-    InstrumentItem,
-    InstrumentScale,
-    InstrumentSpec,
     Interpretation,
+    MeasureItem,
+    MeasureScale,
+    MeasureSpec,
 )
 
 __all__ = [
-    "InstrumentRegistry",
+    "MeasureRegistry",
     "BindingRegistry",
-    "InstrumentSpec",
-    "InstrumentItem",
-    "InstrumentScale",
+    "MeasureSpec",
+    "MeasureItem",
+    "MeasureScale",
     "Interpretation",
     "FormBindingSpec",
     "BindingSection",

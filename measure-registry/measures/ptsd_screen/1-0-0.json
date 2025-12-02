@@ -1,0 +1,96 @@
+{
+  "type": "measure_spec",
+  "measure_id": "ptsd_screen",
+  "version": "1.0.0",
+  "name": "PTSD Screener (PC-PTSD-5 style)",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Brief 5-item PTSD symptom screener covering core symptom clusters. Follows PC-PTSD-5 format. Used when trauma exposure is endorsed.",
+  "items": [
+    {
+      "item_id": "ptsd_screen_item1",
+      "position": 1,
+      "text": "If you experienced one of more traumatic experiences listed above, does this event/trauma currently interfere with your life?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ptsd_screen_item2",
+      "position": 2,
+      "text": "Had nightmares about it or thought about it when you did not want to?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ptsd_screen_item3",
+      "position": 3,
+      "text": "Tried hard not to think about it or went out of your way to avoid situations that reminded you of it?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ptsd_screen_item4",
+      "position": 4,
+      "text": "Constantly been on guard, watchful, or easily startled?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ptsd_screen_item5",
+      "position": 5,
+      "text": "Felt numb or detached from others, activities, or your surroundings?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "ptsd_screen",
+      "name": "Ptsd Screen",
+      "items": [
+        "ptsd_screen_item1",
+        "ptsd_screen_item2",
+        "ptsd_screen_item3",
+        "ptsd_screen_item4",
+        "ptsd_screen_item5"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 5,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 2,
+          "label": "Screen Negative",
+          "severity": 0,
+          "description": "Below threshold for PTSD symptoms"
+        },
+        {
+          "min": 3,
+          "max": 4,
+          "label": "Screen Positive",
+          "severity": 4,
+          "description": "Probable PTSD - full clinical assessment recommended"
+        }
+      ]
+    }
+  ]
+}

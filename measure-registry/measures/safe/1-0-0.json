@@ -1,0 +1,111 @@
+{
+  "type": "measure_spec",
+  "measure_id": "safe",
+  "version": "1.0.0",
+  "name": "Therapy Process Assessment Scale - Safety Subscale",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "TPAS safety subscale measures perceived safety through items (safe, secure, warm, content) scored from 0 (not at all like me) to 4 (very much like me).",
+  "items": [
+    {
+      "item_id": "safe_item1",
+      "position": 1,
+      "text": "Safe",
+      "response_map": {
+        "not at all like me": 0,
+        "a little like me": 1,
+        "somewhat like me": 2,
+        "mostly like me": 3,
+        "very much like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "safe_item2",
+      "position": 2,
+      "text": "Secure",
+      "response_map": {
+        "not at all like me": 0,
+        "a little like me": 1,
+        "somewhat like me": 2,
+        "mostly like me": 3,
+        "very much like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "safe_item3",
+      "position": 3,
+      "text": "Warm",
+      "response_map": {
+        "not at all like me": 0,
+        "a little like me": 1,
+        "somewhat like me": 2,
+        "mostly like me": 3,
+        "very much like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "safe_item4",
+      "position": 4,
+      "text": "Content",
+      "response_map": {
+        "not at all like me": 0,
+        "a little like me": 1,
+        "somewhat like me": 2,
+        "mostly like me": 3,
+        "very much like me": 4
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "safe",
+      "name": "Safe",
+      "items": [
+        "safe_item1",
+        "safe_item2",
+        "safe_item3",
+        "safe_item4"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 16,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 4,
+          "label": "Not Very Safe",
+          "severity": 1,
+          "description": "Low perceived safety"
+        },
+        {
+          "min": 5,
+          "max": 8,
+          "label": "Somewhat Safe",
+          "severity": 1,
+          "description": "Moderate perceived safety"
+        },
+        {
+          "min": 9,
+          "max": 12,
+          "label": "Mostly Safe",
+          "severity": 2,
+          "description": "Good perceived safety"
+        },
+        {
+          "min": 13,
+          "max": 16,
+          "label": "Very Safe",
+          "severity": 3,
+          "description": "Excellent perceived safety"
+        }
+      ]
+    }
+  ]
+}

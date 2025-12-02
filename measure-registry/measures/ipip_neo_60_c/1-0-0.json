@@ -1,0 +1,447 @@
+{
+  "type": "measure_spec",
+  "measure_id": "ipip_neo_60_c",
+  "version": "1.0.0",
+  "name": "IPIP-NEO-60 Conscientiousness Factor",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Conscientiousness factor from the IPIP-NEO-60 measuring self-organization, task management, and self-discipline. Includes 6 facets (2 items each) measuring different aspects of conscientiousness.",
+  "items": [
+    {
+      "item_id": "ipip_neo_60_c_item1",
+      "position": 1,
+      "text": "I handle tasks smoothly",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item2",
+      "position": 2,
+      "text": "I know how to get things done",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item3",
+      "position": 3,
+      "text": "I like to tidy up",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item4",
+      "position": 4,
+      "text": "I leave a mess in my room",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item5",
+      "position": 5,
+      "text": "I tell the truth",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item6",
+      "position": 6,
+      "text": "I break my promises",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item7",
+      "position": 7,
+      "text": "I work hard",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item8",
+      "position": 8,
+      "text": "I set high standards for myself and others",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item9",
+      "position": 9,
+      "text": "I carry out my plans",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item10",
+      "position": 10,
+      "text": "I have difficulty starting tasks",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item11",
+      "position": 11,
+      "text": "I make rash decisions",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "ipip_neo_60_c_item12",
+      "position": 12,
+      "text": "I act without thinking",
+      "response_map": {
+        "disagree strongly": 1,
+        "disagree a little": 2,
+        "neither agree nor disagree": 3,
+        "agree a little": 4,
+        "strongly agree": 5
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "ipip_neo_60_c_cons",
+      "name": "Ipip Neo 60 C Cons",
+      "items": [
+        "ipip_neo_60_c_item1",
+        "ipip_neo_60_c_item2",
+        "ipip_neo_60_c_item3",
+        "ipip_neo_60_c_item4",
+        "ipip_neo_60_c_item5",
+        "ipip_neo_60_c_item6",
+        "ipip_neo_60_c_item7",
+        "ipip_neo_60_c_item8",
+        "ipip_neo_60_c_item9",
+        "ipip_neo_60_c_item10",
+        "ipip_neo_60_c_item11",
+        "ipip_neo_60_c_item12"
+      ],
+      "method": "sum",
+      "reversed_items": [
+        "ipip_neo_60_c_item4",
+        "ipip_neo_60_c_item6",
+        "ipip_neo_60_c_item10",
+        "ipip_neo_60_c_item11",
+        "ipip_neo_60_c_item12"
+      ],
+      "min": 12,
+      "max": 60,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 12,
+          "max": 24,
+          "label": "Low Conscientiousness",
+          "severity": 1,
+          "description": "Below average self-organization and task completion"
+        },
+        {
+          "min": 25,
+          "max": 44,
+          "label": "Average Conscientiousness",
+          "severity": 2,
+          "description": "Normal range of conscientiousness"
+        },
+        {
+          "min": 45,
+          "max": 60,
+          "label": "High Conscientiousness",
+          "severity": 3,
+          "description": "Strong self-discipline and organization"
+        }
+      ]
+    },
+    {
+      "scale_id": "ipip_neo_60_c_self_efficacy",
+      "name": "Ipip Neo 60 C Self Efficacy",
+      "items": [
+        "ipip_neo_60_c_item1",
+        "ipip_neo_60_c_item2"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 2,
+      "max": 10,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 2,
+          "max": 4,
+          "label": "Low Self-Efficacy",
+          "severity": 1,
+          "description": "Difficulty managing tasks"
+        },
+        {
+          "min": 5,
+          "max": 7,
+          "label": "Average Self-Efficacy",
+          "severity": 2,
+          "description": "Normal task management"
+        },
+        {
+          "min": 8,
+          "max": 10,
+          "label": "High Self-Efficacy",
+          "severity": 3,
+          "description": "Strong confidence in task completion"
+        }
+      ]
+    },
+    {
+      "scale_id": "ipip_neo_60_c_orderliness",
+      "name": "Ipip Neo 60 C Orderliness",
+      "items": [
+        "ipip_neo_60_c_item3",
+        "ipip_neo_60_c_item4"
+      ],
+      "method": "sum",
+      "reversed_items": [
+        "ipip_neo_60_c_item4"
+      ],
+      "min": 2,
+      "max": 10,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 2,
+          "max": 4,
+          "label": "Low Orderliness",
+          "severity": 1,
+          "description": "Tends toward disorganization"
+        },
+        {
+          "min": 5,
+          "max": 7,
+          "label": "Average Orderliness",
+          "severity": 2,
+          "description": "Normal organization"
+        },
+        {
+          "min": 8,
+          "max": 10,
+          "label": "High Orderliness",
+          "severity": 3,
+          "description": "Very organized and tidy"
+        }
+      ]
+    },
+    {
+      "scale_id": "ipip_neo_60_c_dutifulness",
+      "name": "Ipip Neo 60 C Dutifulness",
+      "items": [
+        "ipip_neo_60_c_item5",
+        "ipip_neo_60_c_item6"
+      ],
+      "method": "sum",
+      "reversed_items": [
+        "ipip_neo_60_c_item6"
+      ],
+      "min": 2,
+      "max": 10,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 2,
+          "max": 4,
+          "label": "Low Dutifulness",
+          "severity": 1,
+          "description": "Struggles with commitments"
+        },
+        {
+          "min": 5,
+          "max": 7,
+          "label": "Average Dutifulness",
+          "severity": 2,
+          "description": "Normal reliability"
+        },
+        {
+          "min": 8,
+          "max": 10,
+          "label": "High Dutifulness",
+          "severity": 3,
+          "description": "Highly reliable and honest"
+        }
+      ]
+    },
+    {
+      "scale_id": "ipip_neo_60_c_striving",
+      "name": "Ipip Neo 60 C Striving",
+      "items": [
+        "ipip_neo_60_c_item7",
+        "ipip_neo_60_c_item8"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 2,
+      "max": 10,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 2,
+          "max": 4,
+          "label": "Low Achievement Striving",
+          "severity": 1,
+          "description": "Lower standards and effort"
+        },
+        {
+          "min": 5,
+          "max": 7,
+          "label": "Average Achievement Striving",
+          "severity": 2,
+          "description": "Normal work ethic"
+        },
+        {
+          "min": 8,
+          "max": 10,
+          "label": "High Achievement Striving",
+          "severity": 3,
+          "description": "Strong drive and high standards"
+        }
+      ]
+    },
+    {
+      "scale_id": "ipip_neo_60_c_discipline",
+      "name": "Ipip Neo 60 C Discipline",
+      "items": [
+        "ipip_neo_60_c_item9",
+        "ipip_neo_60_c_item10"
+      ],
+      "method": "sum",
+      "reversed_items": [
+        "ipip_neo_60_c_item10"
+      ],
+      "min": 2,
+      "max": 10,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 2,
+          "max": 4,
+          "label": "Low Self-Discipline",
+          "severity": 1,
+          "description": "Difficulty following through"
+        },
+        {
+          "min": 5,
+          "max": 7,
+          "label": "Average Self-Discipline",
+          "severity": 2,
+          "description": "Normal follow-through"
+        },
+        {
+          "min": 8,
+          "max": 10,
+          "label": "High Self-Discipline",
+          "severity": 3,
+          "description": "Excellent task completion"
+        }
+      ]
+    },
+    {
+      "scale_id": "ipip_neo_60_c_selfcontrol",
+      "name": "Ipip Neo 60 C Selfcontrol",
+      "items": [
+        "ipip_neo_60_c_item11",
+        "ipip_neo_60_c_item12"
+      ],
+      "method": "sum",
+      "reversed_items": [
+        "ipip_neo_60_c_item11",
+        "ipip_neo_60_c_item12"
+      ],
+      "min": 2,
+      "max": 10,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 2,
+          "max": 4,
+          "label": "Low Self-Control",
+          "severity": 1,
+          "description": "Impulsive decision-making"
+        },
+        {
+          "min": 5,
+          "max": 7,
+          "label": "Average Self-Control",
+          "severity": 2,
+          "description": "Normal impulse control"
+        },
+        {
+          "min": 8,
+          "max": 10,
+          "label": "High Self-Control",
+          "severity": 3,
+          "description": "Strong impulse control"
+        }
+      ]
+    }
+  ]
+}

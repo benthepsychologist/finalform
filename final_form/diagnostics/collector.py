@@ -10,7 +10,7 @@ from final_form.diagnostics.models import (
     DiagnosticError,
     DiagnosticWarning,
     FormDiagnostic,
-    InstrumentDiagnostic,
+    MeasureDiagnostic,
     ProcessingStatus,
     QualityMetrics,
 )
@@ -49,14 +49,14 @@ class DiagnosticsCollector:
 
         self._form_errors: list[DiagnosticError] = []
         self._form_warnings: list[DiagnosticWarning] = []
-        self._instruments: dict[str, InstrumentDiagnostic] = {}
+        self._measures: dict[str, MeasureDiagnostic] = {}
 
     def add_error(
         self,
         stage: Literal["mapping", "recoding", "validation", "scoring", "interpretation", "building"],
         code: str,
         message: str,
-        instrument_id: str | None = None,
+        measure_id: str | None = None,
         item_id: str | None = None,
         field_key: str | None = None,
         details: dict | None = None,
@@ -67,7 +67,7 @@ class DiagnosticsCollector:
             stage: Processing stage where the error occurred.
             code: Error code (e.g., "MAPPING_FIELD_NOT_FOUND").
             message: Human-readable error message.
-            instrument_id: Optional instrument the error relates to.
+            measure_id: Optional measure the error relates to.
             item_id: Optional item ID the error relates to.
             field_key: Optional field key the error relates to.
             details: Optional additional details.
@@ -81,9 +81,9 @@ class DiagnosticsCollector:
             details=details,
         )
 
-        if instrument_id:
-            self._ensure_instrument(instrument_id)
-            self._instruments[instrument_id].errors.append(error)
+        if measure_id:
+            self._ensure_measure(measure_id)
+            self._measures[measure_id].errors.append(error)
         else:
             self._form_errors.append(error)
 
@@ -92,7 +92,7 @@ class DiagnosticsCollector:
         stage: Literal["mapping", "recoding", "validation", "scoring", "interpretation", "building"],
         code: str,
         message: str,
-        instrument_id: str | None = None,
+        measure_id: str | None = None,
         item_id: str | None = None,
         field_key: str | None = None,
         details: dict | None = None,
@@ -103,7 +103,7 @@ class DiagnosticsCollector:
             stage: Processing stage where the warning occurred.
             code: Warning code (e.g., "MISSING_ITEM").
             message: Human-readable warning message.
-            instrument_id: Optional instrument the warning relates to.
+            measure_id: Optional measure the warning relates to.
             item_id: Optional item ID the warning relates to.
             field_key: Optional field key the warning relates to.
             details: Optional additional details.
@@ -117,22 +117,22 @@ class DiagnosticsCollector:
             details=details,
         )
 
-        if instrument_id:
-            self._ensure_instrument(instrument_id)
-            self._instruments[instrument_id].warnings.append(warning)
+        if measure_id:
+            self._ensure_measure(measure_id)
+            self._measures[measure_id].warnings.append(warning)
         else:
             self._form_warnings.append(warning)
 
-    def _ensure_instrument(
+    def _ensure_measure(
         self,
-        instrument_id: str,
-        instrument_version: str = "unknown",
+        measure_id: str,
+        measure_version: str = "unknown",
     ) -> None:
-        """Ensure an instrument diagnostic exists."""
-        if instrument_id not in self._instruments:
-            self._instruments[instrument_id] = InstrumentDiagnostic(
-                instrument_id=instrument_id,
-                instrument_version=instrument_version,
+        """Ensure a measure diagnostic exists."""
+        if measure_id not in self._measures:
+            self._measures[measure_id] = MeasureDiagnostic(
+                measure_id=measure_id,
+                measure_version=measure_version,
                 status=ProcessingStatus.SUCCESS,
             )
 
@@ -146,16 +146,16 @@ class DiagnosticsCollector:
             mapping_result: The result from the mapping stage.
         """
         for section in mapping_result.sections:
-            self._ensure_instrument(section.instrument_id, section.instrument_version)
-            inst = self._instruments[section.instrument_id]
-            inst.instrument_version = section.instrument_version
+            self._ensure_measure(section.measure_id, section.measure_version)
+            inst = self._measures[section.measure_id]
+            inst.measure_version = section.measure_version
 
         # Collect warnings for unmapped fields
         for field_key in mapping_result.unmapped_fields:
             self.add_warning(
                 stage="mapping",
                 code="UNMAPPED_FIELD",
-                message=f"Field {field_key} was not mapped to any instrument item",
+                message=f"Field {field_key} was not mapped to any measure item",
                 field_key=field_key,
             )
 
@@ -169,7 +169,7 @@ class DiagnosticsCollector:
             recoding_result: The result from the recoding stage.
         """
         for section in recoding_result.sections:
-            self._ensure_instrument(section.instrument_id, section.instrument_version)
+            self._ensure_measure(section.measure_id, section.measure_version)
 
             for item in section.items:
                 if item.missing:
@@ -177,22 +177,22 @@ class DiagnosticsCollector:
                         stage="recoding",
                         code="MISSING_VALUE",
                         message=f"Item {item.item_id} has missing value",
-                        instrument_id=section.instrument_id,
+                        measure_id=section.measure_id,
                         item_id=item.item_id,
                     )
 
     def collect_from_validation(
         self,
         validation_result: ValidationResult,
-        instrument_id: str,
+        measure_id: str,
     ) -> None:
         """Collect diagnostics from a validation result.
 
         Args:
             validation_result: The result from the validation stage.
-            instrument_id: The instrument ID being validated.
+            measure_id: The measure ID being validated.
         """
-        self._ensure_instrument(instrument_id)
+        self._ensure_measure(measure_id)
 
         # Collect errors from the errors list
         for error_msg in validation_result.errors:
@@ -200,7 +200,7 @@ class DiagnosticsCollector:
                 stage="validation",
                 code="VALIDATION_ERROR",
                 message=error_msg,
-                instrument_id=instrument_id,
+                measure_id=measure_id,
             )
 
         # Collect warnings for missing items
@@ -209,7 +209,7 @@ class DiagnosticsCollector:
                 stage="validation",
                 code="VALIDATION_MISSING",
                 message=f"Item {item_id} is missing",
-                instrument_id=instrument_id,
+                measure_id=measure_id,
                 item_id=item_id,
             )
 
@@ -222,7 +222,7 @@ class DiagnosticsCollector:
                     stage="validation",
                     code="VALIDATION_RANGE",
                     message=f"Item {item_id} has out-of-range value",
-                    instrument_id=instrument_id,
+                    measure_id=measure_id,
                     item_id=item_id,
                 )
 
@@ -235,7 +235,7 @@ class DiagnosticsCollector:
         Args:
             scoring_result: The result from the scoring stage.
         """
-        self._ensure_instrument(scoring_result.instrument_id, scoring_result.instrument_version)
+        self._ensure_measure(scoring_result.measure_id, scoring_result.measure_version)
 
         for scale in scoring_result.scales:
             if scale.error:
@@ -243,7 +243,7 @@ class DiagnosticsCollector:
                     stage="scoring",
                     code="SCORING_ERROR",
                     message=scale.error,
-                    instrument_id=scoring_result.instrument_id,
+                    measure_id=scoring_result.measure_id,
                     details={"scale_id": scale.scale_id},
                 )
             if scale.prorated:
@@ -251,37 +251,37 @@ class DiagnosticsCollector:
                     stage="scoring",
                     code="PRORATED_SCORE",
                     message=f"Scale {scale.scale_id} was prorated due to missing items",
-                    instrument_id=scoring_result.instrument_id,
+                    measure_id=scoring_result.measure_id,
                     details={
                         "scale_id": scale.scale_id,
                         "missing_items": scale.missing_items,
                     },
                 )
 
-    def set_instrument_quality(
+    def set_measure_quality(
         self,
-        instrument_id: str,
+        measure_id: str,
         items_total: int,
         items_present: int,
         missing_items: list[str],
         out_of_range_items: list[str],
         prorated_scales: list[str],
     ) -> None:
-        """Set quality metrics for an instrument.
+        """Set quality metrics for a measure.
 
         Args:
-            instrument_id: The instrument ID.
+            measure_id: The measure ID.
             items_total: Total number of items expected.
             items_present: Number of items that were present.
             missing_items: List of missing item IDs.
             out_of_range_items: List of out-of-range item IDs.
             prorated_scales: List of scales that were prorated.
         """
-        self._ensure_instrument(instrument_id)
+        self._ensure_measure(measure_id)
 
         completeness = items_present / items_total if items_total > 0 else 0.0
 
-        self._instruments[instrument_id].quality = QualityMetrics(
+        self._measures[measure_id].quality = QualityMetrics(
             completeness=completeness,
             missing_items=missing_items,
             out_of_range_items=out_of_range_items,
@@ -298,8 +298,8 @@ class DiagnosticsCollector:
         Returns:
             Complete FormDiagnostic for the form submission.
         """
-        # Determine instrument statuses
-        for inst in self._instruments.values():
+        # Determine measure statuses
+        for inst in self._measures.values():
             if inst.errors:
                 inst.status = ProcessingStatus.FAILED
             elif inst.warnings:
@@ -308,23 +308,23 @@ class DiagnosticsCollector:
                 inst.status = ProcessingStatus.SUCCESS
 
         # Determine overall form status
-        instruments_list = list(self._instruments.values())
+        measures_list = list(self._measures.values())
 
-        if self._form_errors or any(i.status == ProcessingStatus.FAILED for i in instruments_list):
+        if self._form_errors or any(i.status == ProcessingStatus.FAILED for i in measures_list):
             form_status = ProcessingStatus.FAILED
-        elif self._form_warnings or any(i.status == ProcessingStatus.PARTIAL for i in instruments_list):
+        elif self._form_warnings or any(i.status == ProcessingStatus.PARTIAL for i in measures_list):
             form_status = ProcessingStatus.PARTIAL
         else:
             form_status = ProcessingStatus.SUCCESS
 
         # Compute aggregate quality metrics
-        total_items = sum(i.quality.items_total for i in instruments_list if i.quality)
-        present_items = sum(i.quality.items_present for i in instruments_list if i.quality)
+        total_items = sum(i.quality.items_total for i in measures_list if i.quality)
+        present_items = sum(i.quality.items_present for i in measures_list if i.quality)
         all_missing = []
         all_out_of_range = []
         all_prorated = []
 
-        for inst in instruments_list:
+        for inst in measures_list:
             if inst.quality:
                 all_missing.extend(inst.quality.missing_items)
                 all_out_of_range.extend(inst.quality.out_of_range_items)
@@ -345,7 +345,7 @@ class DiagnosticsCollector:
             binding_id=self.binding_id,
             binding_version=self.binding_version,
             status=form_status,
-            instruments=instruments_list,
+            measures=measures_list,
             errors=self._form_errors,
             warnings=self._form_warnings,
             quality=form_quality,

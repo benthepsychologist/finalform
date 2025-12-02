@@ -1,0 +1,167 @@
+{
+  "type": "measure_spec",
+  "measure_id": "joy",
+  "version": "1.0.0",
+  "name": "Joy and Curiosity Scale",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Homegrown measure combining joy/pleasure and curiosity items. Designed to measure engagement with life and present-moment interest.",
+  "items": [
+    {
+      "item_id": "joy_item1",
+      "position": 1,
+      "text": "I was curious about my reactions to things",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "joy_item2",
+      "position": 2,
+      "text": "I was curious to see what my mind was up to from moment to moment",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "joy_item3",
+      "position": 3,
+      "text": "I was curious about the people I interacted with and what was going on with them",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "joy_item4",
+      "position": 4,
+      "text": "I was curious about how my life was unfolding and what might happen next",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "joy_item5",
+      "position": 5,
+      "text": "I was able to find enjoyment or take pleasure in small moments",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "joy_item6",
+      "position": 6,
+      "text": "There were things I was looking forward to doing or experiencing",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "joy_item7",
+      "position": 7,
+      "text": "There were things that were fun or pleasant enough that I lost track of time or stopped worrying about the future",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "joy_item8",
+      "position": 8,
+      "text": "I was having fun in life",
+      "response_map": {
+        "not at all": 0,
+        "a little": 1,
+        "moderately": 2,
+        "quite a bit": 3,
+        "very much": 4
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "joy",
+      "name": "Joy",
+      "items": [
+        "joy_item1",
+        "joy_item2",
+        "joy_item3",
+        "joy_item4",
+        "joy_item5",
+        "joy_item6",
+        "joy_item7",
+        "joy_item8"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 32,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 7,
+          "label": "Not At All",
+          "severity": 4,
+          "description": "Very low joy and curiosity"
+        },
+        {
+          "min": 8,
+          "max": 15,
+          "label": "A Little",
+          "severity": 2,
+          "description": "Below average joy experiences"
+        },
+        {
+          "min": 16,
+          "max": 23,
+          "label": "Moderately",
+          "severity": 1,
+          "description": "Moderate joy levels"
+        },
+        {
+          "min": 24,
+          "max": 32,
+          "label": "Quite a Bit to Very Much",
+          "severity": 0,
+          "description": "Good to excellent joy and curiosity - target range"
+        }
+      ]
+    }
+  ]
+}

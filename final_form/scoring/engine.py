@@ -1,6 +1,6 @@
 """Scoring engine for computing scale scores.
 
-The engine is generic - it reads all scoring rules from the instrument spec.
+The engine is generic - it reads all scoring rules from the measure spec.
 No per-questionnaire code is allowed.
 """
 
@@ -9,7 +9,7 @@ from typing import Literal
 from pydantic import BaseModel
 
 from final_form.recoding.recoder import RecodedSection
-from final_form.registry.models import InstrumentSpec
+from final_form.registry.models import MeasureSpec
 from final_form.scoring.methods import compute_score, prorate_score
 from final_form.scoring.reverse import apply_reverse_scoring, get_max_value_for_item
 
@@ -36,10 +36,10 @@ class ScaleScore(BaseModel):
 
 
 class ScoringResult(BaseModel):
-    """Result of scoring all scales in an instrument."""
+    """Result of scoring all scales in a measure."""
 
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     scales: list[ScaleScore]
 
     def get_scale(self, scale_id: str) -> ScaleScore | None:
@@ -53,7 +53,7 @@ class ScoringResult(BaseModel):
 class ScoringEngine:
     """Generic scoring engine that computes scale scores from recoded items.
 
-    The engine reads all scoring rules from the instrument specification:
+    The engine reads all scoring rules from the measure specification:
     - Which items belong to each scale
     - Which items are reverse scored
     - The scoring method (sum, average, sum_then_double)
@@ -65,13 +65,13 @@ class ScoringEngine:
     def score(
         self,
         section: RecodedSection,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> ScoringResult:
         """Compute all scale scores for a recoded section.
 
         Args:
             section: The recoded section with numeric values.
-            instrument: The instrument specification.
+            measure: The measure specification.
 
         Returns:
             ScoringResult with scores for all scales.
@@ -83,13 +83,13 @@ class ScoringEngine:
 
         # Score each scale
         scale_scores: list[ScaleScore] = []
-        for scale in instrument.scales:
-            score = self._score_scale(scale, item_values, instrument)
+        for scale in measure.scales:
+            score = self._score_scale(scale, item_values, measure)
             scale_scores.append(score)
 
         return ScoringResult(
-            instrument_id=section.instrument_id,
-            instrument_version=section.instrument_version,
+            measure_id=section.measure_id,
+            measure_version=section.measure_version,
             scales=scale_scores,
         )
 
@@ -97,7 +97,7 @@ class ScoringEngine:
         self,
         scale,
         item_values: dict[str, int | float | None],
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> ScaleScore:
         """Score a single scale."""
         # Collect values for items in this scale
@@ -147,7 +147,7 @@ class ScoringEngine:
             # Get max value from first item's response map
             # (assuming all items in scale have same response range)
             first_item_id = scale.items[0]
-            first_item_spec = instrument.get_item(first_item_id)
+            first_item_spec = measure.get_item(first_item_id)
             if first_item_spec:
                 max_value = get_max_value_for_item(first_item_spec.response_map)
                 values = apply_reverse_scoring(values, scale.reversed_items, max_value)
@@ -178,20 +178,20 @@ class ScoringEngine:
     def score_scale(
         self,
         section: RecodedSection,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
         scale_id: str,
     ) -> ScaleScore | None:
         """Score a single scale.
 
         Args:
             section: The recoded section.
-            instrument: The instrument specification.
+            measure: The measure specification.
             scale_id: The scale to score.
 
         Returns:
             ScaleScore for the specified scale, or None if not found.
         """
-        scale = instrument.get_scale(scale_id)
+        scale = measure.get_scale(scale_id)
         if scale is None:
             return None
 
@@ -200,4 +200,4 @@ class ScoringEngine:
         for item in section.items:
             item_values[item.item_id] = item.value
 
-        return self._score_scale(scale, item_values, instrument)
+        return self._score_scale(scale, item_values, measure)

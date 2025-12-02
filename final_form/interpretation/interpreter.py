@@ -1,11 +1,11 @@
 """Interpreter for applying score interpretation bands.
 
-Looks up interpretation labels from the instrument spec based on score ranges.
+Looks up interpretation labels from the measure spec based on score ranges.
 """
 
 from pydantic import BaseModel
 
-from final_form.registry.models import InstrumentSpec
+from final_form.registry.models import MeasureSpec
 from final_form.scoring.engine import ScaleScore, ScoringResult
 
 
@@ -24,8 +24,8 @@ class InterpretedScore(BaseModel):
 class InterpretationResult(BaseModel):
     """Result of interpreting all scale scores."""
 
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     scores: list[InterpretedScore]
 
     def get_score(self, scale_id: str) -> InterpretedScore | None:
@@ -39,20 +39,20 @@ class InterpretationResult(BaseModel):
 class Interpreter:
     """Applies interpretation bands to scale scores.
 
-    The interpreter reads interpretation ranges from the instrument spec
+    The interpreter reads interpretation ranges from the measure spec
     and matches scale scores to their corresponding labels.
     """
 
     def interpret(
         self,
         scoring_result: ScoringResult,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> InterpretationResult:
         """Interpret all scale scores.
 
         Args:
             scoring_result: The scoring result with scale scores.
-            instrument: The instrument specification.
+            measure: The measure specification.
 
         Returns:
             InterpretationResult with labels for all scores.
@@ -60,19 +60,19 @@ class Interpreter:
         interpreted_scores: list[InterpretedScore] = []
 
         for scale_score in scoring_result.scales:
-            interpreted = self._interpret_scale(scale_score, instrument)
+            interpreted = self._interpret_scale(scale_score, measure)
             interpreted_scores.append(interpreted)
 
         return InterpretationResult(
-            instrument_id=scoring_result.instrument_id,
-            instrument_version=scoring_result.instrument_version,
+            measure_id=scoring_result.measure_id,
+            measure_version=scoring_result.measure_version,
             scores=interpreted_scores,
         )
 
     def _interpret_scale(
         self,
         scale_score: ScaleScore,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> InterpretedScore:
         """Interpret a single scale score."""
         # If no value, can't interpret
@@ -86,14 +86,14 @@ class Interpreter:
             )
 
         # Get scale spec
-        scale_spec = instrument.get_scale(scale_score.scale_id)
+        scale_spec = measure.get_scale(scale_score.scale_id)
         if scale_spec is None:
             return InterpretedScore(
                 scale_id=scale_score.scale_id,
                 name=scale_score.name,
                 value=scale_score.value,
                 label=None,
-                error=f"Scale not found in instrument spec: {scale_score.scale_id}",
+                error=f"Scale not found in measure spec: {scale_score.scale_id}",
             )
 
         # Find matching interpretation range
@@ -122,36 +122,36 @@ class Interpreter:
     def interpret_scale(
         self,
         scale_score: ScaleScore,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> InterpretedScore:
         """Interpret a single scale score.
 
         Args:
             scale_score: The scale score to interpret.
-            instrument: The instrument specification.
+            measure: The measure specification.
 
         Returns:
             InterpretedScore with label.
         """
-        return self._interpret_scale(scale_score, instrument)
+        return self._interpret_scale(scale_score, measure)
 
     def get_label(
         self,
         scale_id: str,
         value: float,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> str | None:
         """Get the interpretation label for a score value.
 
         Args:
             scale_id: The scale ID.
             value: The score value.
-            instrument: The instrument specification.
+            measure: The measure specification.
 
         Returns:
             The interpretation label, or None if not found.
         """
-        scale_spec = instrument.get_scale(scale_id)
+        scale_spec = measure.get_scale(scale_id)
         if scale_spec is None:
             return None
 

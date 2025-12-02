@@ -1,0 +1,158 @@
+{
+  "type": "measure_spec",
+  "measure_id": "msi",
+  "version": "1.0.0",
+  "name": "McLean Screening Instrument for BPD",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Borderline Personality Disorder screener. Higher scores indicate likelihood of BPD.",
+  "items": [
+    {
+      "item_id": "msi_item1",
+      "position": 1,
+      "text": "Have any of your closest relationships been troubled by a lot of arguments or repeated breakups?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item2",
+      "position": 2,
+      "text": "Have you deliberately hurt yourself physically (e.g., punched yourself, cut yourself, burned yourself)? How about made a suicide attempt?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item3",
+      "position": 3,
+      "text": "Have you had at least two other problems with impulsivity (e.g., eating binges and spending sprees, drinking too much and verbal outbursts)?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item4",
+      "position": 4,
+      "text": "Have you been extremely moody?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item5",
+      "position": 5,
+      "text": "Have you felt very angry a lot of the time? How about often acted in an angry or sarcastic manner?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item6",
+      "position": 6,
+      "text": "Have you often been distrustful of other people?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item7",
+      "position": 7,
+      "text": "Have you frequently felt unreal or as if things around you were unreal?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item8",
+      "position": 8,
+      "text": "Have you chronically felt empty?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item9",
+      "position": 9,
+      "text": "Have you often felt that you had no idea of who you are or that you have no identity?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "msi_item10",
+      "position": 10,
+      "text": "Have you made desperate efforts to avoid feeling abandoned or being abandoned (e.g., repeatedly called someone to reassure yourself that he or she still cared, begged them not to leave you, clung to them physically)?",
+      "response_map": {
+        "no": 0,
+        "yes": 1
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "msi",
+      "name": "Msi",
+      "items": [
+        "msi_item1",
+        "msi_item2",
+        "msi_item3",
+        "msi_item4",
+        "msi_item5",
+        "msi_item6",
+        "msi_item7",
+        "msi_item8",
+        "msi_item9",
+        "msi_item10"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 10,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 3,
+          "label": "Unlikely BPD",
+          "severity": 0,
+          "description": "Low likelihood of borderline traits"
+        },
+        {
+          "min": 4,
+          "max": 6,
+          "label": "Possible Dysregulation",
+          "severity": 2,
+          "description": "Common with anxiety or mood dysregulation (not necessarily personality disorder)"
+        },
+        {
+          "min": 7,
+          "max": 10,
+          "label": "High Likelihood BPD",
+          "severity": 4,
+          "description": "High likelihood of Borderline Personality Disorder - look for trauma and emotional instability"
+        }
+      ]
+    }
+  ]
+}

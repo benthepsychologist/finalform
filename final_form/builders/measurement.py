@@ -1,6 +1,6 @@
 """Builder for MeasurementEvent and Observation JSON structures.
 
-Constructs FHIR-aligned output structures from processed instrument data.
+Constructs FHIR-aligned output structures from processed measure data.
 These are JSON-serializable Pydantic models - actual event emission is
 handled downstream by lorchestra.
 """
@@ -33,7 +33,7 @@ class Telemetry(BaseModel):
 
     processed_at: str
     final_form_version: str
-    instrument_spec: str
+    measure_spec: str
     form_binding_spec: str
     warnings: list[str] = Field(default_factory=list)
 
@@ -43,7 +43,7 @@ class Observation(BaseModel):
 
     schema_: str = Field(alias="schema", default="com.lifeos.observation.v1")
     observation_id: str
-    instrument_id: str
+    measure_id: str
     code: str  # item_id or scale_id
     kind: Literal["item", "scale"]
     value: int | float | str | None
@@ -57,12 +57,12 @@ class Observation(BaseModel):
 
 
 class MeasurementEvent(BaseModel):
-    """A complete measurement event for one instrument."""
+    """A complete measurement event for one measure."""
 
     schema_: str = Field(alias="schema", default="com.lifeos.measurement_event.v1")
     measurement_event_id: str
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     subject_id: str
     timestamp: str
     source: Source
@@ -115,7 +115,7 @@ class MeasurementEventBuilder:
         """Build a MeasurementEvent from processed data.
 
         Args:
-            recoded_section: The recoded items for this instrument.
+            recoded_section: The recoded items for this measure.
             scoring_result: The computed scale scores.
             interpretation_result: The interpreted scores with labels.
             binding_spec: The binding spec used for processing.
@@ -129,7 +129,7 @@ class MeasurementEventBuilder:
         Returns:
             A complete MeasurementEvent ready for JSON serialization.
         """
-        seed = f"{form_submission_id}:{recoded_section.instrument_id}"
+        seed = f"{form_submission_id}:{recoded_section.measure_id}"
 
         # Build observations for items
         item_observations = self._build_item_observations(recoded_section, seed)
@@ -155,7 +155,7 @@ class MeasurementEventBuilder:
         telemetry = Telemetry(
             processed_at=datetime.now(timezone.utc).isoformat(),
             final_form_version=__version__,
-            instrument_spec=f"{recoded_section.instrument_id}@{recoded_section.instrument_version}",
+            measure_spec=f"{recoded_section.measure_id}@{recoded_section.measure_version}",
             form_binding_spec=f"{binding_spec.binding_id}@{binding_spec.version}",
             warnings=warnings or [],
         )
@@ -164,8 +164,8 @@ class MeasurementEventBuilder:
         return MeasurementEvent(
             schema="com.lifeos.measurement_event.v1",
             measurement_event_id=self._generate_id(seed),
-            instrument_id=recoded_section.instrument_id,
-            instrument_version=recoded_section.instrument_version,
+            measure_id=recoded_section.measure_id,
+            measure_version=recoded_section.measure_version,
             subject_id=subject_id,
             timestamp=timestamp,
             source=source,
@@ -187,7 +187,7 @@ class MeasurementEventBuilder:
             obs = Observation(
                 schema="com.lifeos.observation.v1",
                 observation_id=self._generate_id(f"{seed}:item:{item.item_id}"),
-                instrument_id=item.instrument_id,
+                measure_id=item.measure_id,
                 code=item.item_id,
                 kind="item",
                 value=item.value,
@@ -219,7 +219,7 @@ class MeasurementEventBuilder:
             obs = Observation(
                 schema="com.lifeos.observation.v1",
                 observation_id=self._generate_id(f"{seed}:scale:{scale_score.scale_id}"),
-                instrument_id=scoring_result.instrument_id,
+                measure_id=scoring_result.measure_id,
                 code=scale_score.scale_id,
                 kind="scale",
                 value=scale_score.value,

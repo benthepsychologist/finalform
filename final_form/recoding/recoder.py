@@ -1,6 +1,6 @@
 """Recoder for transforming raw answers to numeric values.
 
-The recoder transforms text responses to numeric values using the instrument's
+The recoder transforms text responses to numeric values using the measure's
 response_map. It does not perform fuzzy matching - text must match exactly
 (after normalization and alias resolution).
 """
@@ -10,7 +10,7 @@ from typing import Any
 from pydantic import BaseModel
 
 from final_form.mapping.mapper import MappedItem, MappedSection, MappingResult
-from final_form.registry.models import InstrumentSpec
+from final_form.registry.models import MeasureSpec
 
 
 class RecodingError(Exception):
@@ -22,8 +22,8 @@ class RecodingError(Exception):
 class RecodedItem(BaseModel):
     """A recoded item with numeric value."""
 
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     item_id: str
     value: int | float | None
     raw_answer: Any
@@ -33,10 +33,10 @@ class RecodedItem(BaseModel):
 
 
 class RecodedSection(BaseModel):
-    """A section of recoded items for a single instrument."""
+    """A section of recoded items for a single measure."""
 
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     items: list[RecodedItem]
 
 
@@ -51,7 +51,7 @@ class RecodingResult(BaseModel):
 
 
 class Recoder:
-    """Recodes raw answers to numeric values using instrument specifications.
+    """Recodes raw answers to numeric values using measure specifications.
 
     The recoder is strict:
     - Text must match response_map exactly (after normalization)
@@ -62,13 +62,13 @@ class Recoder:
     def recode(
         self,
         mapping_result: MappingResult,
-        instruments: dict[str, InstrumentSpec],
+        measures: dict[str, MeasureSpec],
     ) -> RecodingResult:
         """Recode all mapped items to numeric values.
 
         Args:
             mapping_result: Result from the mapping engine.
-            instruments: Dictionary of instrument_id -> InstrumentSpec.
+            measures: Dictionary of measure_id -> MeasureSpec.
 
         Returns:
             RecodingResult with numeric values for all items.
@@ -79,17 +79,17 @@ class Recoder:
         sections: list[RecodedSection] = []
 
         for mapped_section in mapping_result.sections:
-            instrument = instruments.get(mapped_section.instrument_id)
-            if instrument is None:
+            measure = measures.get(mapped_section.measure_id)
+            if measure is None:
                 raise RecodingError(
-                    f"Instrument spec not found: {mapped_section.instrument_id}"
+                    f"Measure spec not found: {mapped_section.measure_id}"
                 )
 
-            recoded_items = self._recode_section(mapped_section, instrument)
+            recoded_items = self._recode_section(mapped_section, measure)
             sections.append(
                 RecodedSection(
-                    instrument_id=mapped_section.instrument_id,
-                    instrument_version=mapped_section.instrument_version,
+                    measure_id=mapped_section.measure_id,
+                    measure_version=mapped_section.measure_version,
                     items=recoded_items,
                 )
             )
@@ -105,13 +105,13 @@ class Recoder:
     def _recode_section(
         self,
         section: MappedSection,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> list[RecodedItem]:
         """Recode all items in a section."""
         recoded_items: list[RecodedItem] = []
 
         for mapped_item in section.items:
-            recoded_item = self._recode_item(mapped_item, instrument)
+            recoded_item = self._recode_item(mapped_item, measure)
             recoded_items.append(recoded_item)
 
         return recoded_items
@@ -119,14 +119,14 @@ class Recoder:
     def _recode_item(
         self,
         mapped_item: MappedItem,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> RecodedItem:
         """Recode a single mapped item."""
-        item_spec = instrument.get_item(mapped_item.item_id)
+        item_spec = measure.get_item(mapped_item.item_id)
         if item_spec is None:
             raise RecodingError(
-                f"Item not found in instrument spec: {mapped_item.item_id} "
-                f"in instrument {instrument.instrument_id}"
+                f"Item not found in measure spec: {mapped_item.item_id} "
+                f"in measure {measure.measure_id}"
             )
 
         raw_answer = mapped_item.raw_answer
@@ -150,8 +150,8 @@ class Recoder:
             )
 
         return RecodedItem(
-            instrument_id=mapped_item.instrument_id,
-            instrument_version=mapped_item.instrument_version,
+            measure_id=mapped_item.measure_id,
+            measure_version=mapped_item.measure_version,
             item_id=mapped_item.item_id,
             value=value,
             raw_answer=raw_answer,
@@ -218,20 +218,20 @@ class Recoder:
     def recode_section(
         self,
         mapped_section: MappedSection,
-        instrument: InstrumentSpec,
+        measure: MeasureSpec,
     ) -> RecodedSection:
         """Recode a single section.
 
         Args:
             mapped_section: The mapped section to recode.
-            instrument: The instrument specification.
+            measure: The measure specification.
 
         Returns:
             RecodedSection with numeric values.
         """
-        recoded_items = self._recode_section(mapped_section, instrument)
+        recoded_items = self._recode_section(mapped_section, measure)
         return RecodedSection(
-            instrument_id=mapped_section.instrument_id,
-            instrument_version=mapped_section.instrument_version,
+            measure_id=mapped_section.measure_id,
+            measure_version=mapped_section.measure_version,
             items=recoded_items,
         )

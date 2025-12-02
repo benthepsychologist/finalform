@@ -1,0 +1,111 @@
+{
+  "type": "measure_spec",
+  "measure_id": "sleep_disturbances",
+  "version": "1.0.0",
+  "name": "Sleep Disturbances Scale",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Brief sleep quality assessment measuring common sleep disturbances over the past two weeks.",
+  "items": [
+    {
+      "item_id": "sleep_disturbances_item1",
+      "position": 1,
+      "text": "Difficulty falling asleep (taking more than 30 minutes)",
+      "response_map": {
+        "never (<1/wk)": 0,
+        "occasionally (~1/wk)": 1,
+        "sometimes (~2/wk)": 2,
+        "often (3-5/wk)": 4,
+        "always (6-7/wk)": 6
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "sleep_disturbances_item2",
+      "position": 2,
+      "text": "Waking in the night and having difficulty returning to sleep",
+      "response_map": {
+        "never (<1/wk)": 0,
+        "occasionally (~1/wk)": 1,
+        "sometimes (~2/wk)": 2,
+        "often (3-5/wk)": 4,
+        "always (6-7/wk)": 6
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "sleep_disturbances_item3",
+      "position": 3,
+      "text": "Waking up too early and being unable to return to sleep",
+      "response_map": {
+        "never (<1/wk)": 0,
+        "occasionally (~1/wk)": 1,
+        "sometimes (~2/wk)": 2,
+        "often (3-5/wk)": 4,
+        "always (6-7/wk)": 6
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "sleep_disturbances_item4",
+      "position": 4,
+      "text": "Waking up tired or otherwise not refreshed",
+      "response_map": {
+        "never (<1/wk)": 0,
+        "occasionally (~1/wk)": 1,
+        "sometimes (~2/wk)": 2,
+        "often (3-5/wk)": 4,
+        "always (6-7/wk)": 6
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "sleep_disturbances",
+      "name": "Sleep Disturbances",
+      "items": [
+        "sleep_disturbances_item1",
+        "sleep_disturbances_item2",
+        "sleep_disturbances_item3",
+        "sleep_disturbances_item4"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 26,
+      "missing_allowed": 0,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 6,
+          "label": "Minimal Sleep Issues",
+          "severity": 0,
+          "description": "Very few sleep disturbances"
+        },
+        {
+          "min": 7,
+          "max": 13,
+          "label": "Mild Sleep Issues",
+          "severity": 1,
+          "description": "Some sleep disturbances present"
+        },
+        {
+          "min": 14,
+          "max": 19,
+          "label": "Moderate Sleep Issues",
+          "severity": 2,
+          "description": "Significant sleep disturbances requiring attention"
+        },
+        {
+          "min": 20,
+          "max": 26,
+          "label": "Severe Sleep Issues",
+          "severity": 4,
+          "description": "Severe and frequent sleep disturbances"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,472 @@
+{
+  "type": "measure_spec",
+  "measure_id": "fscrs",
+  "version": "1.0.0",
+  "name": "Forms of Self-Criticizing/Attacking and Self-Reassuring Scale",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "The FSCRS measures self-criticism (inadequate self and hated self) and self-reassurance. Self-criticism relates to depression and anxiety; self-reassurance is protective and trainable.",
+  "items": [
+    {
+      "item_id": "fscrs_item1",
+      "position": 1,
+      "text": "I am easily disappointed with myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item2",
+      "position": 2,
+      "text": "There is a part of me that puts me down",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item3",
+      "position": 3,
+      "text": "I am able to remind myself of positive things about myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item4",
+      "position": 4,
+      "text": "I find it difficult to control my anger and frustration at myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item5",
+      "position": 5,
+      "text": "I find it easy to forgive myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item6",
+      "position": 6,
+      "text": "There is a part of me that feels I am not good enough",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item7",
+      "position": 7,
+      "text": "I feel beaten down by my own self-critical thoughts",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item8",
+      "position": 8,
+      "text": "I still like being me",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item9",
+      "position": 9,
+      "text": "I have become so angry with myself that I want to hurt or injure myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item10",
+      "position": 10,
+      "text": "I have a sense of disgust with myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item11",
+      "position": 11,
+      "text": "I can still feel lovable and acceptable",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item12",
+      "position": 12,
+      "text": "I stop caring about myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item13",
+      "position": 13,
+      "text": "I find it easy to like myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item14",
+      "position": 14,
+      "text": "I remember and dwell on my failings",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item15",
+      "position": 15,
+      "text": "I call myself names",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item16",
+      "position": 16,
+      "text": "I am gentle and supportive with myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item17",
+      "position": 17,
+      "text": "I can't accept failures and setbacks without feeling inadequate",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item18",
+      "position": 18,
+      "text": "I think I deserve my self-criticism",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item19",
+      "position": 19,
+      "text": "I am able to care and look after myself",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item20",
+      "position": 20,
+      "text": "There is a part of me that wants to get rid of the bits I don't like",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item21",
+      "position": 21,
+      "text": "I encourage myself for the future",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "fscrs_item22",
+      "position": 22,
+      "text": "I do not like being me",
+      "response_map": {
+        "not at all like me": 0,
+        "a little bit like me": 1,
+        "moderately like me": 2,
+        "quite a bit like me": 3,
+        "extremely like me": 4
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "fscrs_inadequacy",
+      "name": "Fscrs Inadequacy",
+      "items": [
+        "fscrs_item1",
+        "fscrs_item2",
+        "fscrs_item4",
+        "fscrs_item6",
+        "fscrs_item7",
+        "fscrs_item14",
+        "fscrs_item17",
+        "fscrs_item18",
+        "fscrs_item20"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 36,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 15,
+          "label": "Low Inadequacy",
+          "severity": 0,
+          "description": "Minimal feelings of inadequacy"
+        },
+        {
+          "min": 16,
+          "max": 25,
+          "label": "Moderate Inadequacy",
+          "severity": 2,
+          "description": "Some self-critical thoughts about inadequacy"
+        },
+        {
+          "min": 26,
+          "max": 36,
+          "label": "High Inadequacy",
+          "severity": 4,
+          "description": "Significant feelings of inadequacy - target for intervention"
+        }
+      ]
+    },
+    {
+      "scale_id": "fscrs_self_hatred",
+      "name": "Fscrs Self Hatred",
+      "items": [
+        "fscrs_item9",
+        "fscrs_item10",
+        "fscrs_item12",
+        "fscrs_item15",
+        "fscrs_item22"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 16,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 4,
+          "label": "Low Self-Hatred",
+          "severity": 0,
+          "description": "Minimal self-hatred"
+        },
+        {
+          "min": 5,
+          "max": 9,
+          "label": "Moderate Self-Hatred",
+          "severity": 2,
+          "description": "Some self-attacking thoughts"
+        },
+        {
+          "min": 10,
+          "max": 16,
+          "label": "High Self-Hatred",
+          "severity": 4,
+          "description": "Significant self-hatred - clinical attention needed"
+        }
+      ]
+    },
+    {
+      "scale_id": "fscrs_self_reassurance",
+      "name": "Fscrs Self Reassurance",
+      "items": [
+        "fscrs_item3",
+        "fscrs_item5",
+        "fscrs_item8",
+        "fscrs_item11",
+        "fscrs_item13",
+        "fscrs_item16",
+        "fscrs_item19",
+        "fscrs_item21"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 32,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 14,
+          "label": "Low Self-Reassurance",
+          "severity": 1,
+          "description": "Difficulty being self-supportive - key target for compassion training"
+        },
+        {
+          "min": 15,
+          "max": 20,
+          "label": "Moderate Self-Reassurance",
+          "severity": 2,
+          "description": "Some capacity for self-support"
+        },
+        {
+          "min": 21,
+          "max": 32,
+          "label": "High Self-Reassurance",
+          "severity": 3,
+          "description": "Strong self-compassion and support"
+        }
+      ]
+    },
+    {
+      "scale_id": "fscrs_self_criticism",
+      "name": "Fscrs Self Criticism",
+      "items": [
+        "fscrs_item1",
+        "fscrs_item2",
+        "fscrs_item4",
+        "fscrs_item6",
+        "fscrs_item7",
+        "fscrs_item9",
+        "fscrs_item10",
+        "fscrs_item12",
+        "fscrs_item14",
+        "fscrs_item15",
+        "fscrs_item17",
+        "fscrs_item18",
+        "fscrs_item20",
+        "fscrs_item22"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 56,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 14,
+          "label": "Low Self-Criticism",
+          "severity": 0,
+          "description": "Minimal self-critical tendencies"
+        },
+        {
+          "min": 15,
+          "max": 24,
+          "label": "Moderate Self-Criticism",
+          "severity": 2,
+          "description": "Some self-criticism present"
+        },
+        {
+          "min": 25,
+          "max": 56,
+          "label": "High Self-Criticism",
+          "severity": 4,
+          "description": "Significant self-criticism - primary target for therapy"
+        }
+      ]
+    }
+  ]
+}

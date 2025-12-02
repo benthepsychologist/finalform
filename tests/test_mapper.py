@@ -74,8 +74,8 @@ class TestMapper:
         """Test mapping PHQ-9 section."""
         result = mapper.map(complete_phq9_response, example_binding)
 
-        phq9_section = next(s for s in result.sections if s.instrument_id == "phq9")
-        assert phq9_section.instrument_version == "1.0.0"
+        phq9_section = next(s for s in result.sections if s.measure_id == "phq9")
+        assert phq9_section.measure_version == "1.0.0"
         assert len(phq9_section.items) == 10  # All 10 PHQ-9 items
 
         # Check first item
@@ -89,8 +89,8 @@ class TestMapper:
         """Test mapping GAD-7 section."""
         result = mapper.map(complete_phq9_response, example_binding)
 
-        gad7_section = next(s for s in result.sections if s.instrument_id == "gad7")
-        assert gad7_section.instrument_version == "1.0.0"
+        gad7_section = next(s for s in result.sections if s.measure_id == "gad7")
+        assert gad7_section.measure_version == "1.0.0"
         assert len(gad7_section.items) == 8  # All 8 GAD-7 items
 
     def test_map_preserves_raw_answers(
@@ -99,7 +99,7 @@ class TestMapper:
         """Test that raw answers are preserved exactly."""
         result = mapper.map(complete_phq9_response, example_binding)
 
-        phq9_section = next(s for s in result.sections if s.instrument_id == "phq9")
+        phq9_section = next(s for s in result.sections if s.measure_id == "phq9")
 
         expected_answers = {
             "phq9_item1": "several days",
@@ -150,7 +150,7 @@ class TestMapper:
             mapper.map(incomplete_response, example_binding)
 
         error_msg = str(exc_info.value)
-        assert "instrument" in error_msg.lower()
+        assert "measure" in error_msg.lower()
         assert "phq9" in error_msg
 
     def test_map_with_numeric_answers(
@@ -173,7 +173,7 @@ class TestMapper:
 
         result = mapper.map(response, example_binding)
 
-        phq9_section = next(s for s in result.sections if s.instrument_id == "phq9")
+        phq9_section = next(s for s in result.sections if s.measure_id == "phq9")
         assert phq9_section.items[0].raw_answer == 1
         assert phq9_section.items[3].raw_answer == 0  # 4 % 4
 
@@ -200,7 +200,7 @@ class TestMapper:
         )
 
         assert section is not None
-        assert section.instrument_id == "phq9"
+        assert section.measure_id == "phq9"
         assert len(section.items) == 10
 
     def test_map_section_returns_none_for_unknown_instrument(
@@ -220,16 +220,16 @@ class TestMappedItem:
     def test_mapped_item_attributes(self) -> None:
         """Test MappedItem has expected attributes."""
         item = MappedItem(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             item_id="phq9_item1",
             raw_answer="several days",
             field_key="entry.123",
             position=1,
         )
 
-        assert item.instrument_id == "phq9"
-        assert item.instrument_version == "1.0.0"
+        assert item.measure_id == "phq9"
+        assert item.measure_version == "1.0.0"
         assert item.item_id == "phq9_item1"
         assert item.raw_answer == "several days"
         assert item.field_key == "entry.123"
@@ -238,8 +238,8 @@ class TestMappedItem:
     def test_mapped_item_optional_fields(self) -> None:
         """Test MappedItem with optional fields."""
         item = MappedItem(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             item_id="phq9_item1",
             raw_answer="several days",
         )

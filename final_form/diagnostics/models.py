@@ -51,11 +51,11 @@ class QualityMetrics(BaseModel):
     items_present: int = 0
 
 
-class InstrumentDiagnostic(BaseModel):
-    """Diagnostics for a single instrument within a form submission."""
+class MeasureDiagnostic(BaseModel):
+    """Diagnostics for a single measure within a form submission."""
 
-    instrument_id: str
-    instrument_version: str
+    measure_id: str
+    measure_version: str
     status: ProcessingStatus
     errors: list[DiagnosticError] = Field(default_factory=list)
     warnings: list[DiagnosticWarning] = Field(default_factory=list)
@@ -70,7 +70,7 @@ class FormDiagnostic(BaseModel):
     binding_id: str
     binding_version: str
     status: ProcessingStatus
-    instruments: list[InstrumentDiagnostic] = Field(default_factory=list)
+    measures: list[MeasureDiagnostic] = Field(default_factory=list)
     errors: list[DiagnosticError] = Field(default_factory=list)
     warnings: list[DiagnosticWarning] = Field(default_factory=list)
     quality: QualityMetrics | None = None

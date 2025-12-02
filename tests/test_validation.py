@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from final_form.recoding import RecodedItem, RecodedSection
-from final_form.registry import InstrumentRegistry
+from final_form.registry import MeasureRegistry
 from final_form.validation import ValidationResult, Validator
 
 
@@ -16,9 +16,9 @@ def validator() -> Validator:
 
 
 @pytest.fixture
-def phq9_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def phq9_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the PHQ-9 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("phq9", "1.0.0")
 
 
@@ -26,12 +26,12 @@ def phq9_spec(instrument_registry_path: Path, instrument_schema_path: Path):
 def complete_phq9_section() -> RecodedSection:
     """A complete PHQ-9 section with all 10 items."""
     return RecodedSection(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         items=[
             RecodedItem(
-                instrument_id="phq9",
-                instrument_version="1.0.0",
+                measure_id="phq9",
+                measure_version="1.0.0",
                 item_id=f"phq9_item{i}",
                 value=1,
                 raw_answer="several days",
@@ -47,8 +47,8 @@ def partial_phq9_section() -> RecodedSection:
     """A partial PHQ-9 section with 1 missing item."""
     items = [
         RecodedItem(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             item_id=f"phq9_item{i}",
             value=1,
             raw_answer="several days",
@@ -58,16 +58,16 @@ def partial_phq9_section() -> RecodedSection:
     ]
     # Also mark item 9 as missing (null value)
     items[8] = RecodedItem(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         item_id="phq9_item9",
         value=None,
         raw_answer=None,
         missing=True,
     )
     return RecodedSection(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         items=items,
     )
 
@@ -105,12 +105,12 @@ class TestValidator:
     ) -> None:
         """Test validation catches out-of-range values."""
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     value=99,  # Out of range (valid: 0-3)
                     raw_answer=99,
@@ -118,8 +118,8 @@ class TestValidator:
                 )
             ] + [
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -142,12 +142,12 @@ class TestValidator:
         """Test completeness calculation."""
         # Create section with half the items
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -179,12 +179,12 @@ class TestValidator:
         """Test scale validation with missing items."""
         # Create section missing item 1 (part of phq9_total scale)
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -207,12 +207,12 @@ class TestValidator:
         """Test scale validation fails with too many missing items."""
         # Create section missing items 1 and 2 (phq9_total allows only 1 missing)
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -243,7 +243,7 @@ class TestValidator:
     def test_validation_result_properties(self) -> None:
         """Test ValidationResult properties."""
         result = ValidationResult(
-            instrument_id="phq9",
+            measure_id="phq9",
             valid=False,
             completeness=0.8,
             missing_items=["item1", "item2"],
@@ -257,7 +257,7 @@ class TestValidator:
     def test_validation_result_no_errors(self) -> None:
         """Test ValidationResult has_errors when no errors."""
         result = ValidationResult(
-            instrument_id="phq9",
+            measure_id="phq9",
             valid=True,
             completeness=1.0,
             missing_items=[],
@@ -272,12 +272,12 @@ class TestValidator:
     ) -> None:
         """Test validation catches negative values."""
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item1",
                     value=-1,  # Negative, out of range
                     raw_answer=-1,
@@ -285,8 +285,8 @@ class TestValidator:
                 )
             ] + [
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -306,12 +306,12 @@ class TestValidator:
     ) -> None:
         """Test validation of severity item (item 10)."""
         section = RecodedSection(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             items=[
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id=f"phq9_item{i}",
                     value=1,
                     raw_answer="several days",
@@ -320,8 +320,8 @@ class TestValidator:
                 for i in range(1, 10)
             ] + [
                 RecodedItem(
-                    instrument_id="phq9",
-                    instrument_version="1.0.0",
+                    measure_id="phq9",
+                    measure_version="1.0.0",
                     item_id="phq9_item10",
                     value=2,  # "very difficult" = 2
                     raw_answer="very difficult",

@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from final_form.interpretation import InterpretedScore, InterpretationResult, Interpreter
-from final_form.registry import InstrumentRegistry
+from final_form.interpretation import InterpretationResult, InterpretedScore, Interpreter
+from final_form.registry import MeasureRegistry
 from final_form.scoring import ScaleScore, ScoringResult
 
 
@@ -16,16 +16,16 @@ def interpreter() -> Interpreter:
 
 
 @pytest.fixture
-def phq9_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def phq9_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the PHQ-9 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("phq9", "1.0.0")
 
 
 @pytest.fixture
-def gad7_spec(instrument_registry_path: Path, instrument_schema_path: Path):
+def gad7_spec(measure_registry_path: Path, measure_schema_path: Path):
     """Load the GAD-7 instrument spec."""
-    registry = InstrumentRegistry(instrument_registry_path, schema_path=instrument_schema_path)
+    registry = MeasureRegistry(measure_registry_path, schema_path=measure_schema_path)
     return registry.get("gad7", "1.0.0")
 
 
@@ -53,8 +53,8 @@ def make_scale_score(
 def make_scoring_result(scales: list[ScaleScore]) -> ScoringResult:
     """Create a ScoringResult for testing."""
     return ScoringResult(
-        instrument_id="phq9",
-        instrument_version="1.0.0",
+        measure_id="phq9",
+        measure_version="1.0.0",
         scales=scales,
     )
 
@@ -126,8 +126,8 @@ class TestInterpreter:
     def test_interpret_gad7_minimal(self, interpreter: Interpreter, gad7_spec) -> None:
         """Test GAD-7 minimal interpretation (0-4)."""
         scoring_result = ScoringResult(
-            instrument_id="gad7",
-            instrument_version="1.0.0",
+            measure_id="gad7",
+            measure_version="1.0.0",
             scales=[make_scale_score("gad7_total", "GAD-7 Total Score", 2.0)],
         )
         result = interpreter.interpret(scoring_result, gad7_spec)
@@ -139,8 +139,8 @@ class TestInterpreter:
     def test_interpret_gad7_severe(self, interpreter: Interpreter, gad7_spec) -> None:
         """Test GAD-7 severe interpretation (15-21)."""
         scoring_result = ScoringResult(
-            instrument_id="gad7",
-            instrument_version="1.0.0",
+            measure_id="gad7",
+            measure_version="1.0.0",
             scales=[make_scale_score("gad7_total", "GAD-7 Total Score", 18.0)],
         )
         result = interpreter.interpret(scoring_result, gad7_spec)
@@ -238,8 +238,8 @@ class TestInterpretationResult:
     def test_get_score_found(self) -> None:
         """Test get_score when score exists."""
         result = InterpretationResult(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             scores=[
                 InterpretedScore(
                     scale_id="phq9_total",
@@ -257,8 +257,8 @@ class TestInterpretationResult:
     def test_get_score_not_found(self) -> None:
         """Test get_score when score doesn't exist."""
         result = InterpretationResult(
-            instrument_id="phq9",
-            instrument_version="1.0.0",
+            measure_id="phq9",
+            measure_version="1.0.0",
             scores=[],
         )
 

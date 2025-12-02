@@ -1,0 +1,193 @@
+{
+  "type": "measure_spec",
+  "measure_id": "pss_10",
+  "version": "1.0.0",
+  "name": "Perceived Stress Scale (10-item)",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Brief measure of perceived stress over the past month. Items assess feelings of unpredictability, lack of control, and overload.",
+  "items": [
+    {
+      "item_id": "pss_10_item1",
+      "position": 1,
+      "text": "In the last month, how often have you been upset because of something that happened unexpectedly?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item2",
+      "position": 2,
+      "text": "In the last month, how often have you felt that you were unable to control the important things in your life?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item3",
+      "position": 3,
+      "text": "In the last month, how often have you felt nervous and stressed?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item4",
+      "position": 4,
+      "text": "In the last month, how often have you felt confident about your ability to handle your personal problems?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item5",
+      "position": 5,
+      "text": "In the last month, how often have you felt that things were going your way?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item6",
+      "position": 6,
+      "text": "In the last month, how often have you found that you could not cope with all the things that you had to do?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item7",
+      "position": 7,
+      "text": "In the last month, how often have you been able to control irritations in your life?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item8",
+      "position": 8,
+      "text": "In the last month, how often have you felt that you were on top of things?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item9",
+      "position": 9,
+      "text": "In the last month, how often have you been angered because of things that happened that were outside of your control?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "pss_10_item10",
+      "position": 10,
+      "text": "In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?",
+      "response_map": {
+        "never": 0,
+        "almost never": 1,
+        "sometimes": 2,
+        "fairly often": 3,
+        "very often": 4
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "pss_10",
+      "name": "Pss 10",
+      "items": [
+        "pss_10_item1",
+        "pss_10_item2",
+        "pss_10_item3",
+        "pss_10_item4",
+        "pss_10_item5",
+        "pss_10_item6",
+        "pss_10_item7",
+        "pss_10_item8",
+        "pss_10_item9",
+        "pss_10_item10"
+      ],
+      "method": "sum",
+      "reversed_items": [
+        "pss_10_item4",
+        "pss_10_item5",
+        "pss_10_item7",
+        "pss_10_item8"
+      ],
+      "min": 0,
+      "max": 40,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 13,
+          "label": "Low Stress",
+          "severity": 0,
+          "description": "Low perceived stress"
+        },
+        {
+          "min": 14,
+          "max": 26,
+          "label": "Moderate Stress",
+          "severity": 2,
+          "description": "Moderate stress levels"
+        },
+        {
+          "min": 27,
+          "max": 40,
+          "label": "High Stress",
+          "severity": 4,
+          "description": "High perceived stress - intervention recommended"
+        }
+      ]
+    }
+  ]
+}

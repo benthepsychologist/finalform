@@ -1,0 +1,293 @@
+{
+  "type": "measure_spec",
+  "measure_id": "trauma_exposure",
+  "version": "1.0.0",
+  "name": "Traumatic Experiences Questionnaire (Life Events Checklist)",
+  "kind": "questionnaire",
+  "locale": "en-US",
+  "aliases": [],
+  "description": "Comprehensive trauma exposure screening based on the Life Events Checklist. Measures both type and proximity of traumatic events across the lifespan. Higher scores indicate greater trauma exposure and proximity.",
+  "items": [
+    {
+      "item_id": "trauma_exposure_item1",
+      "position": 1,
+      "text": "Natural disaster (for example, flood, hurricane, tornado, earthquake)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item2",
+      "position": 2,
+      "text": "Fire or explosion",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item3",
+      "position": 3,
+      "text": "Transportation accident (for example, car accident, boat accident, train wreck, plane crash)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item4",
+      "position": 4,
+      "text": "Serious accident at work, home, or during recreational activity",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item5",
+      "position": 5,
+      "text": "Exposure to toxic substance (for example, dangerous chemicals, radiation)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item6",
+      "position": 6,
+      "text": "Physical assault (for example, being attacked, hit, slapped, kicked, beaten up)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item7",
+      "position": 7,
+      "text": "Assault with a weapon (for example, being shot, stabbed, threatened with a knife, gun, bomb)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item8",
+      "position": 8,
+      "text": "Sexual assault (rape, attempted rape, made to perform any type of sexual act through force or threat of harm)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item9",
+      "position": 9,
+      "text": "Other unwanted or uncomfortable sexual experience",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item10",
+      "position": 10,
+      "text": "Combat or exposure to a war-zone (in the military or as a civilian)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item11",
+      "position": 11,
+      "text": "Captivity (for example, being kidnapped, abducted, held hostage, prisoner of war)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item12",
+      "position": 12,
+      "text": "Life-threatening illness or injury",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item13",
+      "position": 13,
+      "text": "Severe human suffering",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item14",
+      "position": 14,
+      "text": "Sudden, violent death (for example, homicide, suicide)",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item15",
+      "position": 15,
+      "text": "Sudden, unexpected death of someone close to you",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item16",
+      "position": 16,
+      "text": "Serious injury, harm, or death you caused to someone else",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    },
+    {
+      "item_id": "trauma_exposure_item17",
+      "position": 17,
+      "text": "Any other very stressful event or experience",
+      "response_map": {
+        "doesn't apply": 0,
+        "not sure": 1,
+        "learned about it": 2,
+        "witnessed it": 3,
+        "happened to me": 4
+      },
+      "aliases": {}
+    }
+  ],
+  "scales": [
+    {
+      "scale_id": "trauma_exposure",
+      "name": "Trauma Exposure",
+      "items": [
+        "trauma_exposure_item1",
+        "trauma_exposure_item2",
+        "trauma_exposure_item3",
+        "trauma_exposure_item4",
+        "trauma_exposure_item5",
+        "trauma_exposure_item6",
+        "trauma_exposure_item7",
+        "trauma_exposure_item8",
+        "trauma_exposure_item9",
+        "trauma_exposure_item10",
+        "trauma_exposure_item11",
+        "trauma_exposure_item12",
+        "trauma_exposure_item13",
+        "trauma_exposure_item14",
+        "trauma_exposure_item15",
+        "trauma_exposure_item16",
+        "trauma_exposure_item17"
+      ],
+      "method": "sum",
+      "reversed_items": [],
+      "min": 0,
+      "max": 68,
+      "missing_allowed": 1,
+      "interpretations": [
+        {
+          "min": 0,
+          "max": 5,
+          "label": "Minimal Exposure",
+          "severity": 0,
+          "description": "Little to no trauma exposure"
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "Low Exposure",
+          "severity": 1,
+          "description": "Some trauma exposure, mostly indirect"
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "Moderate Exposure",
+          "severity": 2,
+          "description": "Moderate trauma exposure - clinical attention recommended"
+        },
+        {
+          "min": 31,
+          "max": 68,
+          "label": "High Exposure",
+          "severity": 4,
+          "description": "Significant trauma burden - comprehensive trauma assessment needed"
+        }
+      ]
+    }
+  ]
+}

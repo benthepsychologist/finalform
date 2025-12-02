@@ -1,8 +1,9 @@
 """Input/output utilities for reading and writing JSONL files."""
 
 import json
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any
 
 
 def read_jsonl(path: Path | str) -> Iterator[dict[str, Any]]:
