@@ -26,6 +26,7 @@ class MeasureScale(BaseModel):
     min: int | None = None
     max: int | None = None
     missing_allowed: int = 0
+    missing_strategy: Literal["fail", "skip", "prorate"] = "fail"
     interpretations: list[Interpretation]
 
 

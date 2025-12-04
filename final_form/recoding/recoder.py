@@ -198,10 +198,13 @@ class Recoder:
         # Normalize: lowercase and strip whitespace
         normalized = raw_answer.lower().strip()
 
-        # Check aliases first to resolve to canonical text
-        if item_spec.aliases and normalized in item_spec.aliases:
-            canonical = item_spec.aliases[normalized]
-            normalized = canonical.lower().strip()
+        # Check aliases first to resolve to canonical text (case-insensitive)
+        if item_spec.aliases:
+            # Build lowercase alias map for case-insensitive lookup
+            aliases_lower = {k.lower().strip(): v for k, v in item_spec.aliases.items()}
+            if normalized in aliases_lower:
+                canonical = aliases_lower[normalized]
+                normalized = canonical.lower().strip()
 
         # Build lowercase response map for lookup
         response_map_lower = {k.lower().strip(): v for k, v in item_spec.response_map.items()}

@@ -1,0 +1,91 @@
+{
+  "type": "form_binding_spec",
+  "form_id": "googleforms::google-forms-intake-02",
+  "binding_id": "intake_02",
+  "version": "1.0.0",
+  "description": "Mensio Therapy Intake form #2 - bindings for FSCRS, IPIP-NEO-60-C, PSS-10, PHLMS-10",
+  "sections": [
+    {
+      "name": "FSCRS",
+      "measure_id": "fscrs",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "fscrs_item1", "by": "field_key", "value": "11309392" },
+        { "item_id": "fscrs_item2", "by": "field_key", "value": "03a76817" },
+        { "item_id": "fscrs_item3", "by": "field_key", "value": "5822ad02" },
+        { "item_id": "fscrs_item4", "by": "field_key", "value": "055338ae" },
+        { "item_id": "fscrs_item5", "by": "field_key", "value": "0b964b50" },
+        { "item_id": "fscrs_item6", "by": "field_key", "value": "16e8a589" },
+        { "item_id": "fscrs_item7", "by": "field_key", "value": "133c7f51" },
+        { "item_id": "fscrs_item8", "by": "field_key", "value": "201730f3" },
+        { "item_id": "fscrs_item9", "by": "field_key", "value": "235948bd" },
+        { "item_id": "fscrs_item10", "by": "field_key", "value": "23b22c55" },
+        { "item_id": "fscrs_item11", "by": "field_key", "value": "27703f53" },
+        { "item_id": "fscrs_item12", "by": "field_key", "value": "2bdabd11" },
+        { "item_id": "fscrs_item13", "by": "field_key", "value": "376766ad" },
+        { "item_id": "fscrs_item14", "by": "field_key", "value": "3c906d59" },
+        { "item_id": "fscrs_item15", "by": "field_key", "value": "44756420" },
+        { "item_id": "fscrs_item16", "by": "field_key", "value": "48fdcd62" },
+        { "item_id": "fscrs_item17", "by": "field_key", "value": "4cf56109" },
+        { "item_id": "fscrs_item18", "by": "field_key", "value": "556905c7" },
+        { "item_id": "fscrs_item19", "by": "field_key", "value": "588cb3bb" },
+        { "item_id": "fscrs_item20", "by": "field_key", "value": "74c36ed7" },
+        { "item_id": "fscrs_item21", "by": "field_key", "value": "77685e9c" },
+        { "item_id": "fscrs_item22", "by": "field_key", "value": "7f37d099" }
+      ]
+    },
+    {
+      "name": "IPIP-NEO-60-C",
+      "measure_id": "ipip_neo_60_c",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "ipip_neo_60_c_item1", "by": "field_key", "value": "7c0bf341" },
+        { "item_id": "ipip_neo_60_c_item2", "by": "field_key", "value": "33abc9da" },
+        { "item_id": "ipip_neo_60_c_item3", "by": "field_key", "value": "3799d261" },
+        { "item_id": "ipip_neo_60_c_item4", "by": "field_key", "value": "4a9b3e51" },
+        { "item_id": "ipip_neo_60_c_item5", "by": "field_key", "value": "2de28a1e" },
+        { "item_id": "ipip_neo_60_c_item6", "by": "field_key", "value": "26899546" },
+        { "item_id": "ipip_neo_60_c_item7", "by": "field_key", "value": "19da03f9" },
+        { "item_id": "ipip_neo_60_c_item8", "by": "field_key", "value": "59c13d1b" },
+        { "item_id": "ipip_neo_60_c_item9", "by": "field_key", "value": "1dab53ec" },
+        { "item_id": "ipip_neo_60_c_item10", "by": "field_key", "value": "0a226217" },
+        { "item_id": "ipip_neo_60_c_item11", "by": "field_key", "value": "010a5655" },
+        { "item_id": "ipip_neo_60_c_item12", "by": "field_key", "value": "32f23fb8" }
+      ]
+    },
+    {
+      "name": "PSS-10",
+      "measure_id": "pss_10",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "pss_10_item1", "by": "field_key", "value": "055aec49" },
+        { "item_id": "pss_10_item2", "by": "field_key", "value": "1218a4a5" },
+        { "item_id": "pss_10_item3", "by": "field_key", "value": "1434e038" },
+        { "item_id": "pss_10_item4", "by": "field_key", "value": "43db5263" },
+        { "item_id": "pss_10_item5", "by": "field_key", "value": "5d1b4e1a" },
+        { "item_id": "pss_10_item6", "by": "field_key", "value": "609a4c31" },
+        { "item_id": "pss_10_item7", "by": "field_key", "value": "62d3a9db" },
+        { "item_id": "pss_10_item8", "by": "field_key", "value": "6ddff591" },
+        { "item_id": "pss_10_item9", "by": "field_key", "value": "728b0103" },
+        { "item_id": "pss_10_item10", "by": "field_key", "value": "79181d88" }
+      ]
+    },
+    {
+      "name": "PHLMS-10",
+      "measure_id": "phlms_10",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "phlms_10_item1", "by": "field_key", "value": "0aa95c27" },
+        { "item_id": "phlms_10_item2", "by": "field_key", "value": "1c75bbb5" },
+        { "item_id": "phlms_10_item3", "by": "field_key", "value": "279d45e9" },
+        { "item_id": "phlms_10_item4", "by": "field_key", "value": "3a1fcb1c" },
+        { "item_id": "phlms_10_item5", "by": "field_key", "value": "3ed885fa" },
+        { "item_id": "phlms_10_item6", "by": "field_key", "value": "491a0309" },
+        { "item_id": "phlms_10_item7", "by": "field_key", "value": "506c6a4d" },
+        { "item_id": "phlms_10_item8", "by": "field_key", "value": "689924d7" },
+        { "item_id": "phlms_10_item9", "by": "field_key", "value": "6b54dc53" },
+        { "item_id": "phlms_10_item10", "by": "field_key", "value": "76b98b72" }
+      ]
+    }
+  ]
+}

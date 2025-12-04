@@ -95,6 +95,7 @@ class Mapper:
 
         for section in binding_spec.sections:
             mapped_items: list[MappedItem] = []
+            section_incomplete = False
 
             for binding in section.bindings:
                 form_item: dict[str, Any] | None = None
@@ -103,20 +104,18 @@ class Mapper:
                     field_key = str(binding.value)
                     form_item = items_by_field_key.get(field_key)
                     if form_item is None:
-                        raise MappingError(
-                            f"Form field not found: field_key='{field_key}' "
-                            f"for item '{binding.item_id}' in measure '{section.measure_id}'"
-                        )
+                        # Mark section as incomplete but continue processing
+                        section_incomplete = True
+                        continue
                     used_field_keys.add(field_key)
 
                 elif binding.by == "position":
                     position = int(binding.value)
                     form_item = items_by_position.get(position)
                     if form_item is None:
-                        raise MappingError(
-                            f"Form field not found: position={position} "
-                            f"for item '{binding.item_id}' in measure '{section.measure_id}'"
-                        )
+                        # Mark section as incomplete but continue processing
+                        section_incomplete = True
+                        continue
                     if "field_key" in form_item:
                         used_field_keys.add(form_item["field_key"])
 
@@ -134,13 +133,15 @@ class Mapper:
                     )
                 )
 
-            sections.append(
-                MappedSection(
-                    measure_id=section.measure_id,
-                    measure_version=section.measure_version,
-                    items=mapped_items,
+            # Only include sections that have at least some mapped items
+            if mapped_items:
+                sections.append(
+                    MappedSection(
+                        measure_id=section.measure_id,
+                        measure_version=section.measure_version,
+                        items=mapped_items,
+                    )
                 )
-            )
 
         # Track unmapped fields
         all_field_keys = set(items_by_field_key.keys())

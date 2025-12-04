@@ -113,19 +113,36 @@ class ScoringEngine:
 
         # Check if too many items are missing
         if len(missing_items) > scale.missing_allowed:
-            return ScaleScore(
-                scale_id=scale.scale_id,
-                name=scale.name,
-                value=None,
-                method=scale.method,
-                items_used=len(values),
-                items_total=len(scale.items),
-                missing_items=missing_items,
-                reversed_items=scale.reversed_items,
-                prorated=False,
-                error=f"Too many missing items: {len(missing_items)} missing, "
-                f"{scale.missing_allowed} allowed",
-            )
+            strategy = getattr(scale, "missing_strategy", "fail")
+            if strategy == "skip":
+                # Skip silently - return null score with no error
+                return ScaleScore(
+                    scale_id=scale.scale_id,
+                    name=scale.name,
+                    value=None,
+                    method=scale.method,
+                    items_used=len(values),
+                    items_total=len(scale.items),
+                    missing_items=missing_items,
+                    reversed_items=scale.reversed_items,
+                    prorated=False,
+                    error=None,
+                )
+            else:
+                # "fail" or "prorate" - report the error
+                return ScaleScore(
+                    scale_id=scale.scale_id,
+                    name=scale.name,
+                    value=None,
+                    method=scale.method,
+                    items_used=len(values),
+                    items_total=len(scale.items),
+                    missing_items=missing_items,
+                    reversed_items=scale.reversed_items,
+                    prorated=False,
+                    error=f"Too many missing items: {len(missing_items)} missing, "
+                    f"{scale.missing_allowed} allowed",
+                )
 
         # If no values at all, can't score
         if not values:

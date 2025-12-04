@@ -19,7 +19,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item2",
@@ -32,7 +37,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item3",
@@ -45,7 +55,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item4",
@@ -58,7 +73,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item5",
@@ -71,7 +91,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item6",
@@ -84,7 +109,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item7",
@@ -97,7 +127,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item8",
@@ -110,7 +145,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item9",
@@ -123,7 +163,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item10",
@@ -136,7 +181,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item11",
@@ -149,7 +199,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     },
     {
       "item_id": "ipip_neo_60_c_item12",
@@ -162,7 +217,12 @@
         "agree a little": 4,
         "strongly agree": 5
       },
-      "aliases": {}
+      "aliases": {
+        "strongly disagree": "disagree strongly",
+        "neither agree or disagree": "neither agree nor disagree",
+        "agree": "agree a little",
+        "disagree": "disagree a little"
+      }
     }
   ],
   "scales": [

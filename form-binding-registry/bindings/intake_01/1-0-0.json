@@ -1,0 +1,130 @@
+{
+  "type": "form_binding_spec",
+  "form_id": "googleforms::1VM48DV-cXpe0ZJwPzB293JunEdk2D9i5GCsh9zaPSCU",
+  "binding_id": "intake_01",
+  "version": "1.0.0",
+  "description": "Mensio Therapy Intake form - bindings for PHQ-9, GAD-7, SAFE, Joy, MSI, Trauma Exposure, PTSD Screen, Sleep Disturbances",
+  "sections": [
+    {
+      "name": "PHQ-9",
+      "measure_id": "phq9",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "phq9_item1", "by": "field_key", "value": "2a9de2fe" },
+        { "item_id": "phq9_item2", "by": "field_key", "value": "7a6fdbfd" },
+        { "item_id": "phq9_item3", "by": "field_key", "value": "1a27a816" },
+        { "item_id": "phq9_item4", "by": "field_key", "value": "5d1b4186" },
+        { "item_id": "phq9_item5", "by": "field_key", "value": "495d1210" },
+        { "item_id": "phq9_item6", "by": "field_key", "value": "309bd41b" },
+        { "item_id": "phq9_item7", "by": "field_key", "value": "0057181a" },
+        { "item_id": "phq9_item8", "by": "field_key", "value": "2b589ace" },
+        { "item_id": "phq9_item9", "by": "field_key", "value": "57cfea8f" },
+        { "item_id": "phq9_item10", "by": "field_key", "value": "61079e89" }
+      ]
+    },
+    {
+      "name": "GAD-7",
+      "measure_id": "gad7",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "gad7_item1", "by": "field_key", "value": "15bd7af3" },
+        { "item_id": "gad7_item2", "by": "field_key", "value": "32b572dd" },
+        { "item_id": "gad7_item3", "by": "field_key", "value": "70c2791f" },
+        { "item_id": "gad7_item4", "by": "field_key", "value": "484ecefb" },
+        { "item_id": "gad7_item5", "by": "field_key", "value": "22eeaa18" },
+        { "item_id": "gad7_item6", "by": "field_key", "value": "229c62d7" },
+        { "item_id": "gad7_item7", "by": "field_key", "value": "124106d6" },
+        { "item_id": "gad7_item8", "by": "field_key", "value": "6f2fcf58" }
+      ]
+    },
+    {
+      "name": "SAFE",
+      "measure_id": "safe",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "safe_item1", "by": "field_key", "value": "39610d7d" },
+        { "item_id": "safe_item2", "by": "field_key", "value": "23e59ffb" },
+        { "item_id": "safe_item3", "by": "field_key", "value": "570a769a" },
+        { "item_id": "safe_item4", "by": "field_key", "value": "13f935ce" }
+      ]
+    },
+    {
+      "name": "Joy",
+      "measure_id": "joy",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "joy_item1", "by": "field_key", "value": "71b96514" },
+        { "item_id": "joy_item2", "by": "field_key", "value": "093cf500" },
+        { "item_id": "joy_item3", "by": "field_key", "value": "714a08a0" },
+        { "item_id": "joy_item4", "by": "field_key", "value": "1e53dd6a" },
+        { "item_id": "joy_item5", "by": "field_key", "value": "0200dff4" },
+        { "item_id": "joy_item6", "by": "field_key", "value": "1ede94cf" },
+        { "item_id": "joy_item7", "by": "field_key", "value": "12372428" },
+        { "item_id": "joy_item8", "by": "field_key", "value": "2fe6b2df" }
+      ]
+    },
+    {
+      "name": "MSI (Mood Swing Inventory)",
+      "measure_id": "msi",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "msi_item1", "by": "field_key", "value": "261669c8" },
+        { "item_id": "msi_item2", "by": "field_key", "value": "13cad268" },
+        { "item_id": "msi_item3", "by": "field_key", "value": "7579b9e0" },
+        { "item_id": "msi_item4", "by": "field_key", "value": "6926d368" },
+        { "item_id": "msi_item5", "by": "field_key", "value": "6c5b4c10" },
+        { "item_id": "msi_item6", "by": "field_key", "value": "0a484209" },
+        { "item_id": "msi_item7", "by": "field_key", "value": "4b25450f" },
+        { "item_id": "msi_item8", "by": "field_key", "value": "070f8b3d" },
+        { "item_id": "msi_item9", "by": "field_key", "value": "570541cd" },
+        { "item_id": "msi_item10", "by": "field_key", "value": "26a9cba9" }
+      ]
+    },
+    {
+      "name": "Trauma Exposure",
+      "measure_id": "trauma_exposure",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "trauma_exposure_item1", "by": "field_key", "value": "30ccec3f" },
+        { "item_id": "trauma_exposure_item2", "by": "field_key", "value": "5ba92d86" },
+        { "item_id": "trauma_exposure_item3", "by": "field_key", "value": "5689a680" },
+        { "item_id": "trauma_exposure_item4", "by": "field_key", "value": "4ee3df0a" },
+        { "item_id": "trauma_exposure_item5", "by": "field_key", "value": "3e68743b" },
+        { "item_id": "trauma_exposure_item6", "by": "field_key", "value": "4e1a27ad" },
+        { "item_id": "trauma_exposure_item7", "by": "field_key", "value": "13627445" },
+        { "item_id": "trauma_exposure_item8", "by": "field_key", "value": "54096ee5" },
+        { "item_id": "trauma_exposure_item9", "by": "field_key", "value": "23d185ce" },
+        { "item_id": "trauma_exposure_item10", "by": "field_key", "value": "1aad642f" },
+        { "item_id": "trauma_exposure_item11", "by": "field_key", "value": "64d24e2d" },
+        { "item_id": "trauma_exposure_item12", "by": "field_key", "value": "1cfa24d1" },
+        { "item_id": "trauma_exposure_item13", "by": "field_key", "value": "3ac5a16a" },
+        { "item_id": "trauma_exposure_item14", "by": "field_key", "value": "182bc74b" },
+        { "item_id": "trauma_exposure_item15", "by": "field_key", "value": "09717f07" },
+        { "item_id": "trauma_exposure_item16", "by": "field_key", "value": "0bf37a28" },
+        { "item_id": "trauma_exposure_item17", "by": "field_key", "value": "20a254bb" }
+      ]
+    },
+    {
+      "name": "PTSD Screen",
+      "measure_id": "ptsd_screen",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "ptsd_screen_item1", "by": "field_key", "value": "3de9d4dc" },
+        { "item_id": "ptsd_screen_item2", "by": "field_key", "value": "01bb76a4" },
+        { "item_id": "ptsd_screen_item3", "by": "field_key", "value": "4db70f95" },
+        { "item_id": "ptsd_screen_item4", "by": "field_key", "value": "6f498fe1" }
+      ]
+    },
+    {
+      "name": "Sleep Disturbances",
+      "measure_id": "sleep_disturbances",
+      "measure_version": "1.0.0",
+      "bindings": [
+        { "item_id": "sleep_disturbances_item1", "by": "field_key", "value": "7d27f92c" },
+        { "item_id": "sleep_disturbances_item2", "by": "field_key", "value": "5772d420" },
+        { "item_id": "sleep_disturbances_item3", "by": "field_key", "value": "532a7c62" },
+        { "item_id": "sleep_disturbances_item4", "by": "field_key", "value": "59f3ccc4" }
+      ]
+    }
+  ]
+}

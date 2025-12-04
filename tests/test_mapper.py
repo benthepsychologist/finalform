@@ -113,31 +113,34 @@ class TestMapper:
             item = next(i for i in phq9_section.items if i.item_id == item_id)
             assert item.raw_answer == expected
 
-    def test_error_on_missing_field_key(
+    def test_partial_mapping_on_missing_field_key(
         self, mapper: Mapper, example_binding
     ) -> None:
-        """Test that missing field_key raises MappingError."""
+        """Test that missing field_key results in partial mapping (not an error)."""
         incomplete_response = {
             "form_id": "googleforms::1FAIpQLSe_example",
             "form_submission_id": "sub_12345",
             "subject_id": "contact::abc123",
             "timestamp": "2025-01-15T10:30:00Z",
             "items": [
-                # Missing entry.123456001 (phq9_item1)
+                # Missing entry.123456001 (phq9_item1) - only has item2
                 {"field_key": "entry.123456002", "answer": "not at all"},
             ],
         }
 
-        with pytest.raises(MappingError) as exc_info:
-            mapper.map(incomplete_response, example_binding)
+        # Should not raise - instead creates partial mapping
+        result = mapper.map(incomplete_response, example_binding)
 
-        assert "field_key='entry.123456001'" in str(exc_info.value)
-        assert "phq9_item1" in str(exc_info.value)
+        # Should still have a section for phq9 with the one item that exists
+        phq9_section = next((s for s in result.sections if s.measure_id == "phq9"), None)
+        assert phq9_section is not None
+        assert len(phq9_section.items) == 1
+        assert phq9_section.items[0].item_id == "phq9_item2"
 
-    def test_error_message_includes_context(
+    def test_empty_items_creates_no_sections(
         self, mapper: Mapper, example_binding
     ) -> None:
-        """Test that error messages include helpful context."""
+        """Test that empty items results in no sections (not an error)."""
         incomplete_response = {
             "form_id": "test",
             "form_submission_id": "test",
@@ -146,12 +149,9 @@ class TestMapper:
             "items": [],
         }
 
-        with pytest.raises(MappingError) as exc_info:
-            mapper.map(incomplete_response, example_binding)
-
-        error_msg = str(exc_info.value)
-        assert "measure" in error_msg.lower()
-        assert "phq9" in error_msg
+        # Should not raise - returns empty sections
+        result = mapper.map(incomplete_response, example_binding)
+        assert len(result.sections) == 0
 
     def test_map_with_numeric_answers(
         self, mapper: Mapper, example_binding

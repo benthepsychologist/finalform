@@ -19,6 +19,7 @@
         "nearly every day": 3
       },
       "aliases": {
+        "never": "not at all",
         "more than half of the days": "more than half the days"
       }
     },
@@ -33,6 +34,7 @@
         "nearly every day": 3
       },
       "aliases": {
+        "never": "not at all",
         "more than half of the days": "more than half the days"
       }
     },
@@ -47,6 +49,7 @@
         "nearly every day": 3
       },
       "aliases": {
+        "never": "not at all",
         "more than half of the days": "more than half the days"
       }
     },
@@ -61,6 +64,7 @@
         "nearly every day": 3
       },
       "aliases": {
+        "never": "not at all",
         "more than half of the days": "more than half the days"
       }
     },
@@ -75,6 +79,7 @@
         "nearly every day": 3
       },
       "aliases": {
+        "never": "not at all",
         "more than half of the days": "more than half the days"
       }
     },
@@ -89,6 +94,7 @@
         "nearly every day": 3
       },
       "aliases": {
+        "never": "not at all",
         "more than half of the days": "more than half the days"
       }
     },
@@ -103,6 +109,7 @@
         "nearly every day": 3
       },
       "aliases": {
+        "never": "not at all",
         "more than half of the days": "more than half the days"
       }
     },
@@ -116,7 +123,9 @@
         "very difficult": 2,
         "extremely difficult": 3
       },
-      "aliases": {}
+      "aliases": {
+        "not at all difficult": "not difficult at all"
+      }
     }
   ],
   "scales": [
@@ -129,6 +138,7 @@
       "min": 0,
       "max": 21,
       "missing_allowed": 1,
+      "missing_strategy": "prorate",
       "interpretations": [
         { "min": 0, "max": 4, "label": "Minimal" },
         { "min": 5, "max": 9, "label": "Mild" },

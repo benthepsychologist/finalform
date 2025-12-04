@@ -19,7 +19,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item2",
@@ -32,7 +34,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item3",
@@ -45,7 +49,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item4",
@@ -58,7 +64,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item5",
@@ -71,7 +79,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item6",
@@ -84,7 +94,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item7",
@@ -97,7 +109,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item8",
@@ -110,7 +124,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item9",
@@ -123,7 +139,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item10",
@@ -136,7 +154,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item11",
@@ -149,7 +169,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item12",
@@ -162,7 +184,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item13",
@@ -175,7 +199,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item14",
@@ -188,7 +214,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item15",
@@ -201,7 +229,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item16",
@@ -214,7 +244,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item17",
@@ -227,7 +259,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item18",
@@ -240,7 +274,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item19",
@@ -253,7 +289,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item20",
@@ -266,7 +304,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item21",
@@ -279,7 +319,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     },
     {
       "item_id": "fscrs_item22",
@@ -292,7 +334,9 @@
         "quite a bit like me": 3,
         "extremely like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "quiet a bit like me": "quite a bit like me"
+      }
     }
   ],
   "scales": [

@@ -19,7 +19,11 @@
         "mostly like me": 3,
         "very much like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "0 - not at all characteristic of me": "not at all like me",
+        "2 - fairly characteristic of me": "somewhat like me",
+        "4 - very characteristic of me": "very much like me"
+      }
     },
     {
       "item_id": "safe_item2",
@@ -32,7 +36,11 @@
         "mostly like me": 3,
         "very much like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "0 - not at all characteristic of me": "not at all like me",
+        "2 - fairly characteristic of me": "somewhat like me",
+        "4 - very characteristic of me": "very much like me"
+      }
     },
     {
       "item_id": "safe_item3",
@@ -45,7 +53,11 @@
         "mostly like me": 3,
         "very much like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "0 - not at all characteristic of me": "not at all like me",
+        "2 - fairly characteristic of me": "somewhat like me",
+        "4 - very characteristic of me": "very much like me"
+      }
     },
     {
       "item_id": "safe_item4",
@@ -58,7 +70,11 @@
         "mostly like me": 3,
         "very much like me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "0 - not at all characteristic of me": "not at all like me",
+        "2 - fairly characteristic of me": "somewhat like me",
+        "4 - very characteristic of me": "very much like me"
+      }
     }
   ],
   "scales": [

@@ -19,7 +19,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item2",
@@ -32,7 +38,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item3",
@@ -45,7 +57,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item4",
@@ -58,7 +76,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item5",
@@ -71,7 +95,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item6",
@@ -84,7 +114,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item7",
@@ -97,7 +133,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item8",
@@ -110,7 +152,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item9",
@@ -123,7 +171,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item10",
@@ -136,7 +190,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item11",
@@ -149,7 +209,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item12",
@@ -162,7 +228,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item13",
@@ -175,7 +247,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item14",
@@ -188,7 +266,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item15",
@@ -201,7 +285,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item16",
@@ -214,7 +304,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     },
     {
       "item_id": "trauma_exposure_item17",
@@ -227,7 +323,13 @@
         "witnessed it": 3,
         "happened to me": 4
       },
-      "aliases": {}
+      "aliases": {
+        "(0) doesn't apply": "doesn't apply",
+        "(1) not sure": "not sure",
+        "(2) learned about it": "learned about it",
+        "(3) witnessed it": "witnessed it",
+        "(4) happened to me": "happened to me"
+      }
     }
   ],
   "scales": [

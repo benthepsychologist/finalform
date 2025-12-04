@@ -19,7 +19,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item2",
@@ -32,7 +34,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item3",
@@ -45,7 +49,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item4",
@@ -58,7 +64,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item5",
@@ -71,7 +79,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item6",
@@ -84,7 +94,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item7",
@@ -97,7 +109,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item8",
@@ -110,7 +124,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item9",
@@ -123,7 +139,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     },
     {
       "item_id": "pss_10_item10",
@@ -136,7 +154,9 @@
         "fairly often": 3,
         "very often": 4
       },
-      "aliases": {}
+      "aliases": {
+        "very often": "very often"
+      }
     }
   ],
   "scales": [
