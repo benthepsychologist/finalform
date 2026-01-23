@@ -13,11 +13,11 @@
       "position": 1,
       "text": "I was curious about my reactions to things",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     },
@@ -26,11 +26,11 @@
       "position": 2,
       "text": "I was curious to see what my mind was up to from moment to moment",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     },
@@ -39,11 +39,11 @@
       "position": 3,
       "text": "I was curious about the people I interacted with and what was going on with them",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     },
@@ -52,11 +52,11 @@
       "position": 4,
       "text": "I was curious about how my life was unfolding and what might happen next",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     },
@@ -65,11 +65,11 @@
       "position": 5,
       "text": "I was able to find enjoyment or take pleasure in small moments",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     },
@@ -78,11 +78,11 @@
       "position": 6,
       "text": "There were things I was looking forward to doing or experiencing",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     },
@@ -91,11 +91,11 @@
       "position": 7,
       "text": "There were things that were fun or pleasant enough that I lost track of time or stopped worrying about the future",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     },
@@ -104,11 +104,11 @@
       "position": 8,
       "text": "I was having fun in life",
       "response_map": {
-        "not at all": 0,
-        "a little": 1,
-        "moderately": 2,
-        "quite a bit": 3,
-        "very much": 4
+        "not at all": 1,
+        "a little": 2,
+        "moderately": 3,
+        "quite a bit": 4,
+        "very much": 5
       },
       "aliases": {}
     }
@@ -129,34 +129,34 @@
       ],
       "method": "sum",
       "reversed_items": [],
-      "min": 0,
-      "max": 32,
+      "min": 8,
+      "max": 40,
       "missing_allowed": 1,
       "interpretations": [
         {
-          "min": 0,
-          "max": 7,
+          "min": 8,
+          "max": 15,
           "label": "Not At All",
           "severity": 4,
           "description": "Very low joy and curiosity"
         },
         {
-          "min": 8,
-          "max": 15,
+          "min": 16,
+          "max": 23,
           "label": "A Little",
           "severity": 2,
           "description": "Below average joy experiences"
         },
         {
-          "min": 16,
-          "max": 23,
+          "min": 24,
+          "max": 31,
           "label": "Moderately",
           "severity": 1,
           "description": "Moderate joy levels"
         },
         {
-          "min": 24,
-          "max": 32,
+          "min": 32,
+          "max": 40,
           "label": "Quite a Bit to Very Much",
           "severity": 0,
           "description": "Good to excellent joy and curiosity - target range"

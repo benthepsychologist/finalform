@@ -93,31 +93,43 @@ class TestApplyReverseScoring:
     def test_reverse_single_item(self) -> None:
         """Test reversing a single item."""
         values = {"item1": 1, "item2": 2, "item3": 3}
-        result = apply_reverse_scoring(values, ["item2"], max_value=3)
+        result = apply_reverse_scoring(values, ["item2"], min_value=0, max_value=3)
         assert result["item1"] == 1  # unchanged
-        assert result["item2"] == 1  # 3 - 2 = 1
+        assert result["item2"] == 1  # (3 + 0) - 2 = 1
         assert result["item3"] == 3  # unchanged
 
     def test_reverse_multiple_items(self) -> None:
         """Test reversing multiple items."""
         values = {"item1": 0, "item2": 1, "item3": 2, "item4": 3}
-        result = apply_reverse_scoring(values, ["item1", "item3"], max_value=3)
-        assert result["item1"] == 3  # 3 - 0 = 3
+        result = apply_reverse_scoring(values, ["item1", "item3"], min_value=0, max_value=3)
+        assert result["item1"] == 3  # (3 + 0) - 0 = 3
         assert result["item2"] == 1  # unchanged
-        assert result["item3"] == 1  # 3 - 2 = 1
+        assert result["item3"] == 1  # (3 + 0) - 2 = 1
         assert result["item4"] == 3  # unchanged
 
     def test_reverse_nonexistent_item(self) -> None:
         """Test reversing item not in values (should be ignored)."""
         values = {"item1": 1}
-        result = apply_reverse_scoring(values, ["item2"], max_value=3)
+        result = apply_reverse_scoring(values, ["item2"], min_value=0, max_value=3)
         assert result == {"item1": 1}
 
     def test_reverse_preserves_original(self) -> None:
         """Test that original dict is not modified."""
         values = {"item1": 1}
-        apply_reverse_scoring(values, ["item1"], max_value=3)
+        apply_reverse_scoring(values, ["item1"], min_value=0, max_value=3)
         assert values["item1"] == 1  # Original unchanged
+
+    def test_reverse_1_to_5_scale(self) -> None:
+        """Test reverse scoring with 1-5 scale (non-zero-based)."""
+        values = {"item1": 1, "item2": 2, "item3": 3, "item4": 4, "item5": 5}
+        result = apply_reverse_scoring(
+            values, ["item1", "item3", "item5"], min_value=1, max_value=5
+        )
+        assert result["item1"] == 5  # (5 + 1) - 1 = 5
+        assert result["item2"] == 2  # unchanged
+        assert result["item3"] == 3  # (5 + 1) - 3 = 3 (neutral stays neutral)
+        assert result["item4"] == 4  # unchanged
+        assert result["item5"] == 1  # (5 + 1) - 5 = 1
 
 
 class TestScoringEngine:

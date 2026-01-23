@@ -19,7 +19,13 @@
         "often (3-5/wk)": 4,
         "always (6-7/wk)": 6
       },
-      "aliases": {}
+      "aliases": {
+        "never": "never (<1/wk)",
+        "0-1 per week": "occasionally (~1/wk)",
+        "1-2 per week": "sometimes (~2/wk)",
+        "3+ per week": "often (3-5/wk)",
+        "every night or nearly so": "always (6-7/wk)"
+      }
     },
     {
       "item_id": "sleep_disturbances_item2",
@@ -32,7 +38,13 @@
         "often (3-5/wk)": 4,
         "always (6-7/wk)": 6
       },
-      "aliases": {}
+      "aliases": {
+        "never": "never (<1/wk)",
+        "0-1 per week": "occasionally (~1/wk)",
+        "1-2 per week": "sometimes (~2/wk)",
+        "3+ per week": "often (3-5/wk)",
+        "every night or nearly so": "always (6-7/wk)"
+      }
     },
     {
       "item_id": "sleep_disturbances_item3",
@@ -45,7 +57,13 @@
         "often (3-5/wk)": 4,
         "always (6-7/wk)": 6
       },
-      "aliases": {}
+      "aliases": {
+        "never": "never (<1/wk)",
+        "0-1 per week": "occasionally (~1/wk)",
+        "1-2 per week": "sometimes (~2/wk)",
+        "3+ per week": "often (3-5/wk)",
+        "every night or nearly so": "always (6-7/wk)"
+      }
     },
     {
       "item_id": "sleep_disturbances_item4",
@@ -58,7 +76,13 @@
         "often (3-5/wk)": 4,
         "always (6-7/wk)": 6
       },
-      "aliases": {}
+      "aliases": {
+        "never": "never (<1/wk)",
+        "0-1 per week": "occasionally (~1/wk)",
+        "1-2 per week": "sometimes (~2/wk)",
+        "3+ per week": "often (3-5/wk)",
+        "every night or nearly so": "always (6-7/wk)"
+      }
     }
   ],
   "scales": [

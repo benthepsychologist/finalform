@@ -3,21 +3,106 @@
   "form_id": "googleforms::1j6riXznQkO6BpmfBgXUDmulI9XEW7aSDHwClBOPaDHM",
   "binding_id": "followup",
   "version": "1.0.0",
-  "description": "Dr. Ben's basic set of assessments - bindings for GAD-7, PHQ-9, IPIP-NEO-60-C, FSCRS",
+  "description": "Dr. Ben's basic set of assessments - bindings for PHLMS-10, GAD-7, PHQ-9, SAFE, Joy, Sleep Disturbances, IPIP-NEO-60-C, FSCRS",
   "sections": [
+    {
+      "name": "PHLMS-10",
+      "measure_id": "phlms_10",
+      "measure_version": "1.0.0",
+      "bindings": [
+        {
+          "item_id": "phlms_10_item1",
+          "by": "field_key",
+          "value": "4e8c4e0d"
+        },
+        {
+          "item_id": "phlms_10_item2",
+          "by": "field_key",
+          "value": "05ee7b9b"
+        },
+        {
+          "item_id": "phlms_10_item3",
+          "by": "field_key",
+          "value": "31ec1665"
+        },
+        {
+          "item_id": "phlms_10_item4",
+          "by": "field_key",
+          "value": "6d7f776c"
+        },
+        {
+          "item_id": "phlms_10_item5",
+          "by": "field_key",
+          "value": "793522e5"
+        },
+        {
+          "item_id": "phlms_10_item6",
+          "by": "field_key",
+          "value": "78c0f5d3"
+        },
+        {
+          "item_id": "phlms_10_item7",
+          "by": "field_key",
+          "value": "605c759f"
+        },
+        {
+          "item_id": "phlms_10_item8",
+          "by": "field_key",
+          "value": "318fd57b"
+        },
+        {
+          "item_id": "phlms_10_item9",
+          "by": "field_key",
+          "value": "0c79d2e9"
+        },
+        {
+          "item_id": "phlms_10_item10",
+          "by": "field_key",
+          "value": "2a1849a0"
+        }
+      ]
+    },
     {
       "name": "GAD-7",
       "measure_id": "gad7",
       "measure_version": "1.0.0",
       "note": "Severity item (gad7_item8) not included in this form version",
       "bindings": [
-        { "item_id": "gad7_item1", "by": "field_key", "value": "41a930d9" },
-        { "item_id": "gad7_item2", "by": "field_key", "value": "39964a1b" },
-        { "item_id": "gad7_item3", "by": "field_key", "value": "0b4747fb" },
-        { "item_id": "gad7_item4", "by": "field_key", "value": "136d099a" },
-        { "item_id": "gad7_item5", "by": "field_key", "value": "1cc0eb23" },
-        { "item_id": "gad7_item6", "by": "field_key", "value": "475fe8ad" },
-        { "item_id": "gad7_item7", "by": "field_key", "value": "46ab6849" }
+        {
+          "item_id": "gad7_item1",
+          "by": "field_key",
+          "value": "41a930d9"
+        },
+        {
+          "item_id": "gad7_item2",
+          "by": "field_key",
+          "value": "39964a1b"
+        },
+        {
+          "item_id": "gad7_item3",
+          "by": "field_key",
+          "value": "0b4747fb"
+        },
+        {
+          "item_id": "gad7_item4",
+          "by": "field_key",
+          "value": "136d099a"
+        },
+        {
+          "item_id": "gad7_item5",
+          "by": "field_key",
+          "value": "1cc0eb23"
+        },
+        {
+          "item_id": "gad7_item6",
+          "by": "field_key",
+          "value": "475fe8ad"
+        },
+        {
+          "item_id": "gad7_item7",
+          "by": "field_key",
+          "value": "46ab6849"
+        }
       ]
     },
     {
@@ -25,16 +110,56 @@
       "measure_id": "phq9",
       "measure_version": "1.0.0",
       "bindings": [
-        { "item_id": "phq9_item1", "by": "field_key", "value": "5c3382f0" },
-        { "item_id": "phq9_item2", "by": "field_key", "value": "2a2f799d" },
-        { "item_id": "phq9_item3", "by": "field_key", "value": "6312a582" },
-        { "item_id": "phq9_item4", "by": "field_key", "value": "401379e9" },
-        { "item_id": "phq9_item5", "by": "field_key", "value": "223c5ecb" },
-        { "item_id": "phq9_item6", "by": "field_key", "value": "613b2e8e" },
-        { "item_id": "phq9_item7", "by": "field_key", "value": "0ac9be6c" },
-        { "item_id": "phq9_item8", "by": "field_key", "value": "7f04e7d7" },
-        { "item_id": "phq9_item9", "by": "field_key", "value": "647ce1cf" },
-        { "item_id": "phq9_item10", "by": "field_key", "value": "3ceb8f9c" }
+        {
+          "item_id": "phq9_item1",
+          "by": "field_key",
+          "value": "5c3382f0"
+        },
+        {
+          "item_id": "phq9_item2",
+          "by": "field_key",
+          "value": "2a2f799d"
+        },
+        {
+          "item_id": "phq9_item3",
+          "by": "field_key",
+          "value": "6312a582"
+        },
+        {
+          "item_id": "phq9_item4",
+          "by": "field_key",
+          "value": "401379e9"
+        },
+        {
+          "item_id": "phq9_item5",
+          "by": "field_key",
+          "value": "223c5ecb"
+        },
+        {
+          "item_id": "phq9_item6",
+          "by": "field_key",
+          "value": "613b2e8e"
+        },
+        {
+          "item_id": "phq9_item7",
+          "by": "field_key",
+          "value": "0ac9be6c"
+        },
+        {
+          "item_id": "phq9_item8",
+          "by": "field_key",
+          "value": "7f04e7d7"
+        },
+        {
+          "item_id": "phq9_item9",
+          "by": "field_key",
+          "value": "647ce1cf"
+        },
+        {
+          "item_id": "phq9_item10",
+          "by": "field_key",
+          "value": "3ceb8f9c"
+        }
       ]
     },
     {
@@ -42,18 +167,66 @@
       "measure_id": "ipip_neo_60_c",
       "measure_version": "1.0.0",
       "bindings": [
-        { "item_id": "ipip_neo_60_c_item1", "by": "field_key", "value": "26980e47" },
-        { "item_id": "ipip_neo_60_c_item2", "by": "field_key", "value": "65814185" },
-        { "item_id": "ipip_neo_60_c_item3", "by": "field_key", "value": "19cfc3f8" },
-        { "item_id": "ipip_neo_60_c_item4", "by": "field_key", "value": "7464be0b" },
-        { "item_id": "ipip_neo_60_c_item5", "by": "field_key", "value": "76884ad1" },
-        { "item_id": "ipip_neo_60_c_item6", "by": "field_key", "value": "2a88a824" },
-        { "item_id": "ipip_neo_60_c_item7", "by": "field_key", "value": "4184f8b2" },
-        { "item_id": "ipip_neo_60_c_item8", "by": "field_key", "value": "1e40a6ab" },
-        { "item_id": "ipip_neo_60_c_item9", "by": "field_key", "value": "0f3ebb42" },
-        { "item_id": "ipip_neo_60_c_item10", "by": "field_key", "value": "449f0dd8" },
-        { "item_id": "ipip_neo_60_c_item11", "by": "field_key", "value": "2cfd4a34" },
-        { "item_id": "ipip_neo_60_c_item12", "by": "field_key", "value": "7adc3cce" }
+        {
+          "item_id": "ipip_neo_60_c_item1",
+          "by": "field_key",
+          "value": "26980e47"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item2",
+          "by": "field_key",
+          "value": "65814185"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item3",
+          "by": "field_key",
+          "value": "19cfc3f8"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item4",
+          "by": "field_key",
+          "value": "7464be0b"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item5",
+          "by": "field_key",
+          "value": "76884ad1"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item6",
+          "by": "field_key",
+          "value": "2a88a824"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item7",
+          "by": "field_key",
+          "value": "4184f8b2"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item8",
+          "by": "field_key",
+          "value": "1e40a6ab"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item9",
+          "by": "field_key",
+          "value": "0f3ebb42"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item10",
+          "by": "field_key",
+          "value": "449f0dd8"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item11",
+          "by": "field_key",
+          "value": "2cfd4a34"
+        },
+        {
+          "item_id": "ipip_neo_60_c_item12",
+          "by": "field_key",
+          "value": "7adc3cce"
+        }
       ]
     },
     {
@@ -61,28 +234,217 @@
       "measure_id": "fscrs",
       "measure_version": "1.0.0",
       "bindings": [
-        { "item_id": "fscrs_item1", "by": "field_key", "value": "1b00b736" },
-        { "item_id": "fscrs_item2", "by": "field_key", "value": "785a559b" },
-        { "item_id": "fscrs_item3", "by": "field_key", "value": "72e80b7b" },
-        { "item_id": "fscrs_item4", "by": "field_key", "value": "73c10197" },
-        { "item_id": "fscrs_item5", "by": "field_key", "value": "7ea64042" },
-        { "item_id": "fscrs_item6", "by": "field_key", "value": "0ffcc47f" },
-        { "item_id": "fscrs_item7", "by": "field_key", "value": "708a6ae4" },
-        { "item_id": "fscrs_item8", "by": "field_key", "value": "78f6f0d7" },
-        { "item_id": "fscrs_item9", "by": "field_key", "value": "2b6e8287" },
-        { "item_id": "fscrs_item10", "by": "field_key", "value": "56472756" },
-        { "item_id": "fscrs_item11", "by": "field_key", "value": "6f3f48a3" },
-        { "item_id": "fscrs_item12", "by": "field_key", "value": "399bb4b4" },
-        { "item_id": "fscrs_item13", "by": "field_key", "value": "1c640b6f" },
-        { "item_id": "fscrs_item14", "by": "field_key", "value": "25c90f79" },
-        { "item_id": "fscrs_item15", "by": "field_key", "value": "43cbe21d" },
-        { "item_id": "fscrs_item16", "by": "field_key", "value": "7d9ef84c" },
-        { "item_id": "fscrs_item17", "by": "field_key", "value": "5e0293a0" },
-        { "item_id": "fscrs_item18", "by": "field_key", "value": "4cc35e1b" },
-        { "item_id": "fscrs_item19", "by": "field_key", "value": "552002ab" },
-        { "item_id": "fscrs_item20", "by": "field_key", "value": "60dd2915" },
-        { "item_id": "fscrs_item21", "by": "field_key", "value": "1b0ee09d" },
-        { "item_id": "fscrs_item22", "by": "field_key", "value": "291147dc" }
+        {
+          "item_id": "fscrs_item1",
+          "by": "field_key",
+          "value": "1b00b736"
+        },
+        {
+          "item_id": "fscrs_item2",
+          "by": "field_key",
+          "value": "785a559b"
+        },
+        {
+          "item_id": "fscrs_item3",
+          "by": "field_key",
+          "value": "72e80b7b"
+        },
+        {
+          "item_id": "fscrs_item4",
+          "by": "field_key",
+          "value": "73c10197"
+        },
+        {
+          "item_id": "fscrs_item5",
+          "by": "field_key",
+          "value": "7ea64042"
+        },
+        {
+          "item_id": "fscrs_item6",
+          "by": "field_key",
+          "value": "0ffcc47f"
+        },
+        {
+          "item_id": "fscrs_item7",
+          "by": "field_key",
+          "value": "708a6ae4"
+        },
+        {
+          "item_id": "fscrs_item8",
+          "by": "field_key",
+          "value": "78f6f0d7"
+        },
+        {
+          "item_id": "fscrs_item9",
+          "by": "field_key",
+          "value": "2b6e8287"
+        },
+        {
+          "item_id": "fscrs_item10",
+          "by": "field_key",
+          "value": "56472756"
+        },
+        {
+          "item_id": "fscrs_item11",
+          "by": "field_key",
+          "value": "6f3f48a3"
+        },
+        {
+          "item_id": "fscrs_item12",
+          "by": "field_key",
+          "value": "399bb4b4"
+        },
+        {
+          "item_id": "fscrs_item13",
+          "by": "field_key",
+          "value": "1c640b6f"
+        },
+        {
+          "item_id": "fscrs_item14",
+          "by": "field_key",
+          "value": "25c90f79"
+        },
+        {
+          "item_id": "fscrs_item15",
+          "by": "field_key",
+          "value": "43cbe21d"
+        },
+        {
+          "item_id": "fscrs_item16",
+          "by": "field_key",
+          "value": "7d9ef84c"
+        },
+        {
+          "item_id": "fscrs_item17",
+          "by": "field_key",
+          "value": "5e0293a0"
+        },
+        {
+          "item_id": "fscrs_item18",
+          "by": "field_key",
+          "value": "4cc35e1b"
+        },
+        {
+          "item_id": "fscrs_item19",
+          "by": "field_key",
+          "value": "552002ab"
+        },
+        {
+          "item_id": "fscrs_item20",
+          "by": "field_key",
+          "value": "60dd2915"
+        },
+        {
+          "item_id": "fscrs_item21",
+          "by": "field_key",
+          "value": "1b0ee09d"
+        },
+        {
+          "item_id": "fscrs_item22",
+          "by": "field_key",
+          "value": "291147dc"
+        }
+      ]
+    },
+    {
+      "name": "SAFE",
+      "measure_id": "safe",
+      "measure_version": "1.0.0",
+      "bindings": [
+        {
+          "item_id": "safe_item1",
+          "by": "field_key",
+          "value": "46463913"
+        },
+        {
+          "item_id": "safe_item2",
+          "by": "field_key",
+          "value": "4ffea5e5"
+        },
+        {
+          "item_id": "safe_item3",
+          "by": "field_key",
+          "value": "4aa00ed0"
+        },
+        {
+          "item_id": "safe_item4",
+          "by": "field_key",
+          "value": "78eb83a6"
+        }
+      ]
+    },
+    {
+      "name": "Joy and Curiosity",
+      "measure_id": "joy",
+      "measure_version": "1.0.0",
+      "bindings": [
+        {
+          "item_id": "joy_item1",
+          "by": "field_key",
+          "value": "17b52be6"
+        },
+        {
+          "item_id": "joy_item2",
+          "by": "field_key",
+          "value": "0b09f1a5"
+        },
+        {
+          "item_id": "joy_item3",
+          "by": "field_key",
+          "value": "78e2db2d"
+        },
+        {
+          "item_id": "joy_item4",
+          "by": "field_key",
+          "value": "7cd5e317"
+        },
+        {
+          "item_id": "joy_item5",
+          "by": "field_key",
+          "value": "3a5a261d"
+        },
+        {
+          "item_id": "joy_item6",
+          "by": "field_key",
+          "value": "6a0ca1e3"
+        },
+        {
+          "item_id": "joy_item7",
+          "by": "field_key",
+          "value": "326da476"
+        },
+        {
+          "item_id": "joy_item8",
+          "by": "field_key",
+          "value": "73d11480"
+        }
+      ]
+    },
+    {
+      "name": "Sleep Disturbances",
+      "measure_id": "sleep_disturbances",
+      "measure_version": "1.0.0",
+      "bindings": [
+        {
+          "item_id": "sleep_disturbances_item1",
+          "by": "field_key",
+          "value": "7ca91bb2"
+        },
+        {
+          "item_id": "sleep_disturbances_item2",
+          "by": "field_key",
+          "value": "48f209e4"
+        },
+        {
+          "item_id": "sleep_disturbances_item3",
+          "by": "field_key",
+          "value": "01bc98b4"
+        },
+        {
+          "item_id": "sleep_disturbances_item4",
+          "by": "field_key",
+          "value": "76c3058e"
+        }
       ]
     }
   ]

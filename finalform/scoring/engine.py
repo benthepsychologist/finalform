@@ -11,7 +11,10 @@ from pydantic import BaseModel
 from finalform.recoding.recoder import RecodedSection
 from finalform.registry.models import MeasureSpec
 from finalform.scoring.methods import compute_score, prorate_score
-from finalform.scoring.reverse import apply_reverse_scoring, get_max_value_for_item
+from finalform.scoring.reverse import (
+    apply_reverse_scoring,
+    get_min_max_values_for_item,
+)
 
 
 class ScoringError(Exception):
@@ -161,13 +164,17 @@ class ScoringEngine:
 
         # Apply reverse scoring if needed
         if scale.reversed_items:
-            # Get max value from first item's response map
+            # Get min and max values from first item's response map
             # (assuming all items in scale have same response range)
             first_item_id = scale.items[0]
             first_item_spec = measure.get_item(first_item_id)
             if first_item_spec:
-                max_value = get_max_value_for_item(first_item_spec.response_map)
-                values = apply_reverse_scoring(values, scale.reversed_items, max_value)
+                min_value, max_value = get_min_max_values_for_item(
+                    first_item_spec.response_map
+                )
+                values = apply_reverse_scoring(
+                    values, scale.reversed_items, min_value, max_value
+                )
 
         # Get list of values in scale order
         value_list = [values[item_id] for item_id in scale.items if item_id in values]
