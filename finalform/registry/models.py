@@ -47,7 +47,9 @@ class MeasureSpec(BaseModel):
     measure_id: str
     version: str
     name: str
-    kind: Literal["questionnaire", "scale", "inventory", "checklist", "lab_panel", "vital", "wearable"]
+    kind: Literal[
+        "questionnaire", "scale", "inventory", "checklist", "lab_panel", "vital", "wearable"
+    ]
     locale: str | None = None
     aliases: list[str] = Field(default_factory=list)
     description: str | None = None

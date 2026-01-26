@@ -258,7 +258,8 @@ def run(
         console.print(f"\n[red]Error initializing pipeline:[/red] {e}")
         raise typer.Exit(1)
 
-    console.print(f"\n[green]Loaded binding:[/green] {pipeline.binding_spec.binding_id}@{pipeline.binding_spec.version}")
+    binding_info = f"{pipeline.binding_spec.binding_id}@{pipeline.binding_spec.version}"
+    console.print(f"\n[green]Loaded binding:[/green] {binding_info}")
     console.print(f"[green]Loaded measures:[/green] {', '.join(pipeline.measures.keys())}")
 
     # Process input file
@@ -288,7 +289,9 @@ def run(
                     try:
                         form_response = json.loads(line)
                     except json.JSONDecodeError as e:
-                        console.print(f"\n[yellow]Warning:[/yellow] Invalid JSON on line {line_num}: {e}")
+                        console.print(
+                            f"\n[yellow]Warning:[/yellow] Invalid JSON on line {line_num}: {e}"
+                        )
                         continue
 
                     # Process the form response

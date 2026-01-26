@@ -98,8 +98,10 @@ def process_form_submission(
 
     if item_map is None:
         raise MissingItemMapError(
-            f"No item mapping configured for (form_id={resolved_form_id!r}, measure_id={measure_id!r}). "
-            f"Either provide item_map_override or configure a mapping via FormInputClient.save_item_map()."
+            f"No item mapping configured for "
+            f"(form_id={resolved_form_id!r}, measure_id={measure_id!r}). "
+            f"Either provide item_map_override or configure a mapping "
+            f"via FormInputClient.save_item_map()."
         )
 
     # 3. Load measure spec

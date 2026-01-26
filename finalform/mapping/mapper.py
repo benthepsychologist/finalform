@@ -95,7 +95,6 @@ class Mapper:
 
         for section in binding_spec.sections:
             mapped_items: list[MappedItem] = []
-            section_incomplete = False
 
             for binding in section.bindings:
                 form_item: dict[str, Any] | None = None
@@ -104,8 +103,7 @@ class Mapper:
                     field_key = str(binding.value)
                     form_item = items_by_field_key.get(field_key)
                     if form_item is None:
-                        # Mark section as incomplete but continue processing
-                        section_incomplete = True
+                        # Section is incomplete but continue processing other items
                         continue
                     used_field_keys.add(field_key)
 
@@ -113,8 +111,7 @@ class Mapper:
                     position = int(binding.value)
                     form_item = items_by_position.get(position)
                     if form_item is None:
-                        # Mark section as incomplete but continue processing
-                        section_incomplete = True
+                        # Section is incomplete but continue processing other items
                         continue
                     if "field_key" in form_item:
                         used_field_keys.add(form_item["field_key"])

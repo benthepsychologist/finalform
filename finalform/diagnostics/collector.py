@@ -53,7 +53,9 @@ class DiagnosticsCollector:
 
     def add_error(
         self,
-        stage: Literal["mapping", "recoding", "validation", "scoring", "interpretation", "building"],
+        stage: Literal[
+            "mapping", "recoding", "validation", "scoring", "interpretation", "building"
+        ],
         code: str,
         message: str,
         measure_id: str | None = None,
@@ -89,7 +91,9 @@ class DiagnosticsCollector:
 
     def add_warning(
         self,
-        stage: Literal["mapping", "recoding", "validation", "scoring", "interpretation", "building"],
+        stage: Literal[
+            "mapping", "recoding", "validation", "scoring", "interpretation", "building"
+        ],
         code: str,
         message: str,
         measure_id: str | None = None,
@@ -310,9 +314,11 @@ class DiagnosticsCollector:
         # Determine overall form status
         measures_list = list(self._measures.values())
 
-        if self._form_errors or any(i.status == ProcessingStatus.FAILED for i in measures_list):
+        has_failed = any(i.status == ProcessingStatus.FAILED for i in measures_list)
+        has_partial = any(i.status == ProcessingStatus.PARTIAL for i in measures_list)
+        if self._form_errors or has_failed:
             form_status = ProcessingStatus.FAILED
-        elif self._form_warnings or any(i.status == ProcessingStatus.PARTIAL for i in measures_list):
+        elif self._form_warnings or has_partial:
             form_status = ProcessingStatus.PARTIAL
         else:
             form_status = ProcessingStatus.SUCCESS
