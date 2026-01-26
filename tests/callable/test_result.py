@@ -109,16 +109,16 @@ class TestCallableResultImport:
 
     def test_import_from_callable(self) -> None:
         """Test importing from finalform.callable."""
-        from finalform.callable import CallableResult as CR
+        from finalform.callable import CallableResult as Result
 
-        assert CR is not None
-        result = CR(items=[])
+        assert Result is not None
+        result = Result(items=[])
         assert result.schema_version == "1.0"
 
     def test_import_from_top_level(self) -> None:
         """Test importing from finalform."""
-        from finalform import CallableResult as CR
+        from finalform import CallableResult as Result
 
-        assert CR is not None
-        result = CR(items=[])
+        assert Result is not None
+        result = Result(items=[])
         assert result.schema_version == "1.0"
