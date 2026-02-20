@@ -80,7 +80,10 @@ def execute(params: dict[str, Any]) -> dict[str, Any]:
     pipeline = Pipeline(pipeline_config)
 
     # items can be a single form response or list of form responses
-    if isinstance(items, list) and len(items) > 0 and isinstance(items[0], dict):
+    # Handle empty items gracefully - nothing to score
+    if isinstance(items, list) and len(items) == 0:
+        results = []
+    elif isinstance(items, list) and len(items) > 0 and isinstance(items[0], dict):
         # Check if it's a list of form responses or a single form response dict
         # A form response typically has 'form_id' or 'items' keys
         if "form_id" in items[0] or "items" in items[0]:
